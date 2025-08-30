@@ -8,24 +8,21 @@ const doctors = [
     name: "Dra. Diana Storino",
     role: "Endocrino",
     specialty: "Consulta endocrinología y obesidad",
-    image:
-      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253397/2_swjp7l.png",
+    image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253397/2_swjp7l.png",
   },
   {
     slug: "pablo-carmona",
     name: "Dr. Pablo Carmona Díaz Salazar",
     role: "Atención primaria",
     specialty: "Atención Primaria",
-    image:
-      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
+    image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
   },
 ];
 
 export default function Team() {
   const [active, setActive] = useState(null);
 
-  const baseUrl =
-    typeof window !== "undefined" ? window.location.origin : "https://www.sanital.example";
+  const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://www.sanital.example";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -54,17 +51,13 @@ export default function Team() {
     })),
   };
 
-  // Mejora de calidad Cloudinary + tamaños responsivos
   const cld = (u, w) =>
     u.includes("/upload/")
-      ? u.replace(
-          "/upload/",
-          `/upload/f_auto,q_auto:good,dpr_auto,e_improve,e_auto_contrast,e_auto_color,e_sharpen:60,w_${w}/`
-        )
+      ? u.replace("/upload/", `/upload/f_auto,q_auto:good,dpr_auto,e_improve,e_auto_contrast,e_auto_color,e_sharpen:60,w_${w}/`)
       : u;
 
   return (
-    <section id="equipo" aria-labelledby="equipo-heading" className="bg-white py-8">
+    <section id="equipo" aria-labelledby="equipo-heading" className="relative bg-white py-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div className="container px-4 sm:px-6 lg:px-8">
@@ -90,7 +83,6 @@ export default function Team() {
                 >
                   <div aria-hidden="true" className="pointer-events-none absolute inset-x-6 top-5 -z-0 h-16 rounded-3xl bg-emerald-300/15 blur-3xl" />
 
-                  {/* Marco de imagen más compacto */}
                   <div className="relative z-10 mx-auto h-[300px] w-full rounded-xl ring-1 ring-emerald-200 shadow-md overflow-hidden bg-emerald-50">
                     <img
                       src={src}
@@ -102,20 +94,13 @@ export default function Team() {
                       decoding="async"
                       className="block h-full w-full object-cover filter contrast-105 saturate-110 brightness-[1.03] drop-shadow-[0_2px_6px_rgba(0,0,0,0.12)] transition-transform duration-300 will-change-transform group-hover:scale-[1.01]"
                     />
-                    {/* Sutil degradado en bordes para integración */}
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-10%,rgba(255,255,255,0)_60%,rgba(46,125,50,0.06)_100%)]" />
                   </div>
 
                   <div className="mt-4 text-center">
-                    <h3 itemProp="name" className="text-lg font-semibold text-emerald-900">
-                      {d.name}
-                    </h3>
-                    <p itemProp="medicalSpecialty" className="mt-0.5 text-[0.92rem] font-medium text-emerald-900/80">
-                      {d.role}
-                    </p>
-                    <p className="sr-only">
-                      {d.name} atiende en Sanital, Ciudad Real, con especialidad en {d.role}.
-                    </p>
+                    <h3 itemProp="name" className="text-lg font-semibold text-emerald-900">{d.name}</h3>
+                    <p itemProp="medicalSpecialty" className="mt-0.5 text-[0.92rem] font-medium text-emerald-900/80">{d.role}</p>
+                    <p className="sr-only">{d.name} atiende en Sanital, Ciudad Real, con especialidad en {d.role}.</p>
                   </div>
 
                   <div className="mt-5 flex items-center justify-center gap-3">
@@ -156,4 +141,3 @@ export default function Team() {
     </section>
   );
 }
-

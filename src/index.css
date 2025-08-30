@@ -48,4 +48,21 @@
   .tap-highlight-none { -webkit-tap-highlight-color: transparent; }
 }
 
+.sticky-cta{display:none}
+@media (max-width:768px){
+  .sticky-cta{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    display:flex;gap:12px;align-items:center;justify-content:space-between;
+    padding:12px clamp(12px,4vw,24px);
+    background:rgba(255,255,255,.96);
+    box-shadow:0 -6px 24px rgba(0,0,0,.08);backdrop-filter:saturate(180%) blur(8px)
+  }
+  .sticky-cta .btn-primary{
+    flex:1;padding:14px 16px;border-radius:12px;border:none;font-weight:600;color:#fff;background:#0ea56b
+  }
+  .sticky-cta .btn-ghost{
+    flex:1;padding:14px 16px;border-radius:12px;border:2px solid #0ea56b;font-weight:600;color:#0ea56b;background:transparent
+  }
+}
+
 

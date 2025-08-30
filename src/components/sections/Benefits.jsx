@@ -9,19 +9,14 @@ const items = [
 
 export default function Benefits() {
   return (
-    // SOLO esta sección usa gris muy claro
-    <section id="beneficios" className="bg-[#f3f4f6]">
+    // Sección raíz no estática
+    <section id="beneficios" className="relative bg-[#f3f4f6]">
       <div className="container py-8 md:py-8">
         <header className="mb-8 text-center md:mb-8">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">
-            Beneficios
-          </h2>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">Beneficios</h2>
         </header>
 
-        <ul
-          aria-label="Lista de beneficios de la clínica"
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"
-        >
+        <ul aria-label="Lista de beneficios de la clínica" className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {items.map(({ title, desc }) => (
             <li
               key={title}
@@ -31,12 +26,8 @@ export default function Benefits() {
                 <Check className="h-5 w-5" aria-hidden="true" />
               </div>
 
-              <h3 className="mt-5 text-center text-lg font-semibold text-gray-900">
-                {title}
-              </h3>
-              <p className="mt-2 text-center text-sm leading-relaxed text-gray-600">
-                {desc}
-              </p>
+              <h3 className="mt-5 text-center text-lg font-semibold text-gray-900">{title}</h3>
+              <p className="mt-2 text-center text-sm leading-relaxed text-gray-600">{desc}</p>
 
               <span className="pointer-events-none absolute inset-x-8 bottom-0 h-0.5 origin-left scale-x-0 bg-primary/70 transition-transform duration-200 ease-out group-hover:scale-x-100" />
             </li>

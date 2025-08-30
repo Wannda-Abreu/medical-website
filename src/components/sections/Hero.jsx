@@ -1,13 +1,12 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { CalendarCheck, ShieldCheck, Users2, CalendarClock, CheckCircle2 } from "lucide-react";
 import { useRef } from "react";
 
 export default function Hero() {
-  const reduce = useReducedMotion();
   const ref = useRef(null);
 
-  // Parallax del glow
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  // Parallax del glow (usar scroll global para evitar warning)
+  const { scrollYProgress } = useScroll();
   const glowY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
   const glowX = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
@@ -17,13 +16,15 @@ export default function Hero() {
   };
 
   return (
-    // SOLO esta sección tiene fondo gris muy claro
+    // Sección con posición no estática para Framer
     <section
       id="inicio"
-      className="h-screen bg-[#f3f4f6]"  // gray-100
+      className="relative h-screen bg-[#f3f4f6]"
+      /* gray-100 */
       style={{ ["--hero-bg"]: "#f3f4f6" }}
     >
-      <div ref={ref} className="container grid h-full items-center gap-10 lg:grid-cols-12">
+      {/* Contenedor objetivo también con position: relative */}
+      <div ref={ref} className="relative container grid h-full items-center gap-10 lg:grid-cols-12">
         {/* ===== IMAGEN ===== */}
         <motion.div
           className="relative order-1 flex h-full justify-center lg:order-2 lg:col-span-6 lg:justify-end"
@@ -34,13 +35,15 @@ export default function Hero() {
         >
           <div className="relative h-full w-full max-w-[1150px]">
             <div className="relative h-full w-full overflow-hidden">
-              {/* Imagen con degradado fuerte en bordes (sin perder nitidez en centro) */}
+              {/* Imagen con degradado fuerte en bordes */}
               <img
                 src="https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png"
                 alt="Profesional sanitaria sonriendo con paciente en consulta"
                 className="h-full w-full object-cover"
+                width={1200}
+                height={800}
                 loading="eager"
-                fetchpriority="high"
+                fetchPriority="high"
                 decoding="async"
                 style={{
                   WebkitMaskImage:

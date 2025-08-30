@@ -31,10 +31,7 @@ export default function Services() {
       serviceType: s.title,
       description: s.desc,
       areaServed: "Ciudad Real, Castilla-La Mancha, España",
-      provider: {
-        "@type": "MedicalClinic",
-        name: "Sanital",
-      },
+      provider: { "@type": "MedicalClinic", name: "Sanital" },
     },
   }));
 
@@ -46,23 +43,15 @@ export default function Services() {
   };
 
   return (
-    <section id="servicios" aria-labelledby="servicios-heading" className="bg-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
+    <section id="servicios" aria-labelledby="servicios-heading" className="relative bg-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="container py-3 md:py-3">
         <header className="mx-auto mb-10 max-w-2xl text-center md:mb-12">
-          <h2
-            id="servicios-heading"
-            className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl"
-          >
+          <h2 id="servicios-heading" className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">
             Nuestros servicios
           </h2>
           <p className="mt-3 text-base text-gray-600">
-            Cuidado sanitario cercano y profesional, ofrecido por nuestro equipo médico en Ciudad
-            Real.
+            Cuidado sanitario cercano y profesional, ofrecido por nuestro equipo médico en Ciudad Real.
           </p>
         </header>
 
@@ -75,10 +64,7 @@ export default function Services() {
                 className="group relative rounded-2xl border border-emerald-100 bg-emerald-50 p-6 md:p-8 shadow-[0_1px_0_rgba(0,0,0,0.02)] transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-lg/30"
               >
                 <div className="flex items-center gap-3">
-                  <div
-                    className="grid h-11 w-11 place-items-center rounded-full bg-emerald-600 text-white shadow-sm"
-                    aria-hidden="true"
-                  >
+                  <div className="grid h-11 w-11 place-items-center rounded-full bg-emerald-600 text-white shadow-sm" aria-hidden="true">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 id={`${slug}-title`} className="text-lg font-semibold text-emerald-900">

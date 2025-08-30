@@ -3,5 +3,12 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/medical-website/',  
+  base: './',
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: { react: ['react', 'react-dom'] }
+      }
+    }
+  }
 })
