@@ -12,8 +12,8 @@ function App() {
   return (
     <div className="font-sans antialiased bg-background text-foreground">
       <Navbar />
-      <main className="relative"> {/* contenedor raíz no estático para Framer */}
-        {/* Hero principal */}
+      <main className="relative"> 
+        
         <Hero />
         <Benefits />
 

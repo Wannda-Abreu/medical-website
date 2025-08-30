@@ -1,12 +1,11 @@
-// api/contact.js — Serverless Function (Node 20, ESM)
 import { Resend } from 'resend';
 
+// eslint-disable-next-line no-undef
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v ?? ''); }
 function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
 
-// Si Vercel no te da req.body, leemos el stream:
 function readRawBody(req, limit = 1_000_000) {
   return new Promise((resolve, reject) => {
     let size = 0, data = '';
