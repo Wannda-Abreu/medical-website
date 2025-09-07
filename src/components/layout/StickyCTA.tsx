@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { CalendarCheck, Phone, MessageCircle } from "lucide-react";
 
 type Props = {
   bookingUrl?: string;
   phone?: string;
-  whatsapp?: string; // E.164 sin + para wa.me
+  whatsapp?: string;
   className?: string;
   usePortal?: boolean;
 };
@@ -16,7 +16,7 @@ export default function StickyCTA({
   phone = "+34 678 123 456",
   whatsapp = "34678123456",
   className = "",
-  usePortal = false, // mejor desactivar portal por defecto
+  usePortal = false,
 }: Props) {
   const [mounted, setMounted] = useState(false);
   const [hide, setHide] = useState(false);
@@ -43,7 +43,6 @@ export default function StickyCTA({
       role="region"
       aria-label="Acciones rápidas: agendar cita, WhatsApp o llamar"
       className={[
-        // siempre pegado a la izquierda
         "fixed inset-x-4 bottom-4 z-[120] lg:left-6 lg:right-auto lg:inset-x-auto",
         "rounded-2xl bg-white/90 shadow-xl ring-1 ring-primary/20 backdrop-blur",
         "px-3 py-2 sm:px-3.5 sm:py-2.5",

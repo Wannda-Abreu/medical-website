@@ -1,13 +1,18 @@
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer id="site-footer" className="relative mt-16 text-white bg-gradient-to-r from-primary-700 via-primary to-accent">
-      {/* Capa de suavizado sobre el degradado (más suave) */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none bg-white/20" />
-      {/* Fondo con degradado corporativo aplicado al footer */}
-      {/* Realce suave en la parte superior del footer */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-[radial-gradient(70%_100%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0))]" />
-      {/* Main row: brand · primary nav · copyright */}
+    <footer
+      id="site-footer"
+      className="relative mt-16 text-white bg-gradient-to-r from-primary-700 via-primary to-accent"
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none bg-white/20"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-[radial-gradient(70%_100%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0))]"
+      />
       <div className="container mx-auto px-4 py-6 md:py-8 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
         <a
           href="#inicio"
@@ -25,7 +30,10 @@ export default function Footer() {
           />
         </a>
 
-        <nav aria-label="Navegacion principal" className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[15px] md:text-[16px]">
+        <nav
+          aria-label="Navegacion principal"
+          className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[15px] md:text-[16px]"
+        >
           {[
             ["#inicio", "Inicio"],
             ["#servicios", "Servicios"],
@@ -46,12 +54,21 @@ export default function Footer() {
         <div className="text-sm text-white/85">&copy; {year} Sanital</div>
       </div>
 
-      {/* Secondary row: legal links */}
       <div className="border-t border-white/15">
         <div className="container mx-auto px-4 py-3 text-center text-sm md:text-[15px]">
-          <a href="/legal/privacidad" className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors">Privacidad</a>
+          <a
+            href="/legal/privacidad"
+            className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors"
+          >
+            Privacidad
+          </a>
           <span className="mx-2 text-white/50">&middot;</span>
-          <a href="/legal/aviso-legal" className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors">Aviso legal</a>
+          <a
+            href="/legal/aviso-legal"
+            className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors"
+          >
+            Aviso legal
+          </a>
         </div>
       </div>
     </footer>

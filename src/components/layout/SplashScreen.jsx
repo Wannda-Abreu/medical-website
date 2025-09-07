@@ -33,7 +33,6 @@ export default function SplashScreen() {
     const prevOverflow = document.documentElement.style.overflow;
     if (visible) document.documentElement.style.overflow = "hidden";
     return () => {
-      // Ensure we always restore scrolling
       document.documentElement.style.overflow = prevOverflow || "";
     };
   }, [visible]);
@@ -68,7 +67,6 @@ export default function SplashScreen() {
         fadeOut ? "opacity-0" : "opacity-100"
       }`}
     >
-      {/* Decorative blurred shapes for a subtle depth effect */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-24 -left-16 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-black/10 blur-3xl" />
@@ -87,7 +85,6 @@ export default function SplashScreen() {
           draggable={false}
         />
 
-        {/* Progress bar */}
         <div className="mt-6 h-1.5 w-48 max-w-[70vw] rounded-full bg-white/30 overflow-hidden shadow-sm">
           <div
             className="h-full rounded-full bg-white/90"
@@ -100,7 +97,6 @@ export default function SplashScreen() {
           />
         </div>
 
-        {/* Optional tagline for brand feel */}
         <p className="mt-3 text-white/95 text-sm tracking-wide">
           Cuidamos tu salud
         </p>

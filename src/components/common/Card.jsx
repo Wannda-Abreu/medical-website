@@ -4,12 +4,12 @@ import Button from "./Button";
 const Card = ({
   variant = "panel",
   className,
-  // Props para "panel"
+
   title,
   description,
   footer,
   children,
-  // Props para "profile"
+
   image,
   name,
   role,
@@ -20,11 +20,11 @@ const Card = ({
   const base = clsx(
     "group relative rounded-2xl border border-border bg-card text-card-foreground",
     "shadow-sm transition-all duration-300 hover:shadow-md",
-    // halo difuminado solo en hover
+
     "hover:border-primary/40",
     "after:pointer-events-none after:absolute after:inset-0 after:rounded-2xl",
     "after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300",
-    // halo suave (difuminado alrededor del borde)
+
     "after:blur-[6px] after:[background:radial-gradient(60%_120%_at_50%_-10%,rgba(46,125,50,0.22),transparent_55%)]",
     className
   );
@@ -43,7 +43,6 @@ const Card = ({
           ) : null}
         </div>
 
-        {/* Contenido inferior */}
         <div className="rounded-b-2xl p-6 text-center">
           {name && <h3 className="text-lg md:text-xl font-semibold">{name}</h3>}
           {role && (

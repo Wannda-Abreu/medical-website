@@ -1,11 +1,16 @@
 ﻿import { motion, useScroll, useTransform } from "framer-motion";
-import { CalendarCheck, ShieldCheck, Users2, CalendarClock, CheckCircle2 } from "lucide-react";
+import {
+  CalendarCheck,
+  ShieldCheck,
+  Users2,
+  CalendarClock,
+  CheckCircle2,
+} from "lucide-react";
 import { useRef } from "react";
 
 export default function Hero() {
   const ref = useRef(null);
 
-  // Parallax del glow (usar scroll global para evitar warning)
   const { scrollYProgress } = useScroll();
   const glowY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
   const glowX = useTransform(scrollYProgress, [0, 1], [0, 30]);
@@ -16,7 +21,6 @@ export default function Hero() {
   };
 
   return (
-    // Sección con posición no estática para Framer
     <section
       id="inicio"
       className="relative h-screen bg-[#f3f4f6]"
@@ -24,7 +28,10 @@ export default function Hero() {
       style={{ ["--hero-bg"]: "#f3f4f6" }}
     >
       {/* Contenedor objetivo también con position: relative */}
-      <div ref={ref} className="relative container grid h-full items-center gap-10 lg:grid-cols-12">
+      <div
+        ref={ref}
+        className="relative container grid h-full items-center gap-10 lg:grid-cols-12"
+      >
         {/* ===== IMAGEN ===== */}
         <motion.div
           className="relative order-1 flex h-full justify-center lg:order-2 lg:col-span-6 lg:justify-end"
@@ -53,7 +60,6 @@ export default function Hero() {
                 }}
               />
 
-              {/* Overlay que se funde con EXACTAMENTE el gris de la sección */}
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0"
@@ -66,15 +72,12 @@ export default function Hero() {
                   `,
                 }}
               />
-
-              {/* Glow con parallax */}
               <motion.div
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-28 top-1/2 h-[620px] w-[620px] -translate-y-1/2 rounded-full bg-primary/25 blur-3xl"
                 style={{ y: glowY, x: glowX }}
               />
 
-              {/* BOTONES móviles */}
               <div className="absolute bottom-4 right-4 z-10 flex items-center gap-2 lg:hidden">
                 <a
                   href="https://booking.slotspot.app/sanital"
@@ -116,7 +119,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* ===== TEXTO ===== */}
         <motion.div
           className="order-2 lg:order-1 lg:col-span-6"
           initial="hidden"
@@ -132,18 +134,20 @@ export default function Hero() {
 
           <div className="mt-4 flex flex-col gap-3">
             <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm">
-              <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
+              <ShieldCheck
+                className="h-4 w-4 text-primary"
+                aria-hidden="true"
+              />
               <span className="text-sm font-medium text-gray-800">
                 Atención cercana por especialistas colegiados
               </span>
             </div>
             <p className="text-gray-600">
-              Ofrecemos una atención médica humana y profesional para ti y tu familia.
-              Reserva online en segundos.
+              Ofrecemos una atención médica humana y profesional para ti y tu
+              familia. Reserva online en segundos.
             </p>
           </div>
 
-          {/* BOTONES desktop */}
           <div className="mt-6 hidden flex-wrap items-center gap-4 lg:flex">
             <a
               href="https://booking.slotspot.app/sanital"
@@ -185,4 +189,3 @@ export default function Hero() {
     </section>
   );
 }
-

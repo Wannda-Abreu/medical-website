@@ -15,7 +15,6 @@ const Navbar = () => {
   ];
 
   useEffect(() => {
-    // Evita scroll del fondo cuando el menú móvil está abierto
     const prev = document.documentElement.style.overflow;
     if (open) document.documentElement.style.overflow = "hidden";
     return () => {
@@ -63,7 +62,6 @@ const Navbar = () => {
           />
         </a>
 
-        {/* Menú de escritorio */}
         <nav
           className="hidden md:flex items-center gap-7 lg:gap-8 text-[15px] lg:text-[17px] font-medium text-gray-800"
           aria-label="Navegación principal"
@@ -72,17 +70,23 @@ const Navbar = () => {
             <a
               key={href}
               href={href}
-              className={`relative px-2 py-2 rounded-md transition-all ease-out hover:text-primary hover:shadow-sm hover:shadow-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 group ${active === href ? "text-primary" : ""}`}
+              className={`relative px-2 py-2 rounded-md transition-all ease-out hover:text-primary hover:shadow-sm hover:shadow-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 group ${
+                active === href ? "text-primary" : ""
+              }`}
               aria-current={active === href ? "page" : undefined}
             >
               {label}
-              {/* Subrayado animado */}
-              <span className={`pointer-events-none absolute inset-x-1 -bottom-0.5 h-0.5 origin-left bg-primary transition-transform duration-200 ease-out ${active === href ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+              <span
+                className={`pointer-events-none absolute inset-x-1 -bottom-0.5 h-0.5 origin-left bg-primary transition-transform duration-200 ease-out ${
+                  active === href
+                    ? "scale-x-100"
+                    : "scale-x-0 group-hover:scale-x-100"
+                }`}
+              />
             </a>
           ))}
         </nav>
 
-        {/* Botón Agendar Cita (escritorio) */}
         <div className="hidden md:flex">
           <Button
             as="a"
@@ -99,7 +103,6 @@ const Navbar = () => {
           </Button>
         </div>
 
-        {/* Botón de menú móvil */}
         <button
           className="md:hidden rounded-md p-2 text-gray-700 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
           onClick={() => setOpen(!open)}
@@ -111,27 +114,26 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Menú móvil (centrado) */}
       {open && (
         <nav
           id="mobile-menu"
           className="absolute inset-x-0 top-full z-40 flex flex-col items-center gap-3 border-t border-gray-200 bg-white/95 px-6 py-6 backdrop-blur-md md:hidden"
           aria-label="Navegación móvil"
         >
-          {/* Links centrados con hover + sombra leve */}
           {menuItems.map(({ label, href }) => (
             <a
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              className={`inline-flex w-full max-w-sm justify-center rounded-lg px-4 py-3 text-center text-[16px] font-medium text-gray-800 transition-all hover:text-primary hover:bg-primary/10 hover:shadow-sm hover:shadow-primary/15 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${active === href ? "text-primary bg-primary/10" : ""}`}
+              className={`inline-flex w-full max-w-sm justify-center rounded-lg px-4 py-3 text-center text-[16px] font-medium text-gray-800 transition-all hover:text-primary hover:bg-primary/10 hover:shadow-sm hover:shadow-primary/15 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+                active === href ? "text-primary bg-primary/10" : ""
+              }`}
               aria-current={active === href ? "page" : undefined}
             >
               {label}
             </a>
           ))}
 
-          {/* CTA mobile (centrado) */}
           <Button
             as="a"
             href="https://booking.slotspot.app/sanital"
@@ -153,6 +155,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
