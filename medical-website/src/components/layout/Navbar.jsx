@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X, CalendarCheck } from "lucide-react";
+import { useScrollLock } from "../../utils/scrollLock";
 import Button from "../common/Button";
 
 const Navbar = () => {
@@ -14,16 +15,9 @@ const Navbar = () => {
     { label: "Contacto", href: "#contacto" },
   ];
 
-  useEffect(() => {
-    const prev = document.documentElement.style.overflow;
-    if (open) document.documentElement.style.overflow = "hidden";
-    return () => {
-      document.documentElement.style.overflow = prev;
-    };
-  }, [open]);
+  useScrollLock(open, "navbar");
 
   useEffect(() => {
-    // Resalta la sección activa según el viewport
     const ids = menuItems.map((m) => m.href.replace("#", ""));
     const sections = ids
       .map((id) => document.getElementById(id))
@@ -49,7 +43,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between px-0 py-0 md:py-0">
         <a
           href="#inicio"
-          className="group -my-3 md:-my-6 flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+          className="group -my-3 md:-my-6 ml-3 md:ml-0 flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
           aria-label="Ir al inicio"
         >
           <img
@@ -57,7 +51,7 @@ const Navbar = () => {
             alt="Sanital - Logo"
             width="360"
             height="144"
-            className="h-[2rem] w-auto md:h-[8.5rem] drop-shadow-sm will-change-transform transition-all duration-200 ease-out group-hover:scale-[1.05] group-hover:drop-shadow-md group-active:scale-[1.01]"
+            className="h-[5rem] w-auto md:h-[8.5rem] drop-shadow-sm will-change-transform transition-all duration-200 ease-out group-hover:scale-[1.05] group-hover:drop-shadow-md group-active:scale-[1.01]"
             decoding="async"
           />
         </a>

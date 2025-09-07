@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { CalendarCheck, Info, Stethoscope } from "lucide-react";
 import DoctorDialog from "../common/DoctorDialog";
 
+const BRAND_PRIMARY = "#009D98";
+const BRAND_ACCENT = "#AFCA0B";
+
 const DOCTORS = [
   {
     slug: "diana-storinoz",
@@ -26,7 +29,7 @@ const DOCTORS = [
     role: "Cirujano",
     specialty: "Cirugía",
     image:
-      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757197011/Untitled_design_19_h0bvaj.png",
+      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png",
   },
 ];
 
@@ -68,8 +71,15 @@ const clinic = {
   areaServed: "Daimiel, Castilla-La Mancha, España",
 };
 
+const roleTone = {
+  "Atención primaria": `bg-[${BRAND_ACCENT}1A] text-[${BRAND_ACCENT}] ring-[${BRAND_ACCENT}] ring-opacity-30`,
+  Endocrino: `bg-[${BRAND_PRIMARY}1A] text-[${BRAND_PRIMARY}] ring-[${BRAND_PRIMARY}] ring-opacity-30`,
+  Cirujano: `bg-white/80 text-zinc-800 ring-black/5`,
+};
+
 const DoctorCard = memo(function DoctorCard({ d, onMore }) {
   const { src, srcSet } = buildSrcSets(d.image);
+  const tone = roleTone[d.role] || `bg-white/80 text-zinc-800 ring-black/5`;
 
   return (
     <li className="flex justify-center" key={d.slug}>
@@ -77,65 +87,74 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
         id={d.slug}
         itemScope
         itemType="https://schema.org/Physician"
-        className="group relative w-full max-w-[22rem] p-[1px] rounded-2xl bg-gradient-to-br from-primary/40 to-emerald-400/30 shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-all duration-200 hover:-translate-y-1.5 hover:shadow-lg/30 motion-reduce:transform-none"
+        className="group relative w-full max-w-[26rem] rounded-2xl border border-zinc-200 bg-white shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg/30 motion-reduce:transform-none"
         aria-label={`${d.name}, ${d.role}`}
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
       >
-        <div className="rounded-2xl bg-primary/5 border border-primary/20 p-5">
-          {/* Halo decorativo */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-6 top-5 -z-0 h-16 rounded-3xl bg-primary/20 blur-3xl"
-          />
-
-          {/* Imagen */}
-          <figure className="relative z-10 mx-auto h-[300px] w-full rounded-xl ring-1 ring-primary/20 shadow-md overflow-hidden bg-primary/5">
+        <div className="rounded-2xl border border-zinc-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85 p-6">
+          <figure className="relative z-10 mx-auto h-[300px] w-full rounded-xl ring-1 ring-[rgba(0,157,152,0.15)] shadow-sm overflow-hidden bg-gradient-to-b from-white via-[rgba(0,157,152,0.08)] to-white">
             <motion.img
               src={src}
               srcSet={srcSet}
-              sizes="(min-width: 640px) 22rem, 90vw"
+              sizes="(min-width: 640px) 26rem, 90vw"
               alt={`${d.name}, ${d.role}`}
               itemProp="image"
               loading="lazy"
               decoding="async"
-              width={352}
+              width={416}
               height={300}
-              className="block h-full w-full object-cover filter contrast-105 saturate-110 brightness-[1.03] drop-shadow-[0_2px_6px_rgba(0,0,0,0.12)] transition-transform duration-300 will-change-transform group-hover:scale-[1.015] motion-reduce:transform-none"
-              whileHover={{ scale: 1.015 }}
+              className="block h-full w-full object-cover transition-transform duration-300 will-change-transform group-hover:scale-[1.01] motion-reduce:transform-none"
+              whileHover={{ scale: 1.01 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
             />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-10%,rgba(255,255,255,0)_60%,rgba(46,125,50,0.06)_100%)]" />
-            {/* Badge rol */}
-            <div className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/80 px-2 py-1 text-xs font-medium text-foreground shadow-sm ring-1 ring-black/5 backdrop-blur">
+            <div
+              className={`absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium shadow-sm ring-1 backdrop-blur ${tone}`}
+            >
               <Stethoscope className="h-3.5 w-3.5" aria-hidden="true" />
               <span>{d.role}</span>
             </div>
             <figcaption className="sr-only">
-              {d.name}, {d.role} â€” {d.specialty}
+              {d.name}, {d.role} — {d.specialty}
             </figcaption>
           </figure>
 
-          {/* Contenido */}
-          <div className="mt-4 text-center">
-            <h3 itemProp="name" className="text-lg font-semibold text-primary">
+          <div className="mt-5 text-center">
+            <h3
+              itemProp="name"
+              className="text-xl font-semibold tracking-tight"
+              style={{ color: BRAND_PRIMARY }}
+            >
               {d.name}
             </h3>
-            <p className="mt-0.5 text-[0.92rem] font-medium text-foreground/80">
+            <p className="mt-1 text-[0.95rem] font-medium text-foreground/80">
               {d.specialty}
             </p>
-            {/* Mantener specialty para SEO */}
             <meta itemProp="medicalSpecialty" content={d.specialty} />
           </div>
 
-          {/* Acciones */}
-          <div className="mt-5 flex items-center justify-center gap-3">
+          {/* Botones adaptativos */}
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
             <a
               href="https://booking.slotspot.app/sanital"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-4 py-2 text-sm font-bold text-white shadow-sm transition-all duration-150 hover:scale-[1.04] hover:text-white hover:shadow-md hover:from-primary-700 hover:to-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary motion-reduce:transform-none"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 motion-reduce:transform-none"
+              style={{
+                backgroundColor: BRAND_PRIMARY,
+                color: "#fff",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#fff";
+                e.currentTarget.style.color = BRAND_PRIMARY;
+                e.currentTarget.style.border = `2px solid ${BRAND_PRIMARY}`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = BRAND_PRIMARY;
+                e.currentTarget.style.color = "#fff";
+                e.currentTarget.style.border = "none";
+              }}
               aria-label={`Agendar cita con ${d.name}`}
             >
               <CalendarCheck className="h-4 w-4" aria-hidden="true" />
@@ -145,11 +164,24 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
             <motion.button
               type="button"
               onClick={() => onMore(d)}
-              className="inline-flex items-center justify-center gap-2 rounded-lg border border-accent/40 bg-white px-4 py-2 text-sm font-semibold text-accent shadow-sm backdrop-blur-sm transition-all duration-200 hover:scale-[1.05] hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 motion-reduce:transform-none"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 motion-reduce:transform-none"
+              style={{
+                border: `2px solid ${BRAND_ACCENT}`,
+                color: BRAND_ACCENT,
+                backgroundColor: "#fff",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = BRAND_ACCENT;
+                e.currentTarget.style.color = "#fff";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#fff";
+                e.currentTarget.style.color = BRAND_ACCENT;
+              }}
               aria-haspopup="dialog"
               aria-controls="doctor-dialog"
               aria-label={`Saber más sobre ${d.name}`}
-              whileTap={{ scale: 0.96 }}
+              whileTap={{ scale: 0.97 }}
             >
               <Info className="h-4 w-4" aria-hidden="true" />
               Saber más
@@ -158,8 +190,10 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
 
           <meta itemProp="jobTitle" content={d.role} />
           <meta itemProp="url" content={`/equipo#${d.slug}`} />
-
-          <span className="pointer-events-none absolute inset-x-5 bottom-0 h-0.5 origin-left scale-x-0 bg-primary/70 transition-transform duration-200 group-hover:scale-x-100" />
+          <span
+            className="pointer-events-none absolute inset-x-6 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100"
+            style={{ backgroundColor: BRAND_PRIMARY }}
+          />
         </div>
       </motion.article>
     </li>
@@ -173,7 +207,7 @@ export default function Team() {
     if (typeof window !== "undefined" && window.location?.origin) {
       return window.location.origin;
     }
-    return clinic.url; // fallback SSR
+    return clinic.url;
   }, []);
 
   const renderDoctors = useMemo(() => {
@@ -220,7 +254,7 @@ export default function Team() {
     <section
       id="equipo"
       aria-labelledby="equipo-heading"
-      className="relative py-8 mt-8 bg-gradient-to-b from-white via-primary/10 to-white"
+      className="relative py-10 mt-8 bg-gradient-to-b from-white via-[rgba(0,157,152,0.1)] to-white"
     >
       <div
         aria-hidden
@@ -235,6 +269,7 @@ export default function Team() {
         <h2
           id="equipo-heading"
           className="mb-8 text-center text-2xl font-bold sm:mb-10 sm:text-3xl"
+          style={{ color: BRAND_PRIMARY }}
         >
           Nuestro Equipo médico
         </h2>
@@ -245,7 +280,7 @@ export default function Team() {
 
         <ul
           aria-label="Tarjetas del equipo médico"
-          className="mx-auto grid max-w-[1000px] grid-cols-1 gap-6 sm:grid-cols-2"
+          className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {renderDoctors.map((d) => (
             <DoctorCard key={d.slug} d={d} onMore={setActive} />
@@ -261,7 +296,3 @@ export default function Team() {
     </section>
   );
 }
-
-
-
-

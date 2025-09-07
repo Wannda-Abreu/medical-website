@@ -1,5 +1,8 @@
 ﻿import { useEffect, useRef, useMemo } from "react";
 import { X, CalendarCheck } from "lucide-react";
+import { useFocusTrap } from "../../utils/focusTrap";
+import { useGlobalInert } from "../../utils/globalInert";
+import { useScrollLock } from "../../utils/scrollLock";
 
 export default function DoctorDialog({ open, onClose, doctor }) {
   const panelRef = useRef(null);
@@ -9,20 +12,22 @@ export default function DoctorDialog({ open, onClose, doctor }) {
 
   useEffect(() => {
     if (!open) return;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", onKey);
     const t = setTimeout(() => panelRef.current?.focus(), 0);
     return () => {
-      document.body.style.overflow = prevOverflow;
       document.removeEventListener("keydown", onKey);
       clearTimeout(t);
       openerRef.current?.focus?.();
     };
   }, [open, onClose]);
+
+  useFocusTrap(panelRef, open);
+  useGlobalInert(open);
+
+  useScrollLock(open, "doctor-dialog");
 
   const baseUrl =
     typeof window !== "undefined"
@@ -185,7 +190,7 @@ export default function DoctorDialog({ open, onClose, doctor }) {
                 loading="lazy"
                 decoding="async"
               />
-              {/* Eliminado halo/overlay para evitar sombra visible detrás del avatar */}
+       
             </div>
             <figcaption className="sr-only">
               {doctor.name}, {doctor.role}
@@ -234,7 +239,7 @@ export default function DoctorDialog({ open, onClose, doctor }) {
             href="https://booking.slotspot.app/sanital"
             target="_blank"
             rel="nofollow noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:scale-[1.03] hover:shadow-md hover:from-primary-700 hover:to-primary-800"
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:scale-[1.04] hover:shadow-md hover:from-primary-700 hover:to-primary-800 hover:text-white"
           >
             <CalendarCheck className="h-4 w-4" />
             Agendar cita

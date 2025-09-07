@@ -1,4 +1,4 @@
-import {
+﻿import {
   Stethoscope,
   TestTubes,
   HeartPulse,
@@ -35,12 +35,12 @@ const services = [
 ];
 
 services.push({
-  slug: "cirugía",
+  slug: "cirugia",
   icon: HeartPulse,
   title: "Cirugía",
   desc: "Cirugía menor ambulatoria, evaluación preoperatoria y seguimiento.",
   bullets: [
-    "Cirugia menor y curas avanzadas",
+    "Cirugía menor y curas avanzadas",
     "Valoración preoperatoria y seguimiento postoperatorio",
   ],
   doctorName: "Dr. Mirko Solano",
@@ -98,7 +98,7 @@ export default function Services() {
 
         <ul
           aria-label="Listado de servicios de la clínica"
-          className="grid grid-cols-1 gap-6 md:grid-cols-2"
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {services.map(
             ({
@@ -157,7 +157,7 @@ export default function Services() {
                       href="https://booking.slotspot.app/sanital"
                       target="_blank"
                       rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:scale-[1.04] hover:shadow-md hover:from-primary-700 hover:to-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-100 hover:text-white"
+                      className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:scale-[1.04] hover:shadow-md hover:from-primary-700 hover:to-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-100 hover:text-white"
                       aria-label={`Agendar cita para ${title}`}
                       title="Agendar cita"
                     >

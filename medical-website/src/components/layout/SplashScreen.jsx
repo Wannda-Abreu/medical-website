@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
+import { useScrollLock } from "../../utils/scrollLock";
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -29,13 +30,7 @@ export default function SplashScreen() {
     return { fade: 1200, remove: 1800, progress: 1200 };
   }, [prefersReducedMotion]);
 
-  useEffect(() => {
-    const prevOverflow = document.documentElement.style.overflow;
-    if (visible) document.documentElement.style.overflow = "hidden";
-    return () => {
-      document.documentElement.style.overflow = prevOverflow || "";
-    };
-  }, [visible]);
+  useScrollLock(visible, "splash");
 
   useEffect(() => {
     const t1 = window.setTimeout(() => setFadeOut(true), timings.fade);
@@ -45,9 +40,6 @@ export default function SplashScreen() {
     const t4 = window.setTimeout(() => {
       setFadeOut(true);
       setVisible(false);
-      try {
-        document.documentElement.style.overflow = "";
-      } catch {}
     }, 3500);
 
     return () => {

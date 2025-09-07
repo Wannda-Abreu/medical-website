@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "installCommand": "npm ci --prefix medical-website",
+  "buildCommand": "npm run build --prefix medical-website",
+  "outputDirectory": "medical-website/dist",
+  "framework": "vite"
+}
+

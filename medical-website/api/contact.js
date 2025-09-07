@@ -102,7 +102,6 @@ export default async function handler(req, res) {
   }</small>
     </div>`;
 
-  // Clearer error if key missing
   if (!process.env.RESEND_API_KEY) {
     return res
       .status(503)

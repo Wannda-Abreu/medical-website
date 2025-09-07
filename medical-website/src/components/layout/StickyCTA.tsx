@@ -31,7 +31,6 @@ export default function StickyCTA({
     if (!footer) return;
     const io = new IntersectionObserver(
       ([entry]) => setHide(entry.isIntersecting),
-      // Hide CTA earlier (before footer overlaps): expand bottom margin more
       { root: null, threshold: 0, rootMargin: "0px 0px 360px 0px" }
     );
     io.observe(footer);

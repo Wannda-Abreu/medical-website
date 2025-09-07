@@ -1,4 +1,8 @@
 import { useMemo, useRef, useState, useEffect } from "react";
+import { useScrollLock } from "../../utils/scrollLock";
+import { useFocusTrap } from "../../utils/focusTrap";
+import { useGlobalInert } from "../../utils/globalInert";
+import EmbedGuard from "../common/EmbedGuard";
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
 import SectionTitle from "../common/SectionTitle";
 import Card from "../common/Card";
@@ -18,10 +22,48 @@ export default function Contact() {
   useEffect(() => {
     if (formLoads >= 2) setShowThanks(true);
   }, [formLoads]);
+  const [embedsAllowed, setEmbedsAllowed] = useState(true);
+  useEffect(() => {
+    try {
+      const v = localStorage.getItem("cookie-consent");
+      if (!v) { setEmbedsAllowed(true); return; }
+      const p = JSON.parse(v);
+      if (typeof p === 'object' && p !== null && 'embeds' in p) setEmbedsAllowed(!!p.embeds);
+    } catch { setEmbedsAllowed(true); }
+  }, []);
+  const enableEmbeds = () => {
+    try { localStorage.setItem("cookie-consent", JSON.stringify({ v: 1, embeds: true, t: Date.now() })); } catch {}
+    setEmbedsAllowed(true);
+  };
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState(null);
   const [errors, setErrors] = useState({ name: "", email: "", message: "" });
   const formRef = useRef(null);
+  const thanksRef = useRef(null);
+  const openerRef = useRef(null);
+
+  useScrollLock(!!status?.ok, "contact-thanks");
+  useFocusTrap(thanksRef, !!status?.ok);
+  useGlobalInert(!!status?.ok);
+
+  useEffect(() => {
+    if (!status?.ok) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setStatus(null);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [status]);
+
+  // Capture opener and restore focus on close
+  useEffect(() => {
+    const isOpen = !!status?.ok;
+    if (isOpen) {
+      openerRef.current = typeof document !== "undefined" ? document.activeElement : null;
+    } else {
+      openerRef.current?.focus?.();
+    }
+  }, [status]);
 
   const endpoint = useMemo(() => {
     return "https://script.google.com/macros/s/AKfycbzbh3I1hq6BD44AJTQddVMssQWt11eO7C4WH7lTmpwJMQgKndDozl0sKo3FxrXfbHNb/exec";
@@ -105,7 +147,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contacto" className="relative bg-[#f3f7f5] py-3 md:py-3">
+    <section id="contacto" className="relative bg-[#f3f7f5] pt-3 md:pt-2 pb-0">
       <div className="container mx-auto px-2 md:px-3">
         <SectionTitle
           title="Contáctanos"
@@ -235,15 +277,25 @@ export default function Contact() {
 
           <div className="h-full">
             <div className="overflow-hidden rounded-xl border border-primary/20 shadow-sm aspect-[4/3] md:aspect-auto md:h-full">
-              <iframe
-                title={`Mapa - ${CLINIC.addressLabel}`}
-                src={`https://www.google.com/maps?q=${encodeURIComponent(
-                  CLINIC.mapQuery
-                )}&output=embed`}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-full w-full"
-              />
+              {embedsAllowed ? (
+                <iframe
+                  title={`Mapa - ${CLINIC.addressLabel}`}
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(CLINIC.mapQuery)}&output=embed`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="h-full w-full"
+                />
+              ) : (
+                <EmbedGuard
+                  typeKey="embeds"
+                  placeholder={
+                    <div className="text-center px-4">
+                      <p className="text-sm text-gray-700">Para ver el mapa de Google, activa los contenidos de terceros.</p>
+                    </div>
+                  }
+                  buttonLabel="Activar contenidos"
+                />
+              )}
             </div>
             <div className="mt-3 flex items-start gap-3 text-gray-800">
               <MapPin className="mt-0.5 h-5 w-5 text-primary" />
@@ -251,7 +303,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <Card className="p-5 md:p-6 h-full flex flex-col items-center justify-between gap-5">
+          <Card className="p-3 md:p-10 h-full flex flex-col items-center justify-center gap-5">
             <img
               src={CLINIC.logo}
               alt="Sanital — logotipo"
@@ -259,14 +311,16 @@ export default function Contact() {
               loading="lazy"
               decoding="async"
             />
-            <p className="max-w-[44ch] text-center text-[15px] text-gray-700 mt-5">
+            <p className="max-w-[44ch]  text-[15px] text-gray-700 mt-8">
               En <strong>Sanital</strong> creemos en un modelo de salud humano,
               accesible y profesional. Nuestro equipo médico está comprometido a
-              garantizar atención cercana y de calidad.
+              garantizar atención cercana y de calidad. Tu bienestar es nuestra
+              prioridad, trabajamos con dedicación para cuidar de ti y de los
+              tuyos.
             </p>
-            <div className="mt-3 space-y-2.5 text-[15px] text-gray-800">
+            <div className="mt-8 space-y-2.5 text-[15px] text-gray-800">
               <div className="flex items-center gap-3">
-                <Phone className="h-4 w-4 text-primary" />
+                <Phone className="h-4 w-4 text-primary " />
                 <a
                   href={`tel:${CLINIC.phone.replace(/\s+/g, "")}`}
                   className="hover:underline"
@@ -274,14 +328,14 @@ export default function Contact() {
                   {CLINIC.phone}
                 </a>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-5">
                 <Mail className="h-4 w-4 text-primary" />
                 <a href={`mailto:${CLINIC.email}`} className="hover:underline">
                   {CLINIC.email}
                 </a>
               </div>
             </div>
-            <div className="flex items-center gap-3 mt-6">
+            <div className="flex items-center gap-3 mt-12">
               <a
                 href="https://facebook.com/"
                 target="_blank"
@@ -316,17 +370,23 @@ export default function Contact() {
             aria-modal="true"
             aria-labelledby="thanks-title"
             className="relative mx-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-primary/20"
+            tabIndex={-1}
+            ref={thanksRef}
           >
             <div className="absolute -top-6 left-1/2 -translate-x-1/2">
               <div className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-r from-primary to-primary-700 text-white shadow-md">
                 ✓
               </div>
             </div>
-            <h3 id="thanks-title" className="mt-4 text-xl font-semibold text-gray-900 text-center">
+            <h3
+              id="thanks-title"
+              className="mt-4 text-xl font-semibold text-gray-900 text-center"
+            >
               ¡Gracias! Hemos recibido tu mensaje
             </h3>
             <p className="mt-2 text-center text-sm text-gray-700">
-              Te contactaremos lo antes posible. También puedes escribirnos por WhatsApp o llamar si lo prefieres.
+              Te contactaremos lo antes posible. También puedes escribirnos por
+              WhatsApp o llamar si lo prefieres.
             </p>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
               <a

@@ -3,7 +3,7 @@ export default function Footer() {
   return (
     <footer
       id="site-footer"
-      className="relative mt-16 text-white bg-gradient-to-r from-primary-700 via-primary to-accent"
+      className="relative mt-1 text-white bg-gradient-to-r from-primary-700 via-primary to-accent"
     >
       <div
         aria-hidden
@@ -57,14 +57,60 @@ export default function Footer() {
       <div className="border-t border-white/15">
         <div className="container mx-auto px-4 py-3 text-center text-sm md:text-[15px]">
           <a
-            href="/legal/privacidad"
+            href="#/legal/privacidad"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.hash = "/legal/privacidad";
+              setTimeout(() => {
+                try {
+                  const y = Math.max(
+                    document.documentElement.scrollHeight,
+                    document.body.scrollHeight
+                  );
+                  window.scrollTo(0, y);
+                } catch {}
+              }, 0);
+            }}
             className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors"
           >
             Privacidad
           </a>
           <span className="mx-2 text-white/50">&middot;</span>
           <a
-            href="/legal/aviso-legal"
+            href="#/legal/cookies"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.hash = "/legal/cookies";
+              setTimeout(() => {
+                try {
+                  const y = Math.max(
+                    document.documentElement.scrollHeight,
+                    document.body.scrollHeight
+                  );
+                  window.scrollTo(0, y);
+                } catch {}
+              }, 0);
+            }}
+            className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors"
+          >
+            Cookies
+          </a>
+          <span className="mx-2 text-white/50">&middot;</span>
+          <a
+            href="#/legal/aviso-legal"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.hash = "/legal/aviso-legal";
+              setTimeout(() => {
+                try {
+                  const y = Math.max(
+                    document.documentElement.scrollHeight,
+                    document.body.scrollHeight
+                  );
+                  window.scrollTo(0, y);
+                } catch {}
+              }, 0);
+            }}
             className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors"
           >
             Aviso legal
