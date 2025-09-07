@@ -97,13 +97,13 @@ export default function DoctorDialog({ open, onClose, doctor }) {
       image: doctor.image,
       medicalSpecialty: schemaSpecialty,
       description: doctor.specialty || doctor.role,
-      areaServed: "Tomelloso, Castilla-La Mancha, España",
+      areaServed: "Daimiel, Castilla-La Mancha, España",
       worksFor: {
         "@type": "MedicalClinic",
         name: "Sanital",
         url: baseUrl,
-        address: "Tomelloso, Castilla-La Mancha, España",
-        areaServed: "Tomelloso, Castilla-La Mancha, España"
+        address: "Calle Orquídea 20, 13250 Daimiel, Castilla-La Mancha, España",
+        areaServed: "Daimiel, Castilla-La Mancha, España"
       },
       potentialAction: {
         "@type": "ReserveAction",
@@ -211,4 +211,5 @@ export default function DoctorDialog({ open, onClose, doctor }) {
     </div>
   );
 }
+
 

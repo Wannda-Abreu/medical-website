@@ -65,7 +65,7 @@ const clinic = {
     addressRegion: "Castilla-La Mancha",
     addressCountry: "ES",
   },
-  areaServed: "Ciudad Real, Castilla-La Mancha, EspaÃ±a",
+  areaServed: "Daimiel, Castilla-La Mancha, España",
 };
 
 const DoctorCard = memo(function DoctorCard({ d, onMore }) {
@@ -261,6 +261,7 @@ export default function Team() {
     </section>
   );
 }
+
 
 
 
