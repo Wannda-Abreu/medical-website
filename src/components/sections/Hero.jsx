@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+﻿import { motion, useScroll, useTransform } from "framer-motion";
 import { CalendarCheck, ShieldCheck, Users2, CalendarClock, CheckCircle2 } from "lucide-react";
 import { useRef } from "react";
 
@@ -87,8 +87,8 @@ export default function Hero() {
                     backdropFilter: "blur(10px)",
                     WebkitBackdropFilter: "blur(10px)",
                     background:
-                      "linear-gradient(180deg, rgba(22,163,74,0.94) 0%, rgba(21,128,61,0.92) 100%)",
-                    boxShadow: "0 12px 26px rgba(22,163,74,0.32)",
+                      "linear-gradient(180deg, rgba(0,157,152,0.94) 0%, rgba(0,126,122,0.92) 100%)",
+                    boxShadow: "0 12px 26px rgba(0,157,152,0.32)",
                     border: "1px solid rgba(255,255,255,0.28)",
                   }}
                 >
@@ -99,7 +99,7 @@ export default function Hero() {
                 <a
                   href="#servicios"
                   aria-label="Ver todos los servicios médicos de Sanital"
-                  className="inline-flex items-center rounded-full text-[12px] font-semibold text-emerald-700 transition-all duration-200 hover:scale-105 hover:shadow-xl hover:opacity-95 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+                  className="inline-flex items-center rounded-full text-[12px] font-semibold text-primary transition-all duration-200 hover:scale-105 hover:shadow-xl hover:opacity-95 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
                   style={{
                     padding: "9px 12px",
                     backdropFilter: "blur(10px)",
@@ -150,7 +150,7 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Agendar cita en Sanital Tomelloso"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-white font-semibold shadow-sm transition-transform duration-200 hover:scale-[1.08] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 active:scale-100 hover:text-white"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-6 py-3 text-white font-semibold shadow-sm transition-transform duration-200 hover:scale-[1.08] hover:shadow-xl hover:from-primary-700 hover:to-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 active:scale-100 hover:text-white"
             >
               <CalendarCheck className="h-5 w-5" />
               Agendar cita
@@ -159,7 +159,7 @@ export default function Hero() {
             <a
               href="#servicios"
               aria-label="Ver todos los servicios médicos de Sanital"
-              className="inline-flex items-center justify-center rounded-xl border-2 border-primary px-8 py-3.5 text-base font-semibold text-primary bg-white transition-all duration-200 hover:bg-primary/10 hover:scale-[1.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 active:bg-primary/15"
+              className="inline-flex items-center justify-center rounded-xl border-2 border-accent px-8 py-3.5 text-base font-semibold text-primary bg-white transition-all duration-200 hover:bg-primary/10 hover:scale-[1.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 active:bg-primary/15"
             >
               Ver servicios
             </a>
@@ -185,3 +185,4 @@ export default function Hero() {
     </section>
   );
 }
+

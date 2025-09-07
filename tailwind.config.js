@@ -9,11 +9,15 @@ export default {
     container: { center: true, padding: { DEFAULT: "1rem", md: "2rem" } },
     extend: {
       colors: {
+        // Marca: Turquesa predominante + acentos en verde limón
         primary: {
-          DEFAULT: "#16a34a",
-          600: "#16a34a",
-          700: "#15803d",
-          800: "#166534",
+          DEFAULT: "#009D98", // R0 G157 B152
+          600: "#009D98",
+          700: "#007E7A",
+          800: "#006865",
+        },
+        accent: {
+          DEFAULT: "#AFCA0B", // Verde limón
         },
         foreground: "#1f2937",   // texto
         background: "#ffffff",   // fondo

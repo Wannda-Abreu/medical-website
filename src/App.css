@@ -42,3 +42,11 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Forzar 3 columnas en el equipo (Diana al centro) */
+@media (min-width: 640px) {
+  section#equipo ul[aria-label] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 1200px;
+  }
+}

@@ -1,7 +1,5 @@
-import { Resend } from 'resend';
-
-// eslint-disable-next-line no-undef
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Force Node runtime on Vercel to avoid Edge limitations
+export const config = { runtime: 'nodejs18.x' };
 
 function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v ?? ''); }
 function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
@@ -26,7 +24,16 @@ async function parseBody(req) {
   } catch { return {}; }
 }
 
+function applyCors(req, res) {
+  const origin = req.headers.origin || '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Vary', 'Origin');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+}
+
 export default async function handler(req, res) {
+  applyCors(req, res);
   if (req.method === 'OPTIONS') { res.setHeader('Allow','POST,OPTIONS'); return res.status(204).end(); }
   if (req.method !== 'POST')   { res.setHeader('Allow','POST,OPTIONS'); return res.status(405).json({ error:'Method not allowed' }); }
 
@@ -50,17 +57,46 @@ export default async function handler(req, res) {
       <small>Fecha: ${new Date().toLocaleString('es-ES')} · Origen: ${req.headers.origin || req.headers.referer || 'N/D'}</small>
     </div>`;
 
+  // Clearer error if key missing
+  if (!process.env.RESEND_API_KEY) {
+    return res.status(503).json({ error: 'Falta RESEND_API_KEY en variables de entorno' });
+  }
+
+  if (process.env.DISABLE_EMAIL === '1' || (process.env.NODE_ENV !== 'production' && process.env.FORCE_EMAIL !== '1')) {
+    console.log('[contact] Email disabled, payload accepted:', { name: _name, email: _email, len: _message.length });
+    return res.status(200).json({ ok: true, dev: true });
+  }
+
+  // Use direct HTTP (simpler and more robust than SDK on some runtimes)
   try {
-    const result = await resend.emails.send({
-      from: 'Sanital <onboarding@resend.dev>',
-      to: ['wandamarketingspecialist@gmail.com'],
-      subject, html,
-      text: `Nombre: ${_name}\nEmail: ${_email}\n\nMensaje:\n${_message}`,
-      reply_to: _email, replyTo: _email
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const resp = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'User-Agent': 'sanital-site/1.0 (+contact api)'
+      },
+      body: JSON.stringify({
+        from: 'Sanital <onboarding@resend.dev>',
+        to: ['sanital.salud@gmail.com'],
+        subject,
+        html,
+        text: `Nombre: ${_name}\nEmail: ${_email}\n\nMensaje:\n${_message}`,
+        reply_to: _email,
+      }),
+      signal: controller.signal,
     });
-    if (result?.error) return res.status(502).json({ error:`Resend: ${result.error?.message || String(result.error)}` });
+    clearTimeout(timeout);
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok) {
+      const msg = data?.error?.message || data?.message || `HTTP ${resp.status}`;
+      return res.status(502).json({ error: `Resend HTTP: ${msg}`, code: resp.status, details: data });
+    }
     return res.status(200).json({ ok: true });
-  } catch (err) {
-    return res.status(500).json({ error: err?.message || String(err) });
+  } catch (httpErr) {
+    return res.status(502).json({ error: httpErr?.message || String(httpErr) });
   }
 }

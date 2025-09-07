@@ -1,0 +1,17 @@
+{
+  "name": "Clínica Sanital",
+  "short_name": "Sanital",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#009D98",
+  "icons": [
+    {
+      "src": "/medicina-general-currentColor.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
+

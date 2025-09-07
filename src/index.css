@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Escala tipográfica fluida */
 :root{
   --step--1: clamp(0.9rem, 0.85rem + 0.2vw, 0.98rem);
   --step-0:  clamp(1.00rem, 0.95rem + 0.35vw, 1.125rem);
@@ -10,15 +9,27 @@
   --step-2:  clamp(1.44rem, 1.30rem + 0.90vw, 1.80rem);
   --step-3:  clamp(1.80rem, 1.50rem + 1.40vw, 2.30rem);
   --step-4:  clamp(2.20rem, 1.80rem + 2.00vw, 2.90rem);
+
+  --c-fg: #1f2937;
+  --c-bg: #ffffff;
+  --c-primary: #0ea56b;
+  --c-primary-700: #0b7f52;
+  --c-accent: #009D98;
+  --c-accent-700: #007E7A;
+  --c-ring: #16a34a;
+  --shadow-soft: 0 8px 30px rgba(0,0,0,.06);
 }
 
 @layer base {
-  html { scroll-behavior: smooth; }
-
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    scroll-padding-bottom: 140px;
+  }
 
   body {
-    color: #1f2937;               
-    background-color: #ffffff;    
+    color: var(--c-fg);
+    background-color: var(--c-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.7;
@@ -26,43 +37,140 @@
     font-size: var(--step-0);
   }
 
-  h1 { font-size: var(--step-4); font-weight: 800; letter-spacing: -0.02em; color: #1f2937; }
-  h2 { font-size: var(--step-3); font-weight: 700; letter-spacing: -0.01em; color: #1f2937; }
-  h3 { font-size: var(--step-2); font-weight: 600; color: #1f2937; }
+  h1 { font-size: var(--step-4); font-weight: 800; letter-spacing: -0.02em; color: var(--c-fg); }
+  h2 { font-size: var(--step-3); font-weight: 700; letter-spacing: -0.01em; color: var(--c-fg); }
+  h3 { font-size: var(--step-2); font-weight: 600; color: var(--c-fg); }
   p, li { font-size: var(--step-0); }
   small { font-size: var(--step--1); }
 
   a {
     text-underline-offset: 2px;
     transition: color .2s ease;
-    color: #16a34a; /* primary */
+    color: var(--c-accent);
   }
-  a:hover { color: #15803d; }    /* primary-700 */
+  a:hover { color: var(--c-accent-700); }
 
-  :focus-visible { outline: 2px solid #16a34a; outline-offset: 2px; }
+  :focus-visible { outline: 2px solid var(--c-ring); outline-offset: 3px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
 @layer utilities {
-  .shadow-soft { box-shadow: 0 8px 30px rgba(0,0,0,.06); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
   .ease-soft { transition-timing-function: cubic-bezier(.22,.61,.36,1); }
   .tap-highlight-none { -webkit-tap-highlight-color: transparent; }
 }
 
-.sticky-cta{display:none}
-@media (max-width:768px){
-  .sticky-cta{
-    position:fixed;left:0;right:0;bottom:0;z-index:50;
-    display:flex;gap:12px;align-items:center;justify-content:space-between;
-    padding:12px clamp(12px,4vw,24px);
-    background:rgba(255,255,255,.96);
-    box-shadow:0 -6px 24px rgba(0,0,0,.08);backdrop-filter:saturate(180%) blur(8px)
-  }
-  .sticky-cta .btn-primary{
-    flex:1;padding:14px 16px;border-radius:12px;border:none;font-weight:600;color:#fff;background:#0ea56b
-  }
-  .sticky-cta .btn-ghost{
-    flex:1;padding:14px 16px;border-radius:12px;border:2px solid #0ea56b;font-weight:600;color:#0ea56b;background:transparent
+/* Mejora visual en DoctorDialog: bullets personalizados y limpieza */
+/* Limpieza listas del DoctorDialog: un solo bullet */
+#doctor-desc ul { list-style: disc inside; padding-left: 0; }
+#doctor-desc li { display: list-item; }
+
+.sticky-cta{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 120;
+  display: flex; gap: 12px; align-items: center; justify-content: space-between;
+  padding: calc(env(safe-area-inset-bottom) + 12px) clamp(12px, 4vw, 24px) 12px;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: saturate(180%) blur(8px);
+  box-shadow: 0 -6px 24px rgba(0,0,0,.08);
+}
+
+.sticky-cta .btn-primary{
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  color: #fff;
+  background: var(--c-primary);
+  transition: transform .15s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.sticky-cta .btn-primary:hover{
+  background: var(--c-primary-700);
+  box-shadow: 0 8px 24px rgba(14,165,107,.25);
+  transform: translateY(-1px);
+}
+.sticky-cta .btn-primary:active{
+  transform: translateY(0);
+  box-shadow: 0 4px 16px rgba(14,165,107,.25);
+}
+.sticky-cta .btn-primary:disabled{
+  opacity: .6; cursor: not-allowed; box-shadow: none; transform: none;
+}
+
+.sticky-cta .btn-ghost{
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 2px solid var(--c-primary);
+  font-weight: 600;
+  color: var(--c-primary);
+  background: transparent;
+  transition: transform .15s ease, color .2s ease, border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.sticky-cta .btn-ghost:hover{
+  color: #fff;
+  background-color: var(--c-primary);
+  border-color: var(--c-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(14,165,107,.18);
+}
+.sticky-cta .btn-ghost:active{
+  transform: translateY(0);
+  box-shadow: 0 4px 16px rgba(14,165,107,.18);
+}
+.sticky-cta .btn-ghost:disabled{
+  opacity: .6; cursor: not-allowed; box-shadow: none; transform: none;
+}
+
+@media (max-width: 380px){
+  .sticky-cta .btn-primary, .sticky-cta .btn-ghost{
+    padding: 10px 12px;
+    font-size: 10px;
+    text-align: center;
   }
 }
 
+@media (min-width: 640px){
+  .sticky-cta{
+    padding-left: 24px; padding-right: 24px;
+  }
+}
 
+@media (min-width: 1024px){
+  .sticky-cta{
+    left: 50%; right: auto; transform: translateX(-50%);
+    bottom: 24px;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    width: min(720px, 92vw);
+    box-shadow: 0 12px 32px rgba(0,0,0,.10);
+  }
+  .sticky-cta .btn-primary, .sticky-cta .btn-ghost{
+    flex: 0 0 auto;
+    padding: 10px 12px;
+    text-align: center;
+  }
+}
+
+@media (min-width: 640px){
+  section#equipo ul[aria-label]{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 1200px;
+  }
+}
+
+@media (min-width: 640px){
+  section#servicios ul[aria-label]{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

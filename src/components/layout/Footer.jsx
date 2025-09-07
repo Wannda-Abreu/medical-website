@@ -1,17 +1,59 @@
-const Footer = () => {
+export default function Footer() {
+  const year = new Date().getFullYear();
   return (
-    <footer className="bg-primary text-primary-foreground py-10 mt-16">
-      <div className="container mx-auto px-4 text-center">
-        <p className="mb-4">&copy; {new Date().getFullYear()} Sanital. Todos los derechos reservados.</p>
-        <nav className="flex justify-center gap-6 text-sm">
-          <a href="#inicio" className="hover:underline">Inicio</a>
-          <a href="#equipo" className="hover:underline">Equipo</a>
-          <a href="#servicios" className="hover:underline">Servicios</a>
-          <a href="#contacto" className="hover:underline">Contacto</a>
+    <footer id="site-footer" className="relative mt-16 text-white bg-gradient-to-r from-primary-700 via-primary to-accent">
+      {/* Capa de suavizado sobre el degradado (más suave) */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none bg-white/20" />
+      {/* Fondo con degradado corporativo aplicado al footer */}
+      {/* Realce suave en la parte superior del footer */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-[radial-gradient(70%_100%_at_50%_0%,rgba(255,255,255,0.12),rgba(255,255,255,0))]" />
+      {/* Main row: brand · primary nav · copyright */}
+      <div className="container mx-auto px-4 py-6 md:py-8 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
+        <a
+          href="#inicio"
+          className="inline-flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+          aria-label="Sanital - Ir al inicio"
+        >
+          <img
+            src="https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757207840/Untitled_design_29_tauo4r.png"
+            alt="Sanital - Logo"
+            width="360"
+            height="144"
+            className="h-[2rem] w-auto md:h-[4.5rem] drop-shadow-sm"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+
+        <nav aria-label="Navegacion principal" className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[15px] md:text-[16px]">
+          {[
+            ["#inicio", "Inicio"],
+            ["#servicios", "Servicios"],
+            ["#equipo", "Equipo"],
+            ["#testimonios", "Pacientes"],
+            ["#contacto", "Contacto"],
+          ].map(([href, label]) => (
+            <a
+              key={href}
+              href={href}
+              className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors"
+            >
+              {label}
+            </a>
+          ))}
         </nav>
+
+        <div className="text-sm text-white/85">&copy; {year} Sanital</div>
+      </div>
+
+      {/* Secondary row: legal links */}
+      <div className="border-t border-white/15">
+        <div className="container mx-auto px-4 py-3 text-center text-sm md:text-[15px]">
+          <a href="/legal/privacidad" className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors">Privacidad</a>
+          <span className="mx-2 text-white/50">&middot;</span>
+          <a href="/legal/aviso-legal" className="text-white/85 hover:text-white hover:underline underline-offset-4 decoration-white/70 decoration-2 transition-colors">Aviso legal</a>
+        </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

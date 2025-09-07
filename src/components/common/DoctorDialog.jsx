@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from "react";
+﻿import { useEffect, useRef, useMemo } from "react";
 import { X, CalendarCheck } from "lucide-react";
 
 export default function DoctorDialog({ open, onClose, doctor }) {
@@ -26,6 +26,7 @@ export default function DoctorDialog({ open, onClose, doctor }) {
     if (!doctor) return "general";
     const txt = `${doctor.role || ""} ${doctor.specialty || ""}`.toLowerCase();
     if (txt.includes("endocr")) return "endocrino";
+    if (txt.includes("cirug")) return "cirugia";
     if (txt.includes("primaria") || txt.includes("familia")) return "ap";
     return "general";
   }, [doctor]);
@@ -131,7 +132,7 @@ export default function DoctorDialog({ open, onClose, doctor }) {
         <meta itemProp="url" content={`${baseUrl}/equipo#${doctor.slug}`} />
         <div className="flex items-start justify-between gap-4">
           <h3 id="doctor-title" className="text-xl font-semibold text-gray-900" itemProp="name">
-            {doctor.name} · <span className="text-emerald-700" itemProp="medicalSpecialty">{doctor.role}</span>
+            {doctor.name} · <span className="text-primary" itemProp="medicalSpecialty">{doctor.role}</span>
           </h3>
           <button
             onClick={onClose}
@@ -142,33 +143,42 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           </button>
         </div>
 
-        <div className="mt-4">
-          <div className="mx-auto w-fit rounded-2xl ring-1 ring-emerald-200 bg-emerald-50 p-1.5">
-            <img
-              src={doctor.image}
-              alt={`${doctor.name}, ${doctor.role}`}
-              itemProp="image"
-              width={140}
-              height={140}
-              className="block w-[120px] sm:w-[140px] h-auto rounded-xl object-contain"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
+        <div className="mt-4 flex justify-center">
+          <figure
+            className="mx-auto relative rounded-2xl p-0 bg-transparent shadow-none"
+            aria-label="Foto del profesional"
+          >
+            <div
+              className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] overflow-hidden rounded-full ring-2 ring-primary/25 ring-offset-2 ring-offset-white bg-gradient-to-b from-white to-primary/10"
+            >
+              <img
+                src={doctor.image}
+                alt={`${doctor.name}, ${doctor.role}`}
+                itemProp="image"
+                width={220}
+                height={220}
+                className="block w-full h-full object-cover rounded-full"
+                loading="lazy"
+                decoding="async"
+              />
+              {/* Eliminado halo/overlay para evitar sombra visible detrás del avatar */}
+            </div>
+            <figcaption className="sr-only">{doctor.name}, {doctor.role}</figcaption>
+          </figure>
         </div>
 
         <div id="doctor-desc" className="mt-5 space-y-4 text-sm text-gray-700">
           <p className="leading-relaxed">{copy.intro}</p>
           <div>
-            <h4 className="font-semibold text-emerald-900">Qué atiende</h4>
+            <h4 className="font-semibold text-primary">Qué atiende</h4>
             <ul className="mt-2 space-y-1">
-              {copy.atiende.map((t) => <li key={t}>• {t}</li>)}
+              {copy.atiende.map((t) => <li key={t}> {t}</li>)}
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-emerald-900">Primera visita</h4>
+            <h4 className="font-semibold text-primary">Primera visita</h4>
             <ul className="mt-2 space-y-1">
-              {copy.primera.map((t) => <li key={t}>• {t}</li>)}
+              {copy.primera.map((t) => <li key={t}> {t}</li>)}
             </ul>
           </div>
           <span itemProp="worksFor" itemScope itemType="https://schema.org/MedicalClinic" className="sr-only">
@@ -183,7 +193,7 @@ export default function DoctorDialog({ open, onClose, doctor }) {
             href="https://booking.slotspot.app/sanital"
             target="_blank"
             rel="nofollow noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:scale-[1.03] hover:shadow-md"
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:scale-[1.03] hover:shadow-md hover:from-primary-700 hover:to-primary-800"
           >
             <CalendarCheck className="h-4 w-4" />
             Agendar cita
@@ -191,7 +201,7 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-5 py-2.5 text-sm font-semibold text-emerald-900 shadow-sm transition hover:bg-emerald-100 hover:ring-2 hover:ring-emerald-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+            className="inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-5 py-2.5 text-sm font-semibold text-primary shadow-sm transition hover:bg-primary/10 hover:ring-2 hover:ring-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
           >
             <X className="h-4 w-4" />
             Cerrar
@@ -201,3 +211,4 @@ export default function DoctorDialog({ open, onClose, doctor }) {
     </div>
   );
 }
+

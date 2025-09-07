@@ -21,7 +21,7 @@ const Card = ({
     "group relative rounded-2xl border border-border bg-card text-card-foreground",
     "shadow-sm transition-all duration-300 hover:shadow-md",
     // halo difuminado solo en hover
-    "hover:border-emerald-400/40",
+    "hover:border-primary/40",
     "after:pointer-events-none after:absolute after:inset-0 after:rounded-2xl",
     "after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300",
     // halo suave (difuminado alrededor del borde)

@@ -5,6 +5,7 @@ export default function Button({
   variant = "primary",
   size = "md",
   className,
+  as = "button",
   ...props
 }) {
   const baseStyles =
@@ -12,9 +13,9 @@ export default function Button({
 
   const variants = {
     primary:
-      "bg-primary text-primary-foreground hover:bg-green-700 focus:ring-primary",
+      "bg-gradient-to-r from-primary to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 hover:text-white hover:shadow-lg focus:ring-primary",
     secondary:
-      "bg-secondary text-secondary-foreground hover:bg-green-600 focus:ring-secondary",
+      "bg-accent text-white hover:brightness-95 focus:ring-accent",
     outline:
       "border border-border text-foreground hover:bg-muted focus:ring-ring",
     destructive:
@@ -27,12 +28,15 @@ export default function Button({
     lg: "px-6 py-3 text-lg",
   };
 
+  const Comp = as === "a" ? "a" : "button";
+  const type = Comp === "button" ? (props.type || "button") : undefined;
   return (
-    <button
+    <Comp
       className={clsx(baseStyles, variants[variant], sizes[size], className)}
+      type={type}
       {...props}
     >
       {children}
-    </button>
+    </Comp>
   );
 }
