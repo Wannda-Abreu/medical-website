@@ -3,13 +3,17 @@ import { X, CalendarCheck } from "lucide-react";
 
 export default function DoctorDialog({ open, onClose, doctor }) {
   const panelRef = useRef(null);
-  const openerRef = useRef(typeof document !== "undefined" ? document.activeElement : null);
+  const openerRef = useRef(
+    typeof document !== "undefined" ? document.activeElement : null
+  );
 
   useEffect(() => {
     if (!open) return;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
     document.addEventListener("keydown", onKey);
     const t = setTimeout(() => panelRef.current?.focus(), 0);
     return () => {
@@ -20,7 +24,10 @@ export default function DoctorDialog({ open, onClose, doctor }) {
     };
   }, [open, onClose]);
 
-  const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://www.sanital.example";
+  const baseUrl =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : "https://www.sanital.example";
 
   const category = useMemo(() => {
     if (!doctor) return "general";
@@ -34,36 +41,38 @@ export default function DoctorDialog({ open, onClose, doctor }) {
   const copy = useMemo(() => {
     if (category === "endocrino") {
       return {
-        intro: "Atención especializada en endocrinología, obesidad y metabolismo con enfoque integral y seguimiento cercano.",
+        intro:
+          "Atención especializada en endocrinología, obesidad y metabolismo con enfoque integral y seguimiento cercano.",
         atiende: [
           "Diabetes tipo 1 y 2, prediabetes y resistencia a la insulina",
           "Trastornos de tiroides (hipo/hiper, nódulos)",
           "Obesidad y nutrición clínica",
           "Dislipemias y síndrome metabólico",
-          "Trastornos hormonales (suprarrenal, hipófisis)"
+          "Trastornos hormonales (suprarrenal, hipófisis)",
         ],
         primera: [
           "Historia clínica endocrina y revisión de hábitos",
           "Revisión de analíticas previas y solicitud de pruebas",
-          "Plan personalizado (tratamiento, nutrición y seguimiento)"
-        ]
+          "Plan personalizado (tratamiento, nutrición y seguimiento)",
+        ],
       };
     }
     if (category === "ap") {
       return {
-        intro: "Atención primaria centrada en prevención, seguimiento de crónicos y resolución de problemas de salud frecuentes.",
+        intro:
+          "Atención primaria centrada en prevención, seguimiento de crónicos y resolución de problemas de salud frecuentes.",
         atiende: [
           "Chequeos y revisiones de salud",
           "Hipertensión, control de peso y riesgo cardiovascular",
           "Infecciones leves y curas",
           "Salud familiar y educación sanitaria",
-          "Derivación a especialista cuando procede"
+          "Derivación a especialista cuando procede",
         ],
         primera: [
           "Historia clínica completa y exploración básica (TA, IMC)",
           "Revisión de informes y medicación habitual",
-          "Plan de cuidado y próximos pasos claros"
-        ]
+          "Plan de cuidado y próximos pasos claros",
+        ],
       };
     }
     return {
@@ -73,21 +82,24 @@ export default function DoctorDialog({ open, onClose, doctor }) {
         "Control de factores de riesgo",
         "Infecciones frecuentes y curas",
         "Educación sanitaria y hábitos",
-        "Derivación a especialistas"
+        "Derivación a especialistas",
       ],
       primera: [
         "Historia clínica y exploración básica",
         "Revisión de informes previos",
-        "Plan de cuidado personalizado"
-      ]
+        "Plan de cuidado personalizado",
+      ],
     };
   }, [category]);
 
   const jsonLd = useMemo(() => {
     if (!doctor) return null;
     const schemaSpecialty =
-      category === "endocrino" ? "Endocrinology" :
-      category === "ap" ? "PrimaryCare" : "MedicalSpecialty";
+      category === "endocrino"
+        ? "Endocrinology"
+        : category === "ap"
+        ? "PrimaryCare"
+        : "MedicalSpecialty";
     return {
       "@context": "https://schema.org",
       "@type": "Physician",
@@ -103,12 +115,12 @@ export default function DoctorDialog({ open, onClose, doctor }) {
         name: "Sanital",
         url: baseUrl,
         address: "Calle Orquídea 20, 13250 Daimiel, Castilla-La Mancha, España",
-        areaServed: "Daimiel, Castilla-La Mancha, España"
+        areaServed: "Daimiel, Castilla-La Mancha, España",
       },
       potentialAction: {
         "@type": "ReserveAction",
-        target: "https://booking.slotspot.app/sanital"
-      }
+        target: "https://booking.slotspot.app/sanital",
+      },
     };
   }, [doctor, baseUrl, category]);
 
@@ -116,8 +128,15 @@ export default function DoctorDialog({ open, onClose, doctor }) {
 
   return (
     <div className="fixed inset-0 z-[90]">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <button aria-label="Cerrar" onClick={onClose} className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <button
+        aria-label="Cerrar"
+        onClick={onClose}
+        className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"
+      />
       <div
         role="dialog"
         aria-modal="true"
@@ -131,8 +150,15 @@ export default function DoctorDialog({ open, onClose, doctor }) {
       >
         <meta itemProp="url" content={`${baseUrl}/equipo#${doctor.slug}`} />
         <div className="flex items-start justify-between gap-4">
-          <h3 id="doctor-title" className="text-xl font-semibold text-gray-900" itemProp="name">
-            {doctor.name} · <span className="text-primary" itemProp="medicalSpecialty">{doctor.role}</span>
+          <h3
+            id="doctor-title"
+            className="text-xl font-semibold text-gray-900"
+            itemProp="name"
+          >
+            {doctor.name} ·{" "}
+            <span className="text-primary" itemProp="medicalSpecialty">
+              {doctor.role}
+            </span>
           </h3>
           <button
             onClick={onClose}
@@ -148,9 +174,7 @@ export default function DoctorDialog({ open, onClose, doctor }) {
             className="mx-auto relative rounded-2xl p-0 bg-transparent shadow-none"
             aria-label="Foto del profesional"
           >
-            <div
-              className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] overflow-hidden rounded-full ring-2 ring-primary/25 ring-offset-2 ring-offset-white bg-gradient-to-b from-white to-primary/10"
-            >
+            <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] overflow-hidden rounded-full ring-2 ring-primary/25 ring-offset-2 ring-offset-white bg-gradient-to-b from-white to-primary/10">
               <img
                 src={doctor.image}
                 alt={`${doctor.name}, ${doctor.role}`}
@@ -163,7 +187,9 @@ export default function DoctorDialog({ open, onClose, doctor }) {
               />
               {/* Eliminado halo/overlay para evitar sombra visible detrás del avatar */}
             </div>
-            <figcaption className="sr-only">{doctor.name}, {doctor.role}</figcaption>
+            <figcaption className="sr-only">
+              {doctor.name}, {doctor.role}
+            </figcaption>
           </figure>
         </div>
 
@@ -172,19 +198,34 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           <div>
             <h4 className="font-semibold text-primary">Qué atiende</h4>
             <ul className="mt-2 space-y-1">
-              {copy.atiende.map((t) => <li key={t}> {t}</li>)}
+              {copy.atiende.map((t) => (
+                <li key={t}> {t}</li>
+              ))}
             </ul>
           </div>
           <div>
             <h4 className="font-semibold text-primary">Primera visita</h4>
             <ul className="mt-2 space-y-1">
-              {copy.primera.map((t) => <li key={t}> {t}</li>)}
+              {copy.primera.map((t) => (
+                <li key={t}> {t}</li>
+              ))}
             </ul>
           </div>
-          <span itemProp="worksFor" itemScope itemType="https://schema.org/MedicalClinic" className="sr-only">
+          <span
+            itemProp="worksFor"
+            itemScope
+            itemType="https://schema.org/MedicalClinic"
+            className="sr-only"
+          >
             <meta itemProp="name" content="Sanital" />
-            <meta itemProp="address" content="Tomelloso, Castilla-La Mancha, España" />
-            <meta itemProp="areaServed" content="Tomelloso, Castilla-La Mancha, España" />
+            <meta
+              itemProp="address"
+              content="Tomelloso, Castilla-La Mancha, España"
+            />
+            <meta
+              itemProp="areaServed"
+              content="Tomelloso, Castilla-La Mancha, España"
+            />
           </span>
         </div>
 
@@ -211,5 +252,3 @@ export default function DoctorDialog({ open, onClose, doctor }) {
     </div>
   );
 }
-
-

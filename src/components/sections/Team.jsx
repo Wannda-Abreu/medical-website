@@ -186,7 +186,7 @@ export default function Team() {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "@id": `${baseUrl}/equipo#lista`,
-      name: "Equipo mÃ©dico",
+      name: "Equipo médico",
       itemListElement: renderDoctors.map((d, i) => ({
         "@type": "ListItem",
         position: i + 1,
@@ -236,15 +236,15 @@ export default function Team() {
           id="equipo-heading"
           className="mb-8 text-center text-2xl font-bold sm:mb-10 sm:text-3xl"
         >
-          Nuestro Equipo MÃ©dico
+          Nuestro Equipo médico
         </h2>
         <p className="sr-only">
-          Conoce a nuestro equipo mÃ©dico de Sanital en Daimiel, Castilla-La
-          Mancha: especialistas colegiados con atenciÃ³n cercana.
+          Conoce a nuestro equipo médico de Sanital en Daimiel, Castilla-La
+          Mancha: especialistas colegiados con atención cercana.
         </p>
 
         <ul
-          aria-label="Tarjetas del equipo mÃ©dico"
+          aria-label="Tarjetas del equipo médico"
           className="mx-auto grid max-w-[1000px] grid-cols-1 gap-6 sm:grid-cols-2"
         >
           {renderDoctors.map((d) => (
