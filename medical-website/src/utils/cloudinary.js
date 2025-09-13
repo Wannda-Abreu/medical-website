@@ -1,4 +1,4 @@
-const DEFAULT_TRANSFORMS = "f_auto,q_auto,c_fill";
+const DEFAULT_TRANSFORMS = "f_auto,q_auto,c_fill,dpr_auto";
 
 export function cld(url, w = 800) {
   if (!url || typeof url !== "string") return url;
@@ -18,4 +18,3 @@ export function cldSrcSet(url, widths = [320, 480, 640, 960, 1280]) {
   const srcSet = widths.map((w) => `${cld(url, w)} ${w}w`).join(", ");
   return { src, srcSet };
 }
-
