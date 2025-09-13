@@ -7,6 +7,7 @@ import Testimonial from "./components/sections/Testimonial";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/layout/Footer";
 import Benefits from "./components/sections/Benefits";
+import Intro from "./components/sections/Intro";
 import StickyCTA from "./components/layout/StickyCTA";
 import SplashScreen from "./components/layout/SplashScreen";
 import SkipLink from "./components/layout/SkipLink";
@@ -50,6 +51,7 @@ function App() {
       <Navbar />
       <main id="main" className="relative pb-24 sm:pb-28">
         <Hero />
+        <Intro />
         <Benefits />
         <Services />
         <Team />
