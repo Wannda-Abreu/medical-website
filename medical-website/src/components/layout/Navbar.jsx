@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, CalendarCheck } from "lucide-react";
 import { useScrollLock } from "../../utils/scrollLock";
 import Button from "../common/Button";
-import { cld } from "../../utils/cloudinary";
+import { cld, cldSrcSet } from "../../utils/cloudinary";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -52,6 +52,11 @@ const Navbar = () => {
               "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757204734/Untitled_design_27_jtcfh3.png",
               720
             )}
+            srcSet={cldSrcSet(
+              "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757204734/Untitled_design_27_jtcfh3.png",
+              [360, 540, 720]
+            ).srcSet}
+            sizes="(min-width: 768px) 576px, 320px"
             alt="Sanital - Logo"
             width="360"
             height="144"

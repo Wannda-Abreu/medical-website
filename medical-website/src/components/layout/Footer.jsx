@@ -1,4 +1,4 @@
-import { cld } from "../../utils/cloudinary";
+import { cld, cldSrcSet } from "../../utils/cloudinary";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -26,6 +26,11 @@ export default function Footer() {
               "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757207840/Untitled_design_29_tauo4r.png",
               720
             )}
+            srcSet={cldSrcSet(
+              "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757207840/Untitled_design_29_tauo4r.png",
+              [360, 540, 720]
+            ).srcSet}
+            sizes="(min-width: 768px) 576px, 320px"
             alt="Sanital - Logo"
             width="360"
             height="144"
