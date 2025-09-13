@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useScrollLock } from "../../utils/scrollLock";
+import { cld } from "../../utils/cloudinary";
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -66,7 +67,10 @@ export default function SplashScreen() {
 
       <div className="relative flex flex-col items-center">
         <img
-          src="https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757193672/Untitled_design_18_ulx4if.png"
+          src={cld(
+            "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757193672/Untitled_design_18_ulx4if.png",
+            512
+          )}
           alt="Sanital"
           className="w-72 max-w-[70vw] h-auto drop-shadow-xl select-none transition-transform duration-500 ease-out will-change-transform saturate-125 contrast-110"
           style={{

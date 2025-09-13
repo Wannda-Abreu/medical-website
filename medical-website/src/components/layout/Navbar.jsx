@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, CalendarCheck } from "lucide-react";
 import { useScrollLock } from "../../utils/scrollLock";
 import Button from "../common/Button";
+import { cld } from "../../utils/cloudinary";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -47,7 +48,10 @@ const Navbar = () => {
           aria-label="Ir al inicio"
         >
           <img
-            src="https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757204734/Untitled_design_27_jtcfh3.png"
+            src={cld(
+              "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757204734/Untitled_design_27_jtcfh3.png",
+              720
+            )}
             alt="Sanital - Logo"
             width="360"
             height="144"

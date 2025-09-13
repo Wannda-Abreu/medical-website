@@ -13,7 +13,7 @@ const CLINIC = {
   phone: "+34 619 18 26 80",
   addressLabel: "Calle Orquídea 20, CP  13250 Daimiel",
   mapQuery: "Calle Orquídea 20, CP  13250 Daimiel",
-  logo: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755632835/logo_gjf9dn.png",
+  logo: "https://res.cloudinary.com/dfq9eaz2e/image/upload/f_auto,q_auto,c_fill,w_720/v1755632835/logo_gjf9dn.png",
 };
 
 export default function Contact() {

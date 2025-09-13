@@ -1,3 +1,5 @@
+import { cld } from "../../utils/cloudinary";
+
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
@@ -20,7 +22,10 @@ export default function Footer() {
           aria-label="Sanital - Ir al inicio"
         >
           <img
-            src="https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757207840/Untitled_design_29_tauo4r.png"
+            src={cld(
+              "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757207840/Untitled_design_29_tauo4r.png",
+              720
+            )}
             alt="Sanital - Logo"
             width="360"
             height="144"

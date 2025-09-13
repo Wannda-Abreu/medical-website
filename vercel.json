@@ -1,8 +1,11 @@
 {
-  "version": 2,
-  "installCommand": "npm ci --prefix medical-website",
-  "buildCommand": "npm run build --prefix medical-website",
-  "outputDirectory": "medical-website/dist",
-  "framework": "vite"
+  "headers": [
+    {
+      "source": "/(.*)\\.(js|css|png|jpg|jpeg|webp|svg)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public,max-age=31536000,immutable" }
+      ]
+    }
+  ]
 }
 

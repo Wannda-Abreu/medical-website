@@ -7,6 +7,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { useRef } from "react";
+import { cld } from "../../utils/cloudinary";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -44,7 +45,10 @@ export default function Hero() {
             <div className="relative h-full w-full overflow-hidden">
               {/* Imagen con degradado fuerte en bordes */}
               <img
-                src="https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png"
+                src={cld(
+                  "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png",
+                  1200
+                )}
                 alt="Profesional sanitaria sonriendo con paciente en consulta"
                 className="h-full w-full object-cover"
                 width={1200}
