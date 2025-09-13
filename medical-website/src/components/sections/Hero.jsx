@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { useRef } from "react";
 import { cld, cldSrcSet } from "../../utils/cloudinary";
+import ShareButtons from "../common/ShareButtons";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -176,6 +177,10 @@ export default function Hero() {
             >
               Ver servicios
             </a>
+          </div>
+
+          <div className="mt-4 hidden lg:block">
+            <ShareButtons text="Clínica Sanital · Especialistas en Ciudad Real" />
           </div>
 
           <ul className="mt-8 grid grid-cols-1 gap-3 text-sm sm:grid-cols-3">

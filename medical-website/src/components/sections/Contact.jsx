@@ -4,6 +4,7 @@ import { useFocusTrap } from "../../utils/focusTrap";
 import { useGlobalInert } from "../../utils/globalInert";
 import EmbedGuard from "../common/EmbedGuard";
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
+import ShareButtons from "../common/ShareButtons";
 import SectionTitle from "../common/SectionTitle";
 import Card from "../common/Card";
 
@@ -354,6 +355,9 @@ export default function Contact() {
               >
                 <Instagram className="h-5 w-5" />
               </a>
+            </div>
+            <div className="mt-6">
+              <ShareButtons text="Clínica Sanital · Especialistas en Ciudad Real" />
             </div>
           </Card>
         </div>
