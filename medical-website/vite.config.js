@@ -12,7 +12,7 @@ const sitemapPlugin = () => ({
       const dist = path.resolve(process.cwd(), 'dist')
       if (!fs.existsSync(dist)) fs.mkdirSync(dist, { recursive: true })
       const hostname = 'https://www.sanital.es'
-      const urls = ['/', '/servicios', '/equipo', '/contacto']
+      const urls = ['/']
       const now = new Date().toISOString()
       const body = urls
         .map(
