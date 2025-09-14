@@ -5,6 +5,7 @@ import { useGlobalInert } from "../../utils/globalInert";
 import EmbedGuard from "../common/EmbedGuard";
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
 import ShareButtons from "../common/ShareButtons";
+import { cld, srcset } from "@/lib/cld";
 import SectionTitle from "../common/SectionTitle";
 import Card from "../common/Card";
 
@@ -430,3 +431,4 @@ export default function Contact() {
     </section>
   );
 }
+

@@ -6,10 +6,10 @@ import ShareButtons from "../common/ShareButtons";
 
 export default function Hero() {
   const ref = useRef(null);
-
-  const { scrollYProgress } = useScroll();
-  const glowY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
-  const glowX = useTransform(scrollYProgress, [0, 1], [0, 30]);
+  const reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const { scrollYProgress } = reduce ? { scrollYProgress: null } : useScroll();
+  const glowY = reduce ? 0 : useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const glowX = reduce ? 0 : useTransform(scrollYProgress, [0, 1], [0, 30]);
 
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -22,8 +22,8 @@ export default function Hero() {
         {/* ===== IMAGEN ===== */}
         <motion.div
           className="relative order-1 flex h-full justify-center lg:order-2 lg:col-span-6 lg:justify-end"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={reduce ? undefined : { opacity: 0 }}
+          whileInView={reduce ? undefined : { opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
