@@ -1,7 +1,8 @@
-﻿import { useMemo, useState, memo } from "react";
+import { useMemo, useState, memo } from "react";
 import { motion } from "framer-motion";
 import { CalendarCheck, Info, Stethoscope } from "lucide-react";
 import DoctorDialog from "../common/DoctorDialog";
+import { cld } from "../../utils/cloudinary";
 
 const BRAND_PRIMARY = "#009D98";
 const BRAND_ACCENT = "#AFCA0B";
@@ -12,44 +13,25 @@ const DOCTORS = [
     name: "Dra. Diana Storino",
     role: "Endocrino",
     specialty: "Consulta endocrinología y obesidad",
-    image:
-      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253397/2_swjp7l.png",
+    image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253397/2_swjp7l.png",
   },
   {
     slug: "pablo-carmona",
     name: "Dr. Pablo Carmona Díaz Salazar",
     role: "Especialista en Medicina Familiar y Comunitaria.",
     specialty: "Especialista en Medicina Familiar y Comunitaria.",
-    image:
-      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
+    image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
   },
   {
     slug: "mirko-solano",
     name: "Dr. Mirko Solano",
     role: "Cirujano",
     specialty: "Cirugía",
-    image:
-      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png",
+    image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png",
   },
 ];
 
 const ORDER = ["pablo-carmona", "diana-storinoz", "mirko-solano"];
-
-const CLOUDINARY_TRANSFORMS =
-  "f_auto,q_auto:good,dpr_auto,e_improve,e_auto_contrast,e_auto_color,e_sharpen:60";
-
-function cld(url, w) {
-  if (!url) return url;
-  try {
-    if (url.includes("/upload/")) {
-      const inject = `/upload/${CLOUDINARY_TRANSFORMS},w_${w}/`;
-      return url.replace(/\/upload\/.*?\//, inject);
-    }
-    return url;
-  } catch (e) {
-    return url;
-  }
-}
 
 const widths = [320, 480, 640, 960, 1280];
 
@@ -109,42 +91,30 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
               whileHover={{ scale: 1.01 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
             />
-            <div
-              className={`absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium shadow-sm ring-1 backdrop-blur ${tone}`}
-            >
+            <div className={`absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium shadow-sm ring-1 backdrop-blur ${tone}`}>
               <Stethoscope className="h-3.5 w-3.5" aria-hidden="true" />
               <span>{d.role}</span>
             </div>
             <figcaption className="sr-only">
-              {d.name}, {d.role} — {d.specialty}
+              {d.name}, {d.role} - {d.specialty}
             </figcaption>
           </figure>
 
           <div className="mt-5 text-center">
-            <h3
-              itemProp="name"
-              className="text-xl font-semibold tracking-tight"
-              style={{ color: BRAND_PRIMARY }}
-            >
+            <h3 itemProp="name" className="text-xl font-semibold tracking-tight" style={{ color: BRAND_PRIMARY }}>
               {d.name}
             </h3>
-            <p className="mt-1 text-[0.95rem] font-medium text-foreground/80">
-              {d.specialty}
-            </p>
+            <p className="mt-1 text-[0.95rem] font-medium text-foreground/80">{d.specialty}</p>
             <meta itemProp="medicalSpecialty" content={d.specialty} />
           </div>
 
-          {/* Botones adaptativos */}
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
             <a
               href="https://booking.slotspot.app/sanital"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 motion-reduce:transform-none"
-              style={{
-                backgroundColor: BRAND_PRIMARY,
-                color: "#fff",
-              }}
+              style={{ backgroundColor: BRAND_PRIMARY, color: "#fff" }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = "#fff";
                 e.currentTarget.style.color = BRAND_PRIMARY;
@@ -165,11 +135,7 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
               type="button"
               onClick={() => onMore(d)}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 motion-reduce:transform-none"
-              style={{
-                border: `2px solid ${BRAND_ACCENT}`,
-                color: BRAND_ACCENT,
-                backgroundColor: "#fff",
-              }}
+              style={{ border: `2px solid ${BRAND_ACCENT}`, color: BRAND_ACCENT, backgroundColor: "#fff" }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = BRAND_ACCENT;
                 e.currentTarget.style.color = "#fff";
@@ -190,10 +156,7 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
 
           <meta itemProp="jobTitle" content={d.role} />
           <meta itemProp="url" content={`/equipo#${d.slug}`} />
-          <span
-            className="pointer-events-none absolute inset-x-6 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100"
-            style={{ backgroundColor: BRAND_PRIMARY }}
-          />
+          <span className="pointer-events-none absolute inset-x-6 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100" style={{ backgroundColor: BRAND_PRIMARY }} />
         </div>
       </motion.article>
     </li>
@@ -204,9 +167,7 @@ export default function Team() {
   const [active, setActive] = useState(null);
 
   const baseUrl = useMemo(() => {
-    if (typeof window !== "undefined" && window.location?.origin) {
-      return window.location.origin;
-    }
+    if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
     return clinic.url;
   }, []);
 
@@ -251,48 +212,24 @@ export default function Team() {
   }, [baseUrl, renderDoctors]);
 
   return (
-    <section
-      id="equipo"
-      aria-labelledby="equipo-heading"
-      className="relative py-10 mt-8 bg-gradient-to-b from-white via-[rgba(0,157,152,0.1)] to-white"
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 -top-6 h-16 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(0,157,152,0.22),rgba(0,157,152,0))]"
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <section id="equipo" aria-labelledby="equipo-heading" className="relative py-10 mt-8 bg-gradient-to-b from-white via-[rgba(0,157,152,0.1)] to-white">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-6 h-16 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(0,157,152,0.22),rgba(0,157,152,0))]" />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div className="container px-4 sm:px-6 lg:px-8">
-        <h2
-          id="equipo-heading"
-          className="mb-8 text-center text-2xl font-bold sm:mb-10 sm:text-3xl"
-          style={{ color: BRAND_PRIMARY }}
-        >
+        <h2 id="equipo-heading" className="mb-8 text-center text-2xl font-bold sm:mb-10 sm:text-3xl" style={{ color: BRAND_PRIMARY }}>
           Nuestro Equipo médico
         </h2>
-        <p className="sr-only">
-          Conoce a nuestro equipo médico de Sanital en Daimiel, Castilla-La
-          Mancha: especialistas colegiados con atención cercana.
-        </p>
+        <p className="sr-only">Conoce a nuestro equipo médico de Sanital en Daimiel, Castilla-La Mancha: especialistas colegiados con atención cercana.</p>
 
-        <ul
-          aria-label="Tarjetas del equipo médico"
-          className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <ul aria-label="Tarjetas del equipo médico" className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {renderDoctors.map((d) => (
             <DoctorCard key={d.slug} d={d} onMore={setActive} />
           ))}
         </ul>
       </div>
-      <DoctorDialog
-        id="doctor-dialog"
-        open={!!active}
-        onClose={() => setActive(null)}
-        doctor={active}
-      />
+      <DoctorDialog id="doctor-dialog" open={!!active} onClose={() => setActive(null)} doctor={active} />
     </section>
   );
 }
+
