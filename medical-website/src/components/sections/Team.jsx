@@ -18,8 +18,8 @@ const DOCTORS = [
   {
     slug: "pablo-carmona",
     name: "Dr. Pablo Carmona Díaz Salazar",
-    role: "Atención primaria",
-    specialty: "Atención Primaria",
+    role: "Especialista en Medicina Familiar y Comunitaria.",
+    specialty: "Especialista en Medicina Familiar y Comunitaria.",
     image:
       "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
   },

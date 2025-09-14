@@ -4,7 +4,7 @@ import SectionTitle from "../common/SectionTitle";
 import Card from "../common/Card";
 
 const testimonials = [
-  { name: "María López",  role: "Paciente", text: "La atención fue excelente, me sentí acompañada en todo momento.", image: "/patient1.jpg", rating: 5 },
+  { name: "María López", role: "Paciente", text: "La atención fue excelente, me sentí acompañada en todo momento.", image: "/patient1.jpg", rating: 5 },
   { name: "Carlos Ramírez", role: "Paciente", text: "Un equipo médico profesional y humano. Muy agradecido.", image: "/patient2.jpg", rating: 4.5 },
   { name: "Laura Sánchez", role: "Paciente", text: "Instalaciones modernas y un trato cercano. 100% recomendable.", image: "/patient3.jpg", rating: 5 },
 ];
@@ -15,11 +15,7 @@ function Stars({ rating = 5 }) {
   const empty = 5 - full - (hasHalf ? 1 : 0);
 
   return (
-    <div
-      className="flex items-center justify-center gap-1"
-      aria-label={`Valoración ${rating} de 5`}
-      title={`Valoración ${rating} / 5`}
-    >
+    <div className="flex items-center justify-center gap-1" aria-label={`Valoración ${rating} de 5`} title={`Valoración ${rating} / 5`}>
       {Array.from({ length: full }).map((_, i) => (
         <Star key={`f${i}`} className="h-4 w-4 fill-accent text-accent" />
       ))}
@@ -62,10 +58,7 @@ const Testimonials = () => {
   return (
     <section id="testimonios" className="relative py-14 md:py-16 bg-background">
       <div className="container mx-auto px-6">
-        <SectionTitle
-          title="Testimonios"
-          subtitle="Lo que nuestros pacientes dicen sobre nosotros"
-        />
+        <SectionTitle title="Testimonios" subtitle="Lo que nuestros pacientes dicen sobre nosotros" />
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mt-10">
           {testimonials.map((t, index) => (
@@ -75,9 +68,7 @@ const Testimonials = () => {
             >
               <Avatar src={t.image} alt={t.name} name={t.name} />
 
-              <p className="mt-4 text-muted-foreground leading-relaxed">
-                “{t.text}”
-              </p>
+              <p className="mt-4 text-muted-foreground leading-relaxed">«{t.text}»</p>
 
               <div className="mt-3">
                 <Stars rating={t.rating} />
@@ -97,5 +88,4 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
-
 

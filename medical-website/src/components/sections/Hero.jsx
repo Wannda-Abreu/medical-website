@@ -1,11 +1,5 @@
-﻿import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  CalendarCheck,
-  ShieldCheck,
-  Users2,
-  CalendarClock,
-  CheckCircle2,
-} from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { CalendarCheck, ShieldCheck, Users2, CalendarClock, CheckCircle2 } from "lucide-react";
 import { useRef } from "react";
 import { cld, cldSrcSet } from "../../utils/cloudinary";
 import ShareButtons from "../common/ShareButtons";
@@ -23,17 +17,9 @@ export default function Hero() {
   };
 
   return (
-    <section
-      id="inicio"
-      className="relative h-screen bg-[#f3f4f6]"
-      /* gray-100 */
-      style={{ ["--hero-bg"]: "#f3f4f6" }}
-    >
+    <section id="inicio" className="relative h-screen bg-[#f3f4f6]" style={{ ["--hero-bg"]: "#f3f4f6" }}>
       {/* Contenedor objetivo también con position: relative */}
-      <div
-        ref={ref}
-        className="relative container grid h-full items-center gap-10 lg:grid-cols-12"
-      >
+      <div ref={ref} className="relative container grid h-full items-center gap-10 lg:grid-cols-12">
         {/* ===== IMAGEN ===== */}
         <motion.div
           className="relative order-1 flex h-full justify-center lg:order-2 lg:col-span-6 lg:justify-end"
@@ -129,33 +115,17 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        <motion.div
-          className="order-2 lg:order-1 lg:col-span-6"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={fadeUp}
-        >
-          <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
-            Cuidado sanitario de calidad cerca de ti
-          </h1>
+        <motion.div className="order-2 lg:order-1 lg:col-span-6" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
+          <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">Cuidado sanitario de calidad cerca de ti</h1>
 
           <h2 className="sr-only">Ventajas de nuestra clínica</h2>
 
           <div className="mt-4 flex flex-col gap-3">
             <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm">
-              <ShieldCheck
-                className="h-4 w-4 text-primary"
-                aria-hidden="true"
-              />
-              <span className="text-sm font-medium text-gray-800">
-                Atención cercana por especialistas colegiados
-              </span>
+              <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
+              <span className="text-sm font-medium text-gray-800">Atención cercana por especialistas colegiados</span>
             </div>
-            <p className="text-gray-600">
-              Ofrecemos una atención médica humana y profesional para ti y tu
-              familia. Reserva online en segundos.
-            </p>
+            <p className="text-gray-600">Ofrecemos una atención médica humana y profesional para ti y tu familia. Reserva online en segundos.</p>
           </div>
 
           <div className="mt-6 hidden flex-wrap items-center gap-4 lg:flex">
@@ -189,10 +159,7 @@ export default function Hero() {
               { icon: CalendarClock, label: "Citas el mismo día" },
               { icon: CheckCircle2, label: "Seguimiento continuo" },
             ].map(({ icon: Icon, label }) => (
-              <li
-                key={label}
-                className="flex items-center gap-2 rounded-md bg-primary/5 px-3 py-2 text-gray-800 transition-colors hover:bg-primary/10"
-              >
+              <li key={label} className="flex items-center gap-2 rounded-md bg-primary/5 px-3 py-2 text-gray-800 transition-colors hover:bg-primary/10">
                 <Icon className="h-4 w-4 text-primary" aria-hidden="true" />
                 <span>{label}</span>
               </li>
@@ -203,3 +170,4 @@ export default function Hero() {
     </section>
   );
 }
+
