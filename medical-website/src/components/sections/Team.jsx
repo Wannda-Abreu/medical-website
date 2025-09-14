@@ -2,7 +2,7 @@ import { useMemo, useState, memo } from "react";
 import { motion } from "framer-motion";
 import { CalendarCheck, Info, Stethoscope } from "lucide-react";
 import DoctorDialog from "../common/DoctorDialog";
-import { cld } from "../../utils/cloudinary";
+import { cld, srcset } from "@/lib/cld";
 
 const BRAND_PRIMARY = "#009D98";
 const BRAND_ACCENT = "#AFCA0B";
@@ -33,11 +33,9 @@ const DOCTORS = [
 
 const ORDER = ["pablo-carmona", "diana-storinoz", "mirko-solano"];
 
-const widths = [320, 480, 640, 960, 1280];
-
 function buildSrcSets(imageUrl) {
-  const src = cld(imageUrl, 640);
-  const srcSet = widths.map((w) => `${cld(imageUrl, w)} ${w}w`).join(", ");
+  const src = cld(imageUrl, 640, true);
+  const srcSet = srcset(imageUrl, [360, 480, 640], true);
   return { src, srcSet };
 }
 
@@ -80,7 +78,7 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
             <motion.img
               src={src}
               srcSet={srcSet}
-              sizes="(min-width: 640px) 26rem, 90vw"
+              sizes="(min-width: 640px) 416px, 90vw"
               alt={`${d.name}, ${d.role}`}
               itemProp="image"
               loading="lazy"
@@ -232,4 +230,3 @@ export default function Team() {
     </section>
   );
 }
-

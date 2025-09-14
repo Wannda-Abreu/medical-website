@@ -38,10 +38,10 @@ export default function Hero() {
                 )}
                 srcSet={srcset(
                   "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png",
-                  [640, 1200, 1600],
+                  [640, 960, 1200, 1600],
                   true
                 )}
-                sizes={sizesFor(1200)}
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 alt="Profesional sanitaria sonriendo con paciente en consulta"
                 className="h-full w-full object-cover"
                 width={1200}
