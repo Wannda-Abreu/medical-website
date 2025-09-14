@@ -25,6 +25,22 @@
       ],
       "destination": "https://www.sanital.es/:path*",
       "permanent": true
+    },
+    {
+      "source": "/sobre",
+      "destination": "/sobre-nosotros",
+      "permanent": true
+    },
+    {
+      "source": "/sobre-nosotros/",
+      "destination": "/sobre-nosotros",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!.*\\..*).*)",
+      "destination": "/index.html"
     }
   ]
 }
