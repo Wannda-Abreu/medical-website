@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import Navbar from "./components/layout/Navbar";
-import Hero from "./components/sections/Hero";
-import Services from "./components/sections/Services";
-import Team from "./components/sections/Team";
-import Testimonial from "./components/sections/Testimonial";
-import Contact from "./components/sections/Contact";
-import Footer from "./components/layout/Footer";
-import Benefits from "./components/sections/Benefits";
-import Intro from "./components/sections/Intro";
-import StickyCTA from "./components/layout/StickyCTA";
-import SplashScreen from "./components/layout/SplashScreen";
-import SkipLink from "./components/layout/SkipLink";
-import LegalModal from "./components/legal/LegalModal";
+import Navbar from "../components/layout/Navbar";
+import Hero from "../components/sections/Hero";
+import Services from "../components/sections/Services";
+import Team from "../components/sections/Team";
+import Testimonial from "../components/sections/Testimonial";
+import Contact from "../components/sections/Contact";
+import Footer from "../components/layout/Footer";
+import Benefits from "../components/sections/Benefits";
+import Intro from "../components/sections/Intro";
+import StickyCTA from "../components/layout/StickyCTA";
+import SplashScreen from "../components/layout/SplashScreen";
+import SkipLink from "../components/layout/SkipLink";
+import LegalModal from "../components/legal/LegalModal";
 
-function App() {
+export default function Home() {
   const [route, setRoute] = useState(
     typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : ""
   );
@@ -74,4 +74,3 @@ function App() {
   );
 }
 
-export default App;
