@@ -4,8 +4,8 @@ import Hero from "../components/sections/Hero";
 import React, { Suspense } from "react";
 const Services = React.lazy(() => import("../components/sections/Services"));
 const Team = React.lazy(() => import("../components/sections/Team"));
-import Testimonial from "../components/sections/Testimonial";
-import Contact from "../components/sections/Contact";
+const Testimonial = React.lazy(() => import("../components/sections/Testimonial"));
+const Contact = React.lazy(() => import("../components/sections/Contact"));
 import Footer from "../components/layout/Footer";
 import Benefits from "../components/sections/Benefits";
 import Intro from "../components/sections/Intro";
@@ -60,8 +60,12 @@ export default function Home() {
         <Suspense fallback={null}>
           <Team />
         </Suspense>
-        <Testimonial />
-        <Contact />
+        <Suspense fallback={null}>
+          <Testimonial />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Contact />
+        </Suspense>
       </main>
 
       <Footer />

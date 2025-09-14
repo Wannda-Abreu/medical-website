@@ -26,7 +26,7 @@ const DOCTORS = [
     slug: "mirko-solano",
     name: "Dr. Mirko Solano",
     role: "Cirujano",
-    specialty: "Cirugía",
+    specialty: "Cirugía general",
     image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png",
   },
 ];

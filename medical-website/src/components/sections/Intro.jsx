@@ -22,9 +22,10 @@ export default function Intro() {
             >
               página Sobre Nosotros
             </a>
-        </div>
+            .
+          </p>
+        </header>
       </div>
-          </div>
     </section>
   );
 }
