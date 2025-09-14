@@ -1,11 +1,4 @@
 import { useEffect, useState } from "react";
-
-/**
- * Simple consent guard for third‑party embeds.
- * - typeKey: key in localStorage cookie-consent (e.g. "embeds")
- * - placeholder: React node to render when blocked (optional)
- * - buttonLabel: CTA text to enable (optional)
- */
 export default function EmbedGuard({
   typeKey = "embeds",
   children,
@@ -19,7 +12,8 @@ export default function EmbedGuard({
       const v = localStorage.getItem("cookie-consent");
       if (!v) return setAllowed(true);
       const p = JSON.parse(v);
-      if (p && typeof p === "object" && typeKey in p) return setAllowed(!!p[typeKey]);
+      if (p && typeof p === "object" && typeKey in p)
+        return setAllowed(!!p[typeKey]);
       setAllowed(true);
     } catch {
       setAllowed(true);
@@ -56,4 +50,3 @@ export default function EmbedGuard({
     </div>
   );
 }
-
