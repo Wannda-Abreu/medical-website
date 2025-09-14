@@ -1,5 +1,7 @@
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import { Helmet } from "react-helmet-async";
+import TeamBanner from "../components/TeamBanner";
 
 export default function SobreNosotros() {
   const heroUrl =
@@ -44,7 +46,15 @@ export default function SobreNosotros() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-10 max-w-5xl">
+      <main className="container mx-auto px-4 py-10 max-w-6xl">
+        <Helmet>
+          <title>Sobre nosotros | Sanital</title>
+          <link rel="canonical" href="https://www.sanital.es/sobre-nosotros" />
+          <meta name="description" content="Conoce la historia, el equipo y la forma de trabajar de Clínica Sanital en Daimiel. Atención cercana, especialistas colegiados y cita online." />
+        </Helmet>
+
+        <TeamBanner />
+
         <section className="prose prose-zinc max-w-none prose-p:leading-7">
           <h2 className="text-2xl font-semibold text-gray-900">Qué encontrarás en nuestra clínica</h2>
           <p>
