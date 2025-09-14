@@ -50,7 +50,7 @@ export default function Home() {
       <SplashScreen />
       <SkipLink />
       <Navbar />
-      <main id="main" className="relative pb-24 sm:pb-28">
+      <main id="main" className="relative pb-36 sm:pb-40">
         <Hero />
         <Intro />
         <Benefits />

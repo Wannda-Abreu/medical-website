@@ -31,7 +31,7 @@ export default function StickyCTA({
     if (!footer) return;
     const io = new IntersectionObserver(
       ([entry]) => setHide(entry.isIntersecting),
-      { root: null, threshold: 0, rootMargin: "0px 0px 360px 0px" }
+      { root: null, threshold: 0, rootMargin: "0px 0px 600px 0px" }
     );
     io.observe(footer);
     return () => io.disconnect();

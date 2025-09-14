@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X, CalendarCheck } from "lucide-react";
-import { useScrollLock } from "../../utils/scrollLock";
+import { useScrollLock, unlockScroll } from "../../utils/scrollLock";
 import Button from "../common/Button";
 import { cld, srcset } from "@/lib/cld";
 
@@ -140,7 +140,7 @@ const Navbar = () => {
             <a
               key={href}
               href={href}
-              onClick={() => setOpen(false)}
+              onClick={() => { setOpen(false); try { unlockScroll("navbar"); } catch {} }}
               className={`inline-flex w-full max-w-sm justify-center rounded-lg px-4 py-3 text-center text-[16px] font-medium text-gray-800 transition-all hover:text-primary hover:bg-primary/10 hover:shadow-sm hover:shadow-primary/15 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
                 active === href ? "text-primary bg-primary/10" : ""
               }`}
