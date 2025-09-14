@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, useEffect } from "react";
+﻿import { useMemo, useRef, usestáte, useEffect } from "react";
 import { useScrollLock } from "../../utils/scrollLock";
 import { useFocusTrap } from "../../utils/focusTrap";
 import { useGlobalInert } from "../../utils/globalInert";
@@ -12,18 +12,18 @@ const CLINIC = {
   name: "Sanital",
   email: "sanital.salud@gmail.com",
   phone: "+34 619 18 26 80",
-  addressLabel: "Calle Orquídea 20, CP  13250 Daimiel",
-  mapQuery: "Calle Orquídea 20, CP  13250 Daimiel",
+  addressLabel: "Calle Orquídea 20, CP 13250 Daimiel",
+  mapQuery: "Calle Orquídea 20, CP 13250 Daimiel",
   logo: "https://res.cloudinary.com/dfq9eaz2e/image/upload/f_auto,q_auto,c_fill,w_720/v1755632835/logo_gjf9dn.png",
 };
 
 export default function Contact() {
-  const [formLoads, setFormLoads] = useState(0);
-  const [showThanks, setShowThanks] = useState(false);
+  const [formLoads, setFormLoads] = usestáte(0);
+  const [showThanks, setShowThanks] = usestáte(false);
   useEffect(() => {
     if (formLoads >= 2) setShowThanks(true);
   }, [formLoads]);
-  const [embedsAllowed, setEmbedsAllowed] = useState(true);
+  const [embedsAllowed, setEmbedsAllowed] = usestáte(true);
   useEffect(() => {
     try {
       const v = localStorage.getItem("cookie-consent");
@@ -36,9 +36,9 @@ export default function Contact() {
     try { localStorage.setItem("cookie-consent", JSON.stringify({ v: 1, embeds: true, t: Date.now() })); } catch {}
     setEmbedsAllowed(true);
   };
-  const [sending, setSending] = useState(false);
-  const [status, setStatus] = useState(null);
-  const [errors, setErrors] = useState({ name: "", email: "", message: "" });
+  const [sending, setSending] = usestáte(false);
+  const [status, setStatus] = usestáte(null);
+  const [errors, setErrors] = usestáte({ name: "", email: "", message: "" });
   const formRef = useRef(null);
   const thanksRef = useRef(null);
   const openerRef = useRef(null);
@@ -56,7 +56,7 @@ export default function Contact() {
     return () => document.removeEventListener("keydown", onKey);
   }, [status]);
 
-  // Capture opener and restore focus on close
+  // Capture opener and restáre focus on close
   useEffect(() => {
     const isOpen = !!status?.ok;
     if (isOpen) {
@@ -74,7 +74,7 @@ export default function Contact() {
     const e = { name: "", email: "", message: "" };
     if (!payload.name.trim()) e.name = "Introduce tu nombre";
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRe.test(payload.email)) e.email = "Email no válido";
+    if (!emailRe.testápayload.email)) e.email = "Email no válido";
     if (!payload.message.trim() || payload.message.trim().length < 10)
       e.message = "Escribe al menos 10 caracteres";
     setErrors(e);
@@ -125,7 +125,7 @@ export default function Contact() {
       if (json?.ok) {
         setStatus({
           ok: true,
-          msg: "¡Mensaje enviado! Te responderemos pronto.",
+          msg: "Â¡Mensaje enviado! Te responderemos pronto.",
         });
         formEl.reset();
         setErrors({ name: "", email: "", message: "" });
@@ -140,7 +140,7 @@ export default function Contact() {
     } catch (err) {
       setStatus({
         ok: false,
-        msg: err?.message || "No hay conexión. Intenta otra vez.",
+        msg: err?.message || "No hay conexiÃ³n. Intenta otra vez.",
       });
     } finally {
       setSending(false);
@@ -152,7 +152,7 @@ export default function Contact() {
       <div className="container mx-auto px-2 md:px-3">
         <SectionTitle
           title="Contáctanos"
-          subtitle="Estamos aquí para ayudarte. Escríbenos y te responderemos pronto."
+          subtitle="estámos aquí
         />
 
         <div className="mt-2 grid gap-5 lg:grid-cols-3 items-stretch">
@@ -271,7 +271,7 @@ export default function Contact() {
                 className="mt-auto inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 font-semibold text-white shadow-sm transition hover:bg-primary-700 disabled:opacity-60"
                 aria-label="Enviar mensaje de contacto"
               >
-                {sending ? "Enviando…" : "Enviar Mensaje"}
+                {sending ? "Enviandoâ€¦" : "Enviar Mensaje"}
               </button>
             </form>
           </Card>
@@ -307,15 +307,15 @@ export default function Contact() {
           <Card className="p-3 md:p-10 h-full flex flex-col items-center justify-center gap-5">
             <img
               src={CLINIC.logo}
-              alt="Sanital — logotipo"
+              alt=\"Sanital · logotipo\"
               className="h-12 w-auto opacity-90"
               loading="lazy"
               decoding="async"
             />
             <p className="max-w-[44ch]  text-[15px] text-gray-700 mt-8">
               En <strong>Sanital</strong> creemos en un modelo de salud humano,
-              accesible y profesional. Nuestro equipo médico está comprometido a
-              garantizar atención cercana y de calidad. Tu bienestar es nuestra
+              accesible y profesional. Nuestáo equipo mÃ©dico está¡ comprometido a
+              garantizar atenciónuestáa
               prioridad, trabajamos con dedicación para cuidar de ti y de los
               tuyos.
             </p>
@@ -379,17 +379,17 @@ export default function Contact() {
           >
             <div className="absolute -top-6 left-1/2 -translate-x-1/2">
               <div className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-r from-primary to-primary-700 text-white shadow-md">
-                ✓
+                âœ“
               </div>
             </div>
             <h3
               id="thanks-title"
               className="mt-4 text-xl font-semibold text-gray-900 text-center"
             >
-              ¡Gracias! Hemos recibido tu mensaje
+              Â¡Gracias! Hemos recibido tu mensaje
             </h3>
             <p className="mt-2 text-center text-sm text-gray-700">
-              Te contactaremos lo antes posible. También puedes escribirnos por
+              Te contactaremos lo antes posible. Tambiénos por
               WhatsApp o llamar si lo prefieres.
             </p>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
@@ -415,3 +415,4 @@ export default function Contact() {
     </section>
   );
 }
+
