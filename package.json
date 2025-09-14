@@ -1,0 +1,8 @@
+{
+  "name": "medical-website-root",
+  "private": true,
+  "scripts": {
+    "build": "cd medical-website && npm ci && npm run build",
+    "vercel-build": "npm run build"
+  }
+}
