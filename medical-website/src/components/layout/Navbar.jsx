@@ -41,7 +41,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="sticky top-0 z-30 w-full overflow-visible border-b border-gray-200 bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-50 w-full overflow-visible border-b border-gray-200 bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex items-center justify-between px-0 py-0 md:py-0">
         <a
           href="/#inicio"
@@ -121,7 +121,7 @@ const Navbar = () => {
       {open && (
         <nav
           id="mobile-menu"
-          className="absolute inset-x-0 top-full z-40 flex flex-col items-center gap-3 border-t border-gray-200 bg-white/95 px-6 py-6 backdrop-blur-md md:hidden"
+          className="fixed inset-x-0 top-20 z-40 flex max-h-[calc(100vh-5rem)] flex-col overflow-y-auto items-center gap-3 border-t border-gray-200 bg-white/95 px-6 py-6 backdrop-blur-md md:hidden"
           aria-label="Navegación móvil"
         >
           {menuItems.map(({ label, href }) => (
@@ -159,4 +159,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
