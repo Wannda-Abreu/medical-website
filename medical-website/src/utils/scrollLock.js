@@ -1,6 +1,3 @@
-// Simple key-based scroll lock with reference counting
-// Locks both html and body overflow, restoring previous values when last lock is released
-
 import { useEffect } from "react";
 
 let locks = new Set();
@@ -42,4 +39,3 @@ export function useScrollLock(enabled, key = "default") {
     return () => unlockScroll(key);
   }, [enabled, key]);
 }
-
