@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react";
-import { Menu, X, CalendarCheck } from "lucide-react";
+﻿import { useEffect, useState } from "react";
+import { menú, X, CalendarCheck } from "lucide-react";
 import { useScrollLock } from "../../utils/scrollLock";
 import Button from "../common/Button";
 import { cld, cldSrcSet } from "../../utils/cloudinary";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("#inicio");
+  const [active, setActive] = useState("/#inicio");
 
-  const menuItems = [
-    { label: "Inicio", href: "#inicio" },
-    { label: "Servicios", href: "#servicios" },
-    { label: "Equipo", href: "#equipo" },
+  const menúItems = [
+    { label: "Inicio", href: "/#inicio" },
+    { label: "Servicios", href: "/#servicios" },
+    { label: "Equipo", href: "/#equipo" },
     { label: "Sobre nosotros", href: "/sobre-nosotros" },
-    { label: "Pacientes", href: "#testimonios" },
-    { label: "Contacto", href: "#contacto" },
+    { label: "Pacientes", href: "/#testimonios" },
+    { label: "Contacto", href: "/#contacto" },
   ];
 
   useScrollLock(open, "navbar");
 
   useEffect(() => {
-    const ids = menuItems.map((m) => m.href.replace("#", ""));
+    const ids = menúItems.filter(m => m.href.startsWith('/#')).map((m) => m.href.replace("/#", ""));
     const sections = ids
-      .map((id) => document.getElementById(id))
+      .map((id) => documenú.getElemenúById(id))
       .filter(Boolean);
     if (sections.length === 0) return;
 
@@ -44,7 +44,7 @@ const Navbar = () => {
     <header className="sticky top-0 z-30 w-full overflow-visible border-b border-gray-200 bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex items-center justify-between px-0 py-0 md:py-0">
         <a
-          href="#inicio"
+          href="/#inicio"
           className="group -my-3 md:-my-6 ml-3 md:ml-0 flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
           aria-label="Ir al inicio"
         >
@@ -70,7 +70,7 @@ const Navbar = () => {
           className="hidden md:flex items-center gap-7 lg:gap-8 text-[15px] lg:text-[17px] font-medium text-gray-800"
           aria-label="Navegación principal"
         >
-          {menuItems.map(({ label, href }) => (
+          {menúItems.map(({ label, href }) => (
             <a
               key={href}
               href={href}
@@ -110,21 +110,21 @@ const Navbar = () => {
         <button
           className="md:hidden rounded-md p-2 text-gray-700 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
           onClick={() => setOpen(!open)}
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          aria-label={open ? "Cerrar menúº" : "Abrir menúº"}
           aria-expanded={open}
-          aria-controls="mobile-menu"
+          aria-controls="mobile-menú"
         >
-          {open ? <X size={28} /> : <Menu size={28} />}
+          {open ? <X size={28} /> : <menú size={28} />}
         </button>
       </div>
 
       {open && (
         <nav
-          id="mobile-menu"
+          id="mobile-menú"
           className="absolute inset-x-0 top-full z-40 flex flex-col items-center gap-3 border-t border-gray-200 bg-white/95 px-6 py-6 backdrop-blur-md md:hidden"
           aria-label="Navegación móvil"
         >
-          {menuItems.map(({ label, href }) => (
+          {menúItems.map(({ label, href }) => (
             <a
               key={href}
               href={href}
@@ -159,3 +159,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
