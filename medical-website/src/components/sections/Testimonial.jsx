@@ -17,9 +17,9 @@ function Stars({ rating = 5 }) {
   return (
     <div className="flex items-center justify-center gap-1" aria-label={`Valoración ${rating} de 5`} title={`Valoración ${rating} / 5`}>
       {Array.from({ length: full }).map((_, i) => (
-        <Star key={`f${i}`} className="h-4 w-4 fill-accent text-accent" />
+        <Star key={`f${i}`} className="h-4 w-4 fill-[#0b7f52] text-[#0b7f52]" />
       ))}
-      {hasHalf && <StarHalf className="h-4 w-4 fill-accent text-accent" />}
+      {hasHalf && <StarHalf className="h-4 w-4 fill-[#0b7f52] text-[#0b7f52]" />}
       {Array.from({ length: empty }).map((_, i) => (
         <Star key={`e${i}`} className="h-4 w-4 text-accent/30" />
       ))}
@@ -68,17 +68,17 @@ const Testimonials = () => {
             >
               <Avatar src={t.image} alt={t.name} name={t.name} />
 
-              <p className="mt-4 text-muted-foreground leading-relaxed">«{t.text}»</p>
+              <p className="mt-4 text-[#0b3b39] leading-relaxed">«{t.text}»</p>
 
               <div className="mt-3">
                 <Stars rating={t.rating} />
               </div>
 
               <h3 className="mt-4 text-lg font-semibold flex items-center justify-center gap-2">
-                <User2 className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
+                <User2 className="w-4 h-4 text-[#0b3b39]" aria-hidden="true" />
                 {t.name}
               </h3>
-              <p className="text-sm text-muted-foreground">{t.role}</p>
+              <p className="text-sm text-[#0b3b39]">{t.role}</p>
             </Card>
           ))}
         </div>
@@ -88,4 +88,5 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
+
 

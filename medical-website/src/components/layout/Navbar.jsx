@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, CalendarCheck } from "lucide-react";
 import { useScrollLock } from "../../utils/scrollLock";
 import Button from "../common/Button";
-import { cld, cldSrcSet } from "../../utils/cloudinary";
+import { cld, srcset } from "@/lib/cld";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -62,20 +62,17 @@ const Navbar = () => {
           aria-label="Ir al inicio"
         >
           <img
-            src={cld(
-              "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757204734/Untitled_design_27_jtcfh3.png",
-              720
-            )}
-            srcSet={cldSrcSet(
-              "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757204734/Untitled_design_27_jtcfh3.png",
-              [360, 540, 720]
-            ).srcSet}
-            sizes="(min-width: 768px) 576px, 320px"
-            alt="Sanital - Logo"
+            src={cld("https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757204734/Untitled_design_27_jtcfh3.png", 320, true)}
+            srcSet={srcset("https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757204734/Untitled_design_27_jtcfh3.png", [240, 320, 480], true)}
+            sizes="288px"
+            alt="Sanital"
             width="360"
             height="144"
             className="h-[5rem] w-auto md:h-[8.5rem] drop-shadow-sm will-change-transform transition-all duration-200 ease-out group-hover:scale-[1.05] group-hover:drop-shadow-md group-active:scale-[1.01]"
             decoding="async"
+            loading="eager"
+            fetchPriority="high"
+            draggable="false"
           />
         </a>
 

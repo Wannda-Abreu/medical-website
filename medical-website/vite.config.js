@@ -39,6 +39,11 @@ const sitemapPlugin = () => ({
 
 export default defineConfig({
   plugins: [react(), sitemapPlugin()],
+  resolve: {
+    alias: {
+      '@': path.resolve(process.cwd(), 'src')
+    }
+  },
   base: './',
   server: {
     proxy: target

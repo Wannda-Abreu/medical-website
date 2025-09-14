@@ -1,8 +1,4 @@
-const TX = "f_auto,q_auto,dpr_auto";
-function cld(url: string, w: number) {
-  const inject = `/upload/${TX},w_${w}/`;
-  return url.replace(/\/upload\/.*?\//, inject);
-}
+import { cld, srcset } from "@/lib/cld";
 
 type Img = { src: string; alt: string };
 
@@ -60,7 +56,9 @@ export default function HorizontalMosaicFullWidth({
               >
                 {isImg ? (
                   <img
-                    src={cld(images[imgIdx].src, 1200)}
+                    src={cld(images[imgIdx].src, 720, true)}
+                    srcSet={srcset(images[imgIdx].src, [360, 480, 720], true)}
+                    sizes="(min-width:1024px) 30vw, 50vw"
                     alt={images[imgIdx++].alt}
                     className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-[1.03] motion-reduce:transform-none"
                     loading={i === 0 ? "eager" : "lazy"}

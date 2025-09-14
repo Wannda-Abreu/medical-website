@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { CalendarCheck, ShieldCheck, Users2, CalendarClock, CheckCircle2 } from "lucide-react";
 import { useRef } from "react";
-import { cld, cldSrcSet } from "../../utils/cloudinary";
+import { cld, srcset, sizesFor } from "@/lib/cld";
 import ShareButtons from "../common/ShareButtons";
 
 export default function Hero() {
@@ -33,13 +33,15 @@ export default function Hero() {
               <img
                 src={cld(
                   "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png",
-                  1200
+                  1200,
+                  true
                 )}
-                srcSet={cldSrcSet(
+                srcSet={srcset(
                   "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png",
-                  [640, 960, 1200, 1600]
-                ).srcSet}
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                  [640, 1200, 1600],
+                  true
+                )}
+                sizes={sizesFor(1200)}
                 alt="Profesional sanitaria sonriendo con paciente en consulta"
                 className="h-full w-full object-cover"
                 width={1200}
@@ -114,7 +116,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        <motion.div className="order-2 lg:order-1 lg:col-span-6" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
+        <motion.div className="order-2 lg:order-1 lg:col-span-6" initial={typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? undefined : 'hidden'} whileInView={typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? undefined : 'show'} viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
           <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">Cuidado sanitario de calidad cerca de ti</h1>
 
           <h2 className="sr-only">Ventajas de nuestra clínica</h2>
@@ -169,4 +171,3 @@ export default function Hero() {
     </section>
   );
 }
-

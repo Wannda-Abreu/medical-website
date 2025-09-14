@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/layout/Navbar";
 import Hero from "../components/sections/Hero";
-import Services from "../components/sections/Services";
-import Team from "../components/sections/Team";
+import React, { Suspense } from "react";
+const Services = React.lazy(() => import("../components/sections/Services"));
+const Team = React.lazy(() => import("../components/sections/Team"));
 import Testimonial from "../components/sections/Testimonial";
 import Contact from "../components/sections/Contact";
 import Footer from "../components/layout/Footer";
@@ -53,8 +54,12 @@ export default function Home() {
         <Hero />
         <Intro />
         <Benefits />
-        <Services />
-        <Team />
+        <Suspense fallback={null}>
+          <Services />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Team />
+        </Suspense>
         <Testimonial />
         <Contact />
       </main>
@@ -73,4 +78,3 @@ export default function Home() {
     </div>
   );
 }
-

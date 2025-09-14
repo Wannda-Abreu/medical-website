@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { useEffect, useState } from "react";
-import Home from "./pages/Home";
-import SobreNosotros from "./pages/SobreNosotros";
+import React, { Suspense } from "react";
+const Home = React.lazy(() => import("./pages/Home"));
+const SobreNosotros = React.lazy(() => import("./pages/SobreNosotros"));
 import LegalModal from "./components/legal/LegalModal";
 
 function GlobalShell() {
@@ -28,10 +29,12 @@ function GlobalShell() {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+        </Routes>
+      </Suspense>
       {showLegal && (
         <LegalModal
           type={legalType}

@@ -2,38 +2,29 @@ import ShareButtons from "../common/ShareButtons";
 
 export default function Intro() {
   return (
-    <section id="intro" className="relative bg-white py-10 md:py-14">
-      <div className="container mx-auto px-3 md:px-4 max-w-5xl">
-        <header className="mb-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Tu salud, nuestra prioridad.</h2>
-          <p className="mt-2 text-[15px] text-gray-700">
-            En <strong>Clínica Sanital</strong> ofrecemos un modelo de atención cercano y profesional. Conoce más sobre nuestra forma de trabajar y
-            nuestro equipo en la página sobre nosotros.
-          </p>
-        </header>
+    <section id="intro" className="relative bg-white py-10 md:py-12">
+      <div className="container mx-auto px-6 max-w-6xl">
+        <header className="mb-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+            Tu salud, nuestra prioridad
+          </h2>
 
-        <div className="mt-5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-          <a
-            href="https://booking.slotspot.app/sanital"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-[#009D98] hover:bg-[#007E7A] px-4 py-2.5 text-[15px] font-semibold text-white shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#009D98]"
-          >
-            Reservar cita ahora
-          </a>
-          <a
-            href="/sobre-nosotros"
-            className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg px-3 py-2 text-[15px] font-semibold text-[#009D98] hover:underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#009D98]"
-          >
-            Saber más
-          </a>
-        </div>
-
-        <div className="mt-3">
-          <ShareButtons className="text-sm" text="Clínica Sanital · Especialistas en Ciudad Real" />
+          <p className="mt-4 text-base md:text-lg leading-relaxed text-gray-700 max-w-4xl mx-auto">
+            En <strong>Clínica Sanital</strong> ofrecemos un modelo de atención
+            <strong> cercano, profesional y multidisciplinar</strong>, pensado
+            para que cada paciente se sienta escuchado y acompañado. Nos
+            centramos en la <strong>prevención</strong> y el
+            <strong> seguimiento personalizado</strong>. Conoce nuestra forma de
+            trabajar y a nuestro equipo en la&nbsp;
+            <a
+              href="/sobre-nosotros"
+              className="text-primary font-semibold hover:underline underline-offset-2"
+            >
+              página Sobre Nosotros
+            </a>
         </div>
       </div>
+          </div>
     </section>
   );
 }
-
