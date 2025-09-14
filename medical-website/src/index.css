@@ -89,6 +89,28 @@
   .tap-highlight-none {
     -webkit-tap-highlight-color: transparent;
   }
+  .animate-slideDownFade {
+    animation: slideDownFade 200ms ease-out both;
+  }
+  .animate-fadeIn {
+    animation: fadeIn 200ms ease-out both;
+  }
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .sticky-cta .btn-primary {

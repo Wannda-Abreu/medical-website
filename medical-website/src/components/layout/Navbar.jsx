@@ -40,6 +40,19 @@ const Navbar = () => {
     return () => io.disconnect();
   }, []);
 
+  // Smooth enter animation for mobile menu/overlay
+  const [anim, setAnim] = useState(false);
+  useEffect(() => {
+    if (open) {
+      const t = setTimeout(() => setAnim(true), 0);
+      return () => {
+        clearTimeout(t);
+        setAnim(false);
+      };
+    }
+    setAnim(false);
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 w-full overflow-visible border-b border-gray-200 bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex items-center justify-between px-0 py-0 md:py-0">
@@ -101,7 +114,7 @@ const Navbar = () => {
             size="md"
             className="gap-2 px-5 py-2.5 text-[15px] lg:text-[16px] hover:scale-[1.05] hover:shadow-lg active:scale-100"
             aria-label="Agendar cita"
-            role="dialog" aria-modal="true">
+          >
             <CalendarCheck className="h-5 w-5" />
             Agendar Cita
           </Button>
@@ -120,10 +133,10 @@ const Navbar = () => {
 
       {open && (
         <>
-          <div className="fixed inset-0 top-20 z-30 bg-black/30 backdrop-blur-sm md:hidden" onClick={() => setOpen(false)} aria-hidden="true" />
+          <div className={`fixed inset-0 top-20 z-30 md:hidden bg-black/30 backdrop-blur-sm transition-opacity duration-200 ${anim ? "opacity-100" : "opacity-0"}`} onClick={() => setOpen(false)} aria-hidden="true" />
         <nav
           id="mobile-menu"
-          className="fixed inset-x-0 top-20 z-40 flex max-h-[calc(100vh-5rem)] flex-col overflow-y-auto items-center gap-3 border-t border-gray-200 bg-white/95 px-6 py-6 backdrop-blur-md md:hidden"
+          className="fixed inset-x-0 top-20 z-40 flex max-h-[calc(100vh-5rem)] flex-col overflow-y-auto items-center gap-3 border-t border-gray-200 bg-white/95 px-6 py-6 backdrop-blur-md md:hidden animate-slideDownFade"
           aria-label="Navegación móvil"
         >
           {menuItems.map(({ label, href }) => (
@@ -162,3 +175,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
