@@ -1,4 +1,7 @@
 {
+  "installCommand": "cd medical-website && npm ci",
+  "buildCommand": "cd medical-website && npm run build",
+  "outputDirectory": "medical-website/dist",
   "headers": [
     {
       "source": "/(.*)\\.(js|css|png|jpg|jpeg|webp|svg)",
