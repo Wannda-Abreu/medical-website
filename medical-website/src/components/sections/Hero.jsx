@@ -18,7 +18,6 @@ export default function Hero() {
 
   return (
     <section id="inicio" className="relative h-screen bg-[#f3f4f6]" style={{ ["--hero-bg"]: "#f3f4f6" }}>
-      {/* Contenedor objetivo también con position: relative */}
       <div ref={ref} className="relative container grid h-full items-center gap-10 lg:grid-cols-12">
         {/* ===== IMAGEN ===== */}
         <motion.div
