@@ -19,25 +19,27 @@ export default function SobreNosotros() {
         }}
       >
         <div className="container mx-auto px-4 py-16 md:py-20 lg:py-24 text-white">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Sobre nosotros</h1>
-          <p className="mt-3 max-w-2xl text-[15px] md:text-base text-white/90">
-            Conoce la historia, el equipo y nuestra forma de trabajar. Atención cercana, especialistas colegiados y cita online.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="https://booking.slotspot.app/sanital"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg bg-[#009D98] hover:bg-[#007E7A] px-5 py-2.5 text-white font-semibold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-            >
-              Agendar cita
-            </a>
-            <a
-              href="/#contacto"
-              className="inline-flex items-center justify-center rounded-lg border border-white/60 px-5 py-2.5 text-white font-semibold hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-            >
-              Contacto
-            </a>
+          <div className="inline-block max-w-2xl rounded-2xl bg-black/35 backdrop-blur px-5 py-4 ring-1 ring-white/20">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Sobre nosotros</h1>
+            <p className="mt-3 text-[15px] md:text-base text-white/90">
+              Conoce la historia, el equipo y nuestra forma de trabajar. Atención cercana, especialistas colegiados y cita online.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="https://booking.slotspot.app/sanital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-lg bg-[#009D98] hover:bg-[#007E7A] px-5 py-2.5 text-white font-semibold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              >
+                Agendar cita
+              </a>
+              <a
+                href="/#contacto"
+                className="inline-flex items-center justify-center rounded-lg border border-white/60 px-5 py-2.5 text-white font-semibold hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              >
+                Contacto
+              </a>
+            </div>
           </div>
         </div>
       </header>
