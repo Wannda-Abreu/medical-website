@@ -1,5 +1,5 @@
 {
-  "installCommand": "cd medical-website && npm ci",
+  "installCommand": "cd medical-website && npm ci --legacy-peer-deps",
   "buildCommand": "cd medical-website && npm run build",
   "outputDirectory": "medical-website/dist",
   "headers": [
