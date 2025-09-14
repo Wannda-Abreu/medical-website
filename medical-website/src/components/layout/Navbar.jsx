@@ -1,5 +1,5 @@
-﻿import { useEffect, useState } from "react";
-import { menú, X, CalendarCheck } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Menu, X, CalendarCheck } from "lucide-react";
 import { useScrollLock } from "../../utils/scrollLock";
 import Button from "../common/Button";
 import { cld, cldSrcSet } from "../../utils/cloudinary";
@@ -8,7 +8,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("/#inicio");
 
-  const menúItems = [
+  const menuItems = [
     { label: "Inicio", href: "/#inicio" },
     { label: "Servicios", href: "/#servicios" },
     { label: "Equipo", href: "/#equipo" },
@@ -20,10 +20,10 @@ const Navbar = () => {
   useScrollLock(open, "navbar");
 
   useEffect(() => {
-    const ids = menúItems.filter(m => m.href.startsWith('/#')).map((m) => m.href.replace("/#", ""));
-    const sections = ids
-      .map((id) => documenú.getElemenúById(id))
-      .filter(Boolean);
+    const ids = menuItems
+      .filter((m) => m.href.startsWith("/#"))
+      .map((m) => m.href.replace("/#", ""));
+    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
     if (sections.length === 0) return;
 
     const io = new IntersectionObserver(
@@ -70,7 +70,7 @@ const Navbar = () => {
           className="hidden md:flex items-center gap-7 lg:gap-8 text-[15px] lg:text-[17px] font-medium text-gray-800"
           aria-label="Navegación principal"
         >
-          {menúItems.map(({ label, href }) => (
+          {menuItems.map(({ label, href }) => (
             <a
               key={href}
               href={href}
@@ -110,21 +110,21 @@ const Navbar = () => {
         <button
           className="md:hidden rounded-md p-2 text-gray-700 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
           onClick={() => setOpen(!open)}
-          aria-label={open ? "Cerrar menúº" : "Abrir menúº"}
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={open}
-          aria-controls="mobile-menú"
+          aria-controls="mobile-menu"
         >
-          {open ? <X size={28} /> : <menú size={28} />}
+          {open ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
       {open && (
         <nav
-          id="mobile-menú"
+          id="mobile-menu"
           className="absolute inset-x-0 top-full z-40 flex flex-col items-center gap-3 border-t border-gray-200 bg-white/95 px-6 py-6 backdrop-blur-md md:hidden"
           aria-label="Navegación móvil"
         >
-          {menúItems.map(({ label, href }) => (
+          {menuItems.map(({ label, href }) => (
             <a
               key={href}
               href={href}
