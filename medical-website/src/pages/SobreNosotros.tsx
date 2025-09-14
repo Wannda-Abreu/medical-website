@@ -1,48 +1,42 @@
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { Helmet } from "react-helmet-async";
-import TeamBanner from "../components/TeamBanner";
+import MosaicHero from "../components/MosaicHero";
 
 export default function SobreNosotros() {
   return (
-    <div className="font-sans antialiased bg-background text-foreground">
+    <div className="bg-white text-gray-800 font-sans antialiased">
+      <Helmet>
+        <title>Sobre nosotros | Sanital</title>
+        <link rel="canonical" href="https://www.sanital.es/sobre-nosotros" />
+        <meta name="description" content="Clínica Sanital: atención médica cercana y multidisciplinar en Daimiel. Conoce a nuestro equipo y filosofía de trabajo." />
+      </Helmet>
+
       <Navbar />
 
-      <main className="container mx-auto px-4 py-10 max-w-6xl">
-        <Helmet>
-          <title>Sobre nosotros | Sanital</title>
-          <link rel="canonical" href="https://www.sanital.es/sobre-nosotros" />
-          <meta
-            name="description"
-            content="Conoce la historia, el equipo y la forma de trabajar de Clínica Sanital en Daimiel. Atención cercana, especialistas colegiados y cita online."
-          />
-        </Helmet>
+      <MosaicHero
+        images={[
+          { src: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253397/2_swjp7l.png", alt: "Dra. Diana Storino – Endocrinología" },
+          { src: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png", alt: "Dr. Pablo Carmona – Medicina Familiar" },
+          { src: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png", alt: "Dr. Mirko Solano – Cirugía" },
+        ]}
+        heading="Sobre Clínica Sanital"
+        subheading="Unimos experiencia, tecnología y trato humano para tu cuidado."
+      />
 
-        <TeamBanner />
+      <main className="container mx-auto max-w-4xl px-6 py-16 space-y-14 leading-relaxed">
+        <section>
+          <h2 className="text-3xl font-bold text-primary mb-4">Nuestra filosofía</h2>
+          <p className="text-lg text-gray-700">
+            En Sanital creemos en una medicina cercana y basada en la prevención. Nuestra meta es que cada visita aporte valor real a tu bienestar, ya sea en
+            <strong> endocrinología</strong>, <strong>medicina familiar</strong> o <strong>cirugía</strong>.
+          </p>
+        </section>
 
-        <section className="prose prose-zinc max-w-none prose-p:leading-7 mt-10">
-          <h2 className="text-2xl font-semibold text-gray-900">Qué encontrarás en nuestra clínica</h2>
-          <p>
-            Trabajamos con estándares de calidad y seguridad para que cada visita aporte valor real a tu salud. Tanto en endocrinología como en
-            atención primaria, serás atendido por especialistas colegiados que escuchan, explican el plan terapéutico y resuelven dudas con un
-            lenguaje claro. Promovemos hábitos saludables y revisiones periódicas para que avances a tu ritmo y con confianza.
-          </p>
-          <p>
-            Sabemos que la rapidez y la coordinación son clave. Contamos con agendas flexibles, recordatorios y comunicación directa. Si necesitas
-            continuidad, diseñamos un plan de seguimiento con hitos y objetivos realistas adaptados a tu día a día.
-          </p>
-
-          <h2 className="text-2xl font-semibold text-gray-900">Servicios y equipo a tu alcance</h2>
-          <p>
-            Conoce todas nuestras especialidades en <a className="text-primary hover:underline" href="/#servicios">servicios</a> y descubre a los profesionales en
-            <a className="text-primary hover:underline" href="/#equipo"> equipo</a>. En <a className="text-primary hover:underline" href="/#contacto">contacto</a> encontrarás teléfono, correo y un formulario de consulta rápida.
-          </p>
-          <p>
-            Si lo prefieres, agenda tu cita online en
-            <a className="text-primary hover:underline" href="https://booking.slotspot.app/sanital" target="_blank" rel="noopener noreferrer">
-              nuestra plataforma de reservas
-            </a>
-            y recibirás confirmación inmediata.
+        <section>
+          <h2 className="text-3xl font-bold text-primary mb-4">Compromiso con tu salud</h2>
+          <p className="text-lg text-gray-700">
+            Ofrecemos agendas flexibles, recordatorios y canales de contacto directo para que tu experiencia sea cómoda. Si necesitas continuidad, diseñamos un plan de seguimiento adaptado a tu ritmo de vida.
           </p>
         </section>
       </main>
