@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/layout/Navbar";
 import Hero from "../components/sections/Hero";
-import React, { Suspense } from "react";
-const Services = React.lazy(() => import("../components/sections/Services"));
-const Team = React.lazy(() => import("../components/sections/Team"));
-const Testimonial = React.lazy(() => import("../components/sections/Testimonial"));
-const Contact = React.lazy(() => import("../components/sections/Contact"));
+import React from "react";
+import LazySection from "../components/common/LazySection";
 import Footer from "../components/layout/Footer";
 import Benefits from "../components/sections/Benefits";
 import Intro from "../components/sections/Intro";
@@ -54,18 +51,10 @@ export default function Home() {
         <Hero />
         <Intro />
         <Benefits />
-        <Suspense fallback={null}>
-          <Services />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Team />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Testimonial />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Contact />
-        </Suspense>
+        <LazySection loader={() => import("../components/sections/Services")} fallback={null} />
+        <LazySection loader={() => import("../components/sections/Team")} fallback={null} />
+        <LazySection loader={() => import("../components/sections/Testimonial")} fallback={null} />
+        <LazySection loader={() => import("../components/sections/Contact")} fallback={null} />
       </main>
 
       <Footer />
