@@ -9,7 +9,7 @@ import Intro from "../components/sections/Intro";
 import StickyCTA from "../components/layout/StickyCTA";
 import SplashScreen from "../components/layout/SplashScreen";
 import SkipLink from "../components/layout/SkipLink";
-import LegalModal from "../components/legal/LegalModal";
+const LegalModal = React.lazy(() => import("../components/legal/LegalModal"));
 
 export default function Home() {
   const [route, setRoute] = useState(
@@ -60,13 +60,15 @@ export default function Home() {
       <Footer />
       <StickyCTA usePortal={false} />
       {showLegal && (
-        <LegalModal
-          type={legalType}
-          onClose={() => {
-            if (typeof window !== "undefined")
-              window.location.hash = "site-footer";
-          }}
-        />
+        <React.Suspense fallback={null}>
+          <LegalModal
+            type={legalType}
+            onClose={() => {
+              if (typeof window !== "undefined")
+                window.location.hash = "site-footer";
+            }}
+          />
+        </React.Suspense>
       )}
     </div>
   );

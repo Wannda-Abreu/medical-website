@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useEffect, useMemo, useState } from "react";
 import { CalendarCheck, ShieldCheck, Users2, CalendarClock, CheckCircle2 } from "lucide-react";
 import { useRef } from "react";
 import { cld, srcset, sizesFor } from "@/lib/cld";
@@ -7,24 +7,34 @@ import ShareButtons from "../common/ShareButtons";
 
 export default function Hero() {
   const ref = useRef(null);
+  const [fm, setFm] = useState(null);
   const reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const { scrollYProgress } = reduce ? { scrollYProgress: null } : useScroll();
-  const glowY = reduce ? 0 : useTransform(scrollYProgress, [0, 1], [-40, 40]);
-  const glowX = reduce ? 0 : useTransform(scrollYProgress, [0, 1], [0, 30]);
 
-  const fadeUp = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-  };
+  useEffect(() => {
+    if (reduce) return;
+    const load = () => import('framer-motion').then((m) => setFm(m));
+    if ('requestIdleCallback' in window) {
+      // @ts-ignore
+      window.requestIdleCallback(load);
+    } else {
+      setTimeout(load, 0);
+    }
+  }, [reduce]);
+
+  const MotionDiv = (fm && fm.motion) ? fm.motion.div : 'div';
+  const MotionImg = (fm && fm.motion) ? fm.motion.img : 'img';
+  const glowY = 0;
+  const glowX = 0;
+  const fadeUp = { hidden: {}, show: {} };
 
   return (
     <section id="inicio" className="relative h-screen bg-[#f3f4f6]" style={{ ["--hero-bg"]: "#f3f4f6" }}>
       <div ref={ref} className="relative container grid h-full items-center gap-10 lg:grid-cols-12">
         {/* ===== IMAGEN ===== */}
-        <motion.div
+        <MotionDiv
           className="relative order-1 flex h-full justify-center lg:order-2 lg:col-span-6 lg:justify-end"
-          initial={reduce ? undefined : { opacity: 0 }}
-          whileInView={reduce ? undefined : { opacity: 1 }}
+          initial={reduce || !fm ? undefined : { opacity: 0 }}
+          whileInView={reduce || !fm ? undefined : { opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
@@ -68,7 +78,7 @@ export default function Hero() {
                   `,
                 }}
               />
-              <motion.div
+              <MotionDiv
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-28 top-1/2 h-[620px] w-[620px] -translate-y-1/2 rounded-full bg-primary/25 blur-3xl"
                 style={{ y: glowY, x: glowX }}
@@ -113,9 +123,9 @@ export default function Hero() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div className="order-2 lg:order-1 lg:col-span-6" initial={typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? undefined : 'hidden'} whileInView={typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? undefined : 'show'} viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
+        <MotionDiv className="order-2 lg:order-1 lg:col-span-6" initial={reduce || !fm ? undefined : 'hidden'} whileInView={reduce || !fm ? undefined : 'show'} viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
           <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">Cuidado sanitario de calidad cerca de ti</h1>
 
           <h2 className="sr-only">Ventajas de nuestra clínica</h2>
@@ -165,7 +175,7 @@ export default function Hero() {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );
