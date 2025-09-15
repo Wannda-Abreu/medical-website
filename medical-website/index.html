@@ -52,10 +52,7 @@
   <link rel="preconnect" href="https://wa.me" />
   <link rel="dns-prefetch" href="https://wa.me" />
 
-  <link rel="preload" as="style" href="/src/index.css" onload="this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="/src/index.css">
-  </noscript>
+  <!-- CSS is imported via Vite in src/main.jsx; avoid manual preload to reduce render-blocking risk in prod -->
 
   <link rel="preload" as="image"
     href="https://res.cloudinary.com/dfq9eaz2e/image/upload/f_auto,q_auto,dpr_auto,c_fill,w_1200/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png"

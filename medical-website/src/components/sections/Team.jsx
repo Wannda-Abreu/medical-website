@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { CalendarCheck, Info, Stethoscope } from "lucide-react";
 const DoctorDialog = React.lazy(() => import("../common/DoctorDialog"));
-import { cld, srcset } from "@/lib/cld";
+import { cldEco as cld, srcsetEco as srcset } from "@/lib/cld";
 import SmartImage from "@/components/SmartImage";
 
 const BRAND_PRIMARY = "#009D98";

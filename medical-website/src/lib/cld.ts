@@ -1,4 +1,5 @@
 const TX = "f_auto,q_auto,dpr_auto";
+const TX_ECO = "f_auto,q_auto:eco,dpr_auto";
 export function cld(url: string, w: number, cover = false) {
   const base = cover ? `${TX},c_fill` : TX;
   const inject = `/upload/${base},w_${w}/`;
@@ -9,4 +10,14 @@ export function srcset(url: string, widths: number[], cover = false) {
 }
 export function sizesFor(maxPx: number) {
   return `(min-width: ${maxPx}px) ${Math.round(maxPx)}px, 100vw`;
+}
+
+// Lighter variant for non-critical images
+export function cldEco(url: string, w: number, cover = false) {
+  const base = cover ? `${TX_ECO},c_fill` : TX_ECO;
+  const inject = `/upload/${base},w_${w}/`;
+  return typeof url === "string" ? url.replace(/\/upload\/.*?\//, inject) : url;
+}
+export function srcsetEco(url: string, widths: number[], cover = false) {
+  return widths.map((w) => `${cldEco(url, w, cover)} ${w}w`).join(", ");
 }

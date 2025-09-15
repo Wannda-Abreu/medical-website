@@ -1,4 +1,4 @@
-import { cld, srcset } from "@/lib/cld";
+import { cldEco as cld, srcsetEco as srcset } from "@/lib/cld";
 import SmartImage from "@/components/SmartImage";
 
 type Img = { src: string; alt: string };
