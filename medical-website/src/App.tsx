@@ -1,12 +1,12 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { useEffect, useState } from "react";
 import React, { Suspense } from "react";
 const Home = React.lazy(() => import("./pages/Home"));
 const SobreNosotros = React.lazy(() => import("./pages/SobreNosotros"));
-import LegalModal from "./components/legal/LegalModal";
+const LegalModal = React.lazy(() => import("./components/legal/LegalModal"));
 
-function GlobalShell() {
+function Shell() {
   const location = useLocation();
   const [hash, setHash] = useState<string>(typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : "");
 
@@ -30,10 +30,7 @@ function GlobalShell() {
   return (
     <>
       <Suspense fallback={null}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-        </Routes>
+        <Outlet />
       </Suspense>
       {showLegal && (
         <LegalModal
@@ -50,11 +47,22 @@ function GlobalShell() {
 }
 
 export default function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Shell />,
+      children: [
+        { path: "/", element: <Home /> },
+        { path: "/sobre-nosotros", element: <SobreNosotros /> },
+      ],
+    },
+  ]);
+
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <GlobalShell />
-      </BrowserRouter>
+      <Suspense fallback={<div className="p-6 text-center" role="status" aria-live="polite">Cargando…</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
     </HelmetProvider>
   );
 }

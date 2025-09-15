@@ -11,7 +11,7 @@ export default function SobreNosotros() {
         <link rel="canonical" href="https://www.sanital.es/sobre-nosotros" />
         <meta
           name="description"
-          content="Clínica Sanital en Daimiel: medicina cercana y multidisciplinar. Conoce nuestra filosofía, especialidades y equipo médico colegiado."
+          content="Clínica Sanital en Ciudad Real: medicina cercana y multidisciplinar. Conoce nuestra filosofía, especialidades y equipo médico colegiado."
         />
       </Helmet>
 
@@ -108,7 +108,7 @@ export default function SobreNosotros() {
             <li>Atención integral en un solo centro</li>
             <li>Agendas flexibles y cita online</li>
             <li>Equipamiento moderno y seguro</li>
-            <li>Ubicación cómoda en el centro de Daimiel</li>
+            <li>Ubicación cómoda en el centro de Ciudad Real</li>
           </ul>
         </section>
 
@@ -140,3 +140,4 @@ export default function SobreNosotros() {
     </div>
   );
 }
+

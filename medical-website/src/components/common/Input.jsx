@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import clsx from "clsx";
 
 const Input = React.forwardRef(
@@ -14,10 +14,13 @@ const Input = React.forwardRef(
     },
     ref
   ) => {
+    const autoId = useId();
+    const controlId = props.id || props.name || autoId;
+
     return (
       <div className="w-full flex flex-col space-y-1">
         {label && (
-          <label className="text-sm font-medium text-foreground">{label}</label>
+          <label htmlFor={controlId} className="text-sm font-medium text-foreground">{label}</label>
         )}
 
         <div
@@ -30,6 +33,7 @@ const Input = React.forwardRef(
           {Icon && <Icon className="w-5 h-5 text-muted-foreground mr-2" />}
           <input
             ref={ref}
+            id={controlId}
             type={type}
             placeholder={placeholder}
             className="flex-1 bg-transparent outline-none text-sm"
