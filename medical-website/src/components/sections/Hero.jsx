@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { CalendarCheck, ShieldCheck, Users2, CalendarClock, CheckCircle2 } from "lucide-react";
 import { useRef } from "react";
 import { cld, srcset, sizesFor } from "@/lib/cld";
+import SmartImage from "@/components/SmartImage";
 import ShareButtons from "../common/ShareButtons";
 
 export default function Hero() {
@@ -30,7 +31,7 @@ export default function Hero() {
           <div className="relative h-full w-full max-w-[1150px]">
             <div className="relative h-full w-full overflow-hidden">
               {/* Imagen con degradado fuerte en bordes */}
-              <img
+              <SmartImage
                 src={cld(
                   "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png",
                   1200,
@@ -46,9 +47,7 @@ export default function Hero() {
                 className="h-full w-full object-cover"
                 width={1200}
                 height={800}
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
+                eager
                 style={{
                   WebkitMaskImage:
                     "radial-gradient(130% 130% at 50% 50%, black 60%, rgba(0,0,0,0.85) 75%, transparent 92%)",

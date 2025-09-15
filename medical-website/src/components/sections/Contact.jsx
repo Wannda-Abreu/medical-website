@@ -1,11 +1,10 @@
-import { useMemo, useRef, useState, useEffect } from "react";
+﻿import { useRef, useState, useEffect } from "react";
 import { useScrollLock } from "../../utils/scrollLock";
 import { useFocusTrap } from "../../utils/focusTrap";
 import { useGlobalInert } from "../../utils/globalInert";
 import EmbedGuard from "../common/EmbedGuard";
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
 import ShareButtons from "../common/ShareButtons";
-import { cld, srcset } from "@/lib/cld";
 import SectionTitle from "../common/SectionTitle";
 import Card from "../common/Card";
 
@@ -13,18 +12,12 @@ const CLINIC = {
   name: "Sanital",
   email: "sanital.salud@gmail.com",
   phone: "+34 619 18 26 80",
-  addressLabel: "Calle Orquídea 20, CP 13250 Daimiel",
-  mapQuery: "Calle Orquídea 20, CP 13250 Daimiel",
+  addressLabel: "Calle del Río 8, 13003 Ciudad Real",
+  mapQuery: "Calle del Río 8, 13003 Ciudad Real",
   logo: "https://res.cloudinary.com/dfq9eaz2e/image/upload/f_auto,q_auto,c_fill,w_720/v1755632835/logo_gjf9dn.png",
 };
 
 export default function Contact() {
-  const [formLoads, setFormLoads] = useState(0);
-  const [showThanks, setShowThanks] = useState(false);
-  useEffect(() => {
-    if (formLoads >= 2) setShowThanks(true);
-  }, [formLoads]);
-
   const [embedsAllowed, setEmbedsAllowed] = useState(true);
   useEffect(() => {
     try {
@@ -80,11 +73,8 @@ export default function Contact() {
     }
   }, [status]);
 
-  const endpoint = useMemo(
-    () =>
-      "https://script.google.com/macros/s/AKfycbzbh3I1hq6BD44AJTQddVMssQWt11eO7C4WH7lTmpwJMQgKndDozl0sKo3FxrXfbHNb/exec",
-    []
-  );
+  const endpoint =
+    "https://script.google.com/macros/s/AKfycbzbh3I1hq6BD44AJTQddVMssQWt11eO7C4WH7lTmpwJMQgKndDozl0sKo3FxrXfbHNb/exec";
 
   const validate = (payload) => {
     const e = { name: "", email: "", message: "" };
@@ -248,10 +238,12 @@ export default function Contact() {
                   name="message"
                   placeholder="Cuéntanos cómo podemos ayudarte"
                   required
+                  minLength={10}
                   aria-invalid={!!errors.message}
                   aria-describedby={
                     errors.message ? "error-message" : undefined
                   }
+                  rows={5}
                   className={`w-full rounded-lg bg-white px-3.5 py-2.5 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 border ${
                     errors.message ? "border-red-500" : "border-gray-300"
                   }`}
@@ -280,8 +272,9 @@ export default function Contact() {
                 disabled={sending}
                 className="mt-auto inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 font-semibold text-white shadow-sm transition hover:bg-primary-700 disabled:opacity-60"
                 aria-label="Enviar mensaje de contacto"
+                ref={openerRef}
               >
-                {sending ? "Enviando…" : "Enviar Mensaje"}
+                {sending ? "Enviando…" : "Enviar mensaje"}
               </button>
             </form>
           </Card>
@@ -301,12 +294,19 @@ export default function Contact() {
               ) : (
                 <EmbedGuard
                   typeKey="embeds"
+                  onEnable={enableEmbeds}
                   placeholder={
                     <div className="text-center px-4">
                       <p className="text-sm text-gray-700">
                         Para ver el mapa de Google, activa los contenidos de
                         terceros.
                       </p>
+                      <button
+                        onClick={enableEmbeds}
+                        className="mt-3 inline-flex items-center justify-center rounded-lg border border-primary/30 bg-white px-3 py-1.5 text-sm font-medium text-primary shadow-sm transition hover:bg-primary/10"
+                      >
+                        Activar contenidos
+                      </button>
                     </div>
                   }
                   buttonLabel="Activar contenidos"
@@ -326,18 +326,18 @@ export default function Contact() {
               className="h-12 w-auto opacity-90"
               loading="lazy"
               decoding="async"
+              width={180}
+              height={48}
             />
             <p className="max-w-[44ch] text-[15px] text-gray-700 mt-8">
-              En <strong>Sanital</strong> creemos en un modelo de
-              salud humano, accesible y profesional. Nuestro equipo médico está
-              comprometido a garantizar una atención cercana, segura y de
-              calidad, basada en la prevención y el seguimiento personalizado.
-              Tu bienestar es nuestra prioridad; trabajamos con dedicación para
-              cuidar de ti y de los tuyos cada día.
+              En <strong>Sanital</strong> creemos en un modelo de salud humano,
+              accesible y profesional. Nuestro equipo médico está comprometido a
+              garantizar una atención cercana, segura y de calidad, basada en la
+              prevención y el seguimiento personalizado.
             </p>
             <div className="mt-8 space-y-2.5 text-[15px] text-gray-800">
               <div className="flex items-center gap-3">
-                <Phone className="h-4 w-4 text-primary " />
+                <Phone className="h-4 w-4 text-primary" />
                 <a
                   href={`tel:${CLINIC.phone.replace(/\s+/g, "")}`}
                   className="hover:underline"
@@ -378,6 +378,7 @@ export default function Contact() {
           </Card>
         </div>
       </div>
+
       {status?.ok && (
         <div className="fixed inset-0 z-[120] flex items-center justify-center">
           <button
@@ -431,4 +432,3 @@ export default function Contact() {
     </section>
   );
 }
-

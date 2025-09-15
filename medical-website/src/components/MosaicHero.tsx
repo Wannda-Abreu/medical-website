@@ -1,4 +1,5 @@
 import { cld, srcset } from "@/lib/cld";
+import SmartImage from "@/components/SmartImage";
 
 type Img = { src: string; alt: string };
 
@@ -55,14 +56,15 @@ export default function HorizontalMosaicFullWidth({
                 ].join(" ")}
               >
                 {isImg ? (
-                  <img
+                  <SmartImage
                     src={cld(images[imgIdx].src, 720, true)}
                     srcSet={srcset(images[imgIdx].src, [360, 480, 720], true)}
                     sizes="(min-width:1024px) 30vw, 50vw"
                     alt={images[imgIdx++].alt}
                     className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-[1.03] motion-reduce:transform-none"
-                    loading={i === 0 ? "eager" : "lazy"}
-                    decoding="async"
+                    width={720}
+                    height={480}
+                    eager={i === 0}
                   />
                 ) : (
                   <div

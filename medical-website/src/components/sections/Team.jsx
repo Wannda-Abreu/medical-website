@@ -1,8 +1,9 @@
-import { useMemo, useState, memo } from "react";
+﻿import React, { Suspense, useMemo, useState, memo } from "react";
 import { motion } from "framer-motion";
 import { CalendarCheck, Info, Stethoscope } from "lucide-react";
-import DoctorDialog from "../common/DoctorDialog";
+const DoctorDialog = React.lazy(() => import("../common/DoctorDialog"));
 import { cld, srcset } from "@/lib/cld";
+import SmartImage from "@/components/SmartImage";
 
 const BRAND_PRIMARY = "#009D98";
 const BRAND_ACCENT = "#AFCA0B";
@@ -12,22 +13,25 @@ const DOCTORS = [
     slug: "diana-storinoz",
     name: "Dra. Diana Storino",
     role: "Endocrino",
-    specialty: "Consulta endocrinología y obesidad",
-    image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253397/2_swjp7l.png",
+    specialty: "Consulta de endocrinología y obesidad",
+    image:
+      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253397/2_swjp7l.png",
   },
   {
     slug: "pablo-carmona",
     name: "Dr. Pablo Carmona Díaz Salazar",
-    role: "Especialista en Medicina Familiar y Comunitaria.",
-    specialty: "Especialista en Medicina Familiar y Comunitaria.",
-    image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
+    role: "Medicina Familiar y Comunitaria",
+    specialty: "Especialista en Medicina Familiar y Comunitaria",
+    image:
+      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
   },
   {
     slug: "mirko-solano",
     name: "Dr. Mirko Solano",
     role: "Cirujano",
     specialty: "Cirugía general",
-    image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png",
+    image:
+      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png",
   },
 ];
 
@@ -43,17 +47,17 @@ const clinic = {
   name: "Sanital",
   url: "https://www.sanital.example",
   address: {
-    streetAddress: "Calle Orquídea 20",
-    addressLocality: "Daimiel",
+    streetAddress: "Calle del Río 8",
+    addressLocality: "Ciudad Real",
     addressRegion: "Castilla-La Mancha",
     addressCountry: "ES",
   },
-  areaServed: "Daimiel, Castilla-La Mancha, España",
+  areaServed: "Ciudad Real, Castilla-La Mancha, España",
 };
 
 const roleTone = {
-  "Atención primaria": `bg-[${BRAND_ACCENT}1A] text-[${BRAND_ACCENT}] ring-[${BRAND_ACCENT}] ring-opacity-30`,
-  Endocrino: `bg-[${BRAND_PRIMARY}1A] text-[${BRAND_PRIMARY}] ring-[${BRAND_PRIMARY}] ring-opacity-30`,
+  "Medicina Familiar y Comunitaria": `bg-[${BRAND_ACCENT}]/10 text-[${BRAND_ACCENT}] ring-[${BRAND_ACCENT}]/30`,
+  Endocrino: `bg-[${BRAND_PRIMARY}]/10 text-[${BRAND_PRIMARY}] ring-[${BRAND_PRIMARY}]/30`,
   Cirujano: `bg-white/80 text-zinc-800 ring-black/5`,
 };
 
@@ -75,21 +79,18 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
       >
         <div className="rounded-2xl border border-zinc-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85 p-6">
           <figure className="relative z-10 mx-auto h-[300px] w-full rounded-xl ring-1 ring-[rgba(0,157,152,0.15)] shadow-sm overflow-hidden bg-gradient-to-b from-white via-[rgba(0,157,152,0.08)] to-white">
-            <motion.img
+            <SmartImage
               src={src}
               srcSet={srcSet}
               sizes="(min-width: 640px) 416px, 90vw"
               alt={`${d.name}, ${d.role}`}
-              itemProp="image"
-              loading="lazy"
-              decoding="async"
               width={416}
               height={300}
               className="block h-full w-full object-cover transition-transform duration-300 will-change-transform group-hover:scale-[1.01] motion-reduce:transform-none"
-              whileHover={{ scale: 1.01 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
             />
-            <div className={`absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium shadow-sm ring-1 backdrop-blur ${tone}`}>
+            <div
+              className={`absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium shadow-sm ring-1 backdrop-blur ${tone}`}
+            >
               <Stethoscope className="h-3.5 w-3.5" aria-hidden="true" />
               <span>{d.role}</span>
             </div>
@@ -99,10 +100,16 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
           </figure>
 
           <div className="mt-5 text-center">
-            <h3 itemProp="name" className="text-xl font-semibold tracking-tight" style={{ color: BRAND_PRIMARY }}>
+            <h3
+              itemProp="name"
+              className="text-xl font-semibold tracking-tight"
+              style={{ color: BRAND_PRIMARY }}
+            >
               {d.name}
             </h3>
-            <p className="mt-1 text-[0.95rem] font-medium text-foreground/80">{d.specialty}</p>
+            <p className="mt-1 text-[0.95rem] font-medium text-foreground/80">
+              {d.specialty}
+            </p>
             <meta itemProp="medicalSpecialty" content={d.specialty} />
           </div>
 
@@ -111,18 +118,7 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
               href="https://booking.slotspot.app/sanital"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 motion-reduce:transform-none"
-              style={{ backgroundColor: BRAND_PRIMARY, color: "#fff" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#fff";
-                e.currentTarget.style.color = BRAND_PRIMARY;
-                e.currentTarget.style.border = `2px solid ${BRAND_PRIMARY}`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = BRAND_PRIMARY;
-                e.currentTarget.style.color = "#fff";
-                e.currentTarget.style.border = "none";
-              }}
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 bg-[${BRAND_PRIMARY}] text-white border-2 border-transparent hover:bg-white hover:text-[${BRAND_PRIMARY}] hover:border-[${BRAND_PRIMARY}] motion-reduce:transform-none`}
               aria-label={`Agendar cita con ${d.name}`}
             >
               <CalendarCheck className="h-4 w-4" aria-hidden="true" />
@@ -132,16 +128,7 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
             <motion.button
               type="button"
               onClick={() => onMore(d)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 motion-reduce:transform-none"
-              style={{ border: `2px solid ${BRAND_ACCENT}`, color: BRAND_ACCENT, backgroundColor: "#fff" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = BRAND_ACCENT;
-                e.currentTarget.style.color = "#fff";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#fff";
-                e.currentTarget.style.color = BRAND_ACCENT;
-              }}
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 border-2 text-[${BRAND_ACCENT}] border-[${BRAND_ACCENT}] bg-white hover:bg-[${BRAND_ACCENT}] hover:text-white motion-reduce:transform-none`}
               aria-haspopup="dialog"
               aria-controls="doctor-dialog"
               aria-label={`Saber más sobre ${d.name}`}
@@ -154,7 +141,10 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
 
           <meta itemProp="jobTitle" content={d.role} />
           <meta itemProp="url" content={`/equipo#${d.slug}`} />
-          <span className="pointer-events-none absolute inset-x-6 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100" style={{ backgroundColor: BRAND_PRIMARY }} />
+          <span
+            className="pointer-events-none absolute inset-x-6 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100"
+            style={{ backgroundColor: BRAND_PRIMARY }}
+          />
         </div>
       </motion.article>
     </li>
@@ -165,7 +155,8 @@ export default function Team() {
   const [active, setActive] = useState(null);
 
   const baseUrl = useMemo(() => {
-    if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
+    if (typeof window !== "undefined" && window.location?.origin)
+      return window.location.origin;
     return clinic.url;
   }, []);
 
@@ -210,24 +201,50 @@ export default function Team() {
   }, [baseUrl, renderDoctors]);
 
   return (
-    <section id="equipo" aria-labelledby="equipo-heading" className="relative py-10 mt-8 bg-gradient-to-b from-white via-[rgba(0,157,152,0.1)] to-white">
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-6 h-16 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(0,157,152,0.22),rgba(0,157,152,0))]" />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <section
+      id="equipo"
+      aria-labelledby="equipo-heading"
+      className="relative py-10 mt-8 bg-gradient-to-b from-white via-[rgba(0,157,152,0.1)] to-white"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-6 h-16 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(0,157,152,0.22),rgba(0,157,152,0))]"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       <div className="container px-4 sm:px-6 lg:px-8">
-        <h2 id="equipo-heading" className="mb-8 text-center text-2xl font-bold sm:mb-10 sm:text-3xl" style={{ color: BRAND_PRIMARY }}>
-          Nuestro Equipo médico
+        <h2
+          id="equipo-heading"
+          className="mb-8 text-center text-2xl font-bold sm:mb-10 sm:text-3xl"
+          style={{ color: BRAND_PRIMARY }}
+        >
+          Nuestro equipo médico
         </h2>
-        <p className="sr-only">Conoce a nuestro equipo médico de Sanital en Daimiel, Castilla-La Mancha: especialistas colegiados con atención cercana.</p>
+        <p className="sr-only">
+          Conoce a nuestro equipo médico de Sanital en Ciudad Real, Castilla-La
+          Mancha: especialistas colegiados con atención cercana.
+        </p>
 
-        <ul aria-label="Tarjetas del equipo médico" className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul
+          aria-label="Tarjetas del equipo médico"
+          className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {renderDoctors.map((d) => (
             <DoctorCard key={d.slug} d={d} onMore={setActive} />
           ))}
         </ul>
       </div>
-      <DoctorDialog id="doctor-dialog" open={!!active} onClose={() => setActive(null)} doctor={active} />
+      <Suspense fallback={null}>
+        <DoctorDialog
+          id="doctor-dialog"
+          open={!!active}
+          onClose={() => setActive(null)}
+          doctor={active}
+        />
+      </Suspense>
     </section>
   );
 }
-
