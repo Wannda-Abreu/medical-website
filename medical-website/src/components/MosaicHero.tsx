@@ -64,7 +64,7 @@ export default function HorizontalMosaicFullWidth({
                     className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-[1.03] motion-reduce:transform-none"
                     width={720}
                     height={480}
-                    eager={i === 0}
+                    eager={false}
                   />
                 ) : (
                   <div
