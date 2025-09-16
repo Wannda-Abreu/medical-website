@@ -24,10 +24,26 @@ export default function Home() {
         <Hero />
         <Intro />
         <Benefits />
-        <LazySection loader={() => import("../components/sections/Services")} fallback={null} />
-        <LazySection loader={() => import("../components/sections/Team")} fallback={null} />
-        <LazySection loader={() => import("../components/sections/Testimonial")} fallback={null} />
-        <LazySection loader={() => import("../components/sections/Contact")} fallback={null} />
+        <LazySection
+          loader={() => import("../components/sections/Services")}
+          rootMargin="600px"
+          fallback={<div className="min-h-[520px]" />}
+        />
+        <LazySection
+          loader={() => import("../components/sections/Team")}
+          rootMargin="600px"
+          fallback={<div className="min-h-[780px]" />}
+        />
+        <LazySection
+          loader={() => import("../components/sections/Testimonial")}
+          rootMargin="600px"
+          fallback={<div className="min-h-[520px]" />}
+        />
+        <LazySection
+          loader={() => import("../components/sections/Contact")}
+          rootMargin="600px"
+          fallback={<div className="min-h-[720px]" />}
+        />
       </main>
 
       <Footer />

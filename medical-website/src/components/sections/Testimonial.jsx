@@ -21,11 +21,11 @@ function Stars({ rating = 5 }) {
   return (
     <div className="flex items-center justify-center gap-1" aria-label={`Valoración ${rating} de 5`}>
       {Array.from({ length: full }).map((_, i) => (
-        <Star key={`f${i}`} className="h-4 w-4 fill-[#0b7f52] text-[#0b7f52]" />
+        <Star key={`f${i}`} className="h-4 w-4 fill-[#8BC53F] text-[#8BC53F]" />
       ))}
-      {hasHalf && <StarHalf className="h-4 w-4 fill-[#0b7f52] text-[#0b7f52]" />}
+      {hasHalf && <StarHalf className="h-4 w-4 fill-[#8BC53F] text-[#8BC53F]" />}
       {Array.from({ length: empty }).map((_, i) => (
-        <Star key={`e${i}`} className="h-4 w-4 text-[#0b7f52]/20" />
+        <Star key={`e${i}`} className="h-4 w-4 text-[#8BC53F]/20" />
       ))}
     </div>
   );
