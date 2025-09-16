@@ -7,25 +7,15 @@ export default function HorizontalMosaicFullWidth({
   images = [],
   heightClasses = "h-40 md:h-48 lg:h-56",
   rounded = "rounded-xl",
+  // degradado suave uniforme para todos los mosaicos de color
+  colorClass = "bg-[linear-gradient(135deg,#E9F8F7_0%,#F2F9E4_100%)]",
 }: {
   images?: Img[];
   heightClasses?: string;
   rounded?: string;
+  colorClass?: string;
 }) {
-  const gradients = [
-    "bg-[linear-gradient(135deg,#E9F8F7_0%,#F2F9E4_100%)]",
-    "bg-[linear-gradient(135deg,#009D981A,#AFCA0B1A)]",
-    "bg-[linear-gradient(135deg,#006B68_0%,#009D98_20%,#AFCA0B_100%)]",
-  ];
-
-  const pattern: ("img" | "color")[] = [
-    "img",
-    "color",
-    "img",
-    "color",
-    "img",
-    "color",
-  ];
+  const pattern: ("img" | "color")[] = ["img", "color", "img", "color", "img", "color"];
   let imgIdx = 0;
 
   return (
@@ -39,8 +29,7 @@ export default function HorizontalMosaicFullWidth({
       <div className="mx-auto w-screen px-4 md:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
           {pattern.map((slot, i) => {
-            const isImg = slot === "img" && images[imgIdx];
-            const colorClass = gradients[i % gradients.length];
+            const showImg = slot === "img" && images[imgIdx];
 
             return (
               <div
@@ -55,7 +44,7 @@ export default function HorizontalMosaicFullWidth({
                   "motion-reduce:transition-none",
                 ].join(" ")}
               >
-                {isImg ? (
+                {showImg ? (
                   <SmartImage
                     src={cld(images[imgIdx].src, 720, true)}
                     srcSet={srcset(images[imgIdx].src, [360, 480, 720], true)}
@@ -64,7 +53,7 @@ export default function HorizontalMosaicFullWidth({
                     className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-[1.03] motion-reduce:transform-none"
                     width={720}
                     height={480}
-                    eager={false}
+                    eager={i === 0}
                   />
                 ) : (
                   <div
@@ -80,3 +69,4 @@ export default function HorizontalMosaicFullWidth({
     </section>
   );
 }
+
