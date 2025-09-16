@@ -19,6 +19,10 @@ function usePrefersReducedMotion() {
 }
 
 export default function SplashScreen() {
+  // Avoid splash in production to protect LCP and prevent forced reflow
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD) {
+    return null;
+  }
   const prefersReducedMotion = usePrefersReducedMotion();
   const [visible, setVisible] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);

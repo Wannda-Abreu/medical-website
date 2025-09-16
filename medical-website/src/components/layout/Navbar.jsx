@@ -68,8 +68,8 @@ const Navbar = () => {
             height="144"
             className="h-[5rem] w-auto md:h-[8.5rem] drop-shadow-sm will-change-transform transition-all duration-200 ease-out group-hover:scale-[1.05] group-hover:drop-shadow-md group-active:scale-[1.01]"
             decoding="async"
-            loading="eager"
-            fetchPriority="high"
+            loading="lazy"
+            fetchpriority="low"
             draggable="false"
           />
         </a>
@@ -116,4 +116,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
