@@ -1,14 +1,17 @@
-﻿import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router-dom";
+import React, { Suspense, useEffect, useState } from "react";
+import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { useEffect, useState } from "react";
-import React, { Suspense } from "react";
+import { ClinicSchema } from "./components/ClinicSchema";
+
 const Home = React.lazy(() => import("./pages/Home"));
 const SobreNosotros = React.lazy(() => import("./pages/SobreNosotros"));
 const LegalModal = React.lazy(() => import("./components/legal/LegalModal"));
 
 function Shell() {
   const location = useLocation();
-  const [hash, setHash] = useState<string>(typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : "");
+  const [hash, setHash] = useState<string>(
+    typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : ""
+  );
 
   useEffect(() => {
     const onHash = () => setHash(window.location.hash.replace(/^#/, ""));
@@ -33,14 +36,16 @@ function Shell() {
         <Outlet />
       </Suspense>
       {showLegal && (
-        <LegalModal
-          type={legalType}
-          onClose={() => {
-            try {
-              window.location.hash = "site-footer";
-            } catch {}
-          }}
-        />
+        <Suspense fallback={null}>
+          <LegalModal
+            type={legalType}
+            onClose={() => {
+              try {
+                window.location.hash = "site-footer";
+              } catch {}
+            }}
+          />
+        </Suspense>
       )}
     </>
   );
@@ -59,16 +64,12 @@ export default function App() {
   ]);
 
   return (
-    <HelmetProvider>\\n      <ClinicSchema />
-      <Suspense fallback={<div className="p-6 text-center" role="status" aria-live="polite">Cargandoâ€¦</div>}>
+    <HelmetProvider>
+      <ClinicSchema />
+      <Suspense fallback={<div className="p-6 text-center" role="status" aria-live="polite">Cargando…</div>}>
         <RouterProvider router={router} />
       </Suspense>
     </HelmetProvider>
   );
 }
-
-
-
-
-
 
