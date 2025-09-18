@@ -13,8 +13,8 @@ type Props = {
 
 export default function StickyCTA({
   bookingUrl = "https://booking.slotspot.app/sanital",
-  phone = "+34 619 18 26 80",
-  whatsapp = "34619182680",
+  phone = "+34 926 923 838",
+  whatsapp = "34621126286",
   className = "",
   usePortal = false,
 }: Props) {

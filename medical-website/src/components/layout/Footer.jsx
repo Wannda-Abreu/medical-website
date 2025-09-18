@@ -65,6 +65,16 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/15">
+        <div className="container mx-auto px-4 py-4 text-white/90 text-sm flex flex-wrap items-center gap-4">
+          <a href="tel:+34926923838" className="font-semibold hover:underline">926 923 838</a>
+          <span className="text-white/70">Atención primaria</span>
+          <a href="tel:+34621126286" className="font-semibold hover:underline">621 126 286</a>
+          <span className="text-white/70">Servicios y profesionales</span>
+          <address className="not-italic ml-auto">C/ del Río, 8, Ciudad Real</address>
+        </div>
+      </div>
+
+      <div className="border-t border-white/15">
         <div className="container mx-auto px-4 py-3 text-center text-sm md:text-[15px]">
           <a
             href="/#/legal/privacidad"

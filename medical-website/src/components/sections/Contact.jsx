@@ -12,8 +12,8 @@ const CLINIC = {
   name: "Sanital",
   email: "sanital.salud@gmail.com",
   phone: "+34 619 18 26 80",
-  addressLabel: "Calle del Río 8, 13003 Ciudad Real",
-  mapQuery: "Calle del Río 8, 13003 Ciudad Real",
+  addressLabel: "C/ del Río, 8, Ciudad Real",
+  mapQuery: "C/ del Río, 8, Ciudad Real",
   logo: "https://res.cloudinary.com/dfq9eaz2e/image/upload/f_auto,q_auto,c_fill,w_720/v1755632835/logo_gjf9dn.png",
 };
 
@@ -432,3 +432,5 @@ export default function Contact() {
     </section>
   );
 }
+
+

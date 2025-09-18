@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router-dom";
+﻿import { createBrowserRouter, RouterProvider, Outlet, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { useEffect, useState } from "react";
 import React, { Suspense } from "react";
@@ -59,10 +59,16 @@ export default function App() {
   ]);
 
   return (
-    <HelmetProvider>
-      <Suspense fallback={<div className="p-6 text-center" role="status" aria-live="polite">Cargando…</div>}>
+    <HelmetProvider>\\n      <ClinicSchema />
+      <Suspense fallback={<div className="p-6 text-center" role="status" aria-live="polite">Cargandoâ€¦</div>}>
         <RouterProvider router={router} />
       </Suspense>
     </HelmetProvider>
   );
 }
+
+
+
+
+
+

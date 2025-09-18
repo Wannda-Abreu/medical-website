@@ -3,6 +3,7 @@ import { Menu, X, CalendarCheck } from "lucide-react";
 import { useScrollLock, unlockScroll } from "../../utils/scrollLock";
 import Button from "../common/Button";
 import { cld, srcset } from "@/lib/cld";
+import ContactTop from "./ContactTop";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -56,7 +57,9 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 w-full overflow-visible border-b border-gray-200 bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60">
+    <>
+      <ContactTop />
+      <header ref={headerRef} className="sticky top-0 z-50 w-full overflow-visible border-b border-gray-200 bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex items-center justify-between px-0 py-0 md:py-0">
         <a href="/#inicio" className="group -my-3 md:-my-6 ml-3 md:ml-0 flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40" aria-label="Ir al inicio">
           <img
@@ -111,7 +114,8 @@ const Navbar = () => {
           </nav>
         </>
       )}
-    </header>
+      </header>
+    </>
   );
 };
 
