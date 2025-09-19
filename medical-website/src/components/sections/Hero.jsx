@@ -43,12 +43,12 @@ export default function Hero() {
               {/* Imagen con degradado fuerte en bordes */}
               <SmartImage
                 src={cld(
-                  "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png",
+                  "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1758053297/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_1_qhxfqn.png",
                   1200,
                   true
                 )}
                 srcSet={srcset(
-                  "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1755546332/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_drpvr7.png",
+                  "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1758053297/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_1_qhxfqn.png",
                   [640, 960, 1200, 1600],
                   true
                 )}

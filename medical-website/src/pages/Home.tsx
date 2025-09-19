@@ -20,30 +20,38 @@ export default function Home() {
       <SplashScreen />
       <SkipLink />
       <Navbar />
-      <main id="main" className="relative pb-36 sm:pb-40">
+      <main id="main" className="relative pb-8 sm:pb-10">
         <Hero />
         <Intro />
         <Benefits />
-        <LazySection
-          loader={() => import("../components/sections/Services")}
-          rootMargin="600px"
-          fallback={<div className="min-h-[520px]" />}
-        />
-        <LazySection
-          loader={() => import("../components/sections/Team")}
-          rootMargin="600px"
-          fallback={<div className="min-h-[780px]" />}
-        />
-        <LazySection
-          loader={() => import("../components/sections/Testimonial")}
-          rootMargin="600px"
-          fallback={<div className="min-h-[520px]" />}
-        />
-        <LazySection
-          loader={() => import("../components/sections/Contact")}
-          rootMargin="600px"
-          fallback={<div className="min-h-[720px]" />}
-        />
+        <div id="servicios">
+          <LazySection
+            loader={() => import("../components/sections/Services")}
+            rootMargin="600px"
+            fallback={<div className="min-h-[520px]" />}
+          />
+        </div>
+        <div id="equipo">
+          <LazySection
+            loader={() => import("../components/sections/Team")}
+            rootMargin="600px"
+            fallback={<div className="min-h-[780px]" />}
+          />
+        </div>
+        <div id="testimonios">
+          <LazySection
+            loader={() => import("../components/sections/Testimonial")}
+            rootMargin="600px"
+            fallback={<div className="min-h-[520px]" />}
+          />
+        </div>
+        <div id="contacto">
+          <LazySection
+            loader={() => import("../components/sections/Contact")}
+            rootMargin="600px"
+            fallback={<div className="min-h-[720px]" />}
+          />
+        </div>
       </main>
 
       <Footer />

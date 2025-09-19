@@ -26,15 +26,17 @@ export default function Footer() {
               "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757207840/Untitled_design_29_tauo4r.png",
               720
             )}
-            srcSet={cldSrcSet(
-              "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757207840/Untitled_design_29_tauo4r.png",
-              [360, 540, 720]
-            ).srcSet}
+            srcSet={
+              cldSrcSet(
+                "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757207840/Untitled_design_29_tauo4r.png",
+                [360, 540, 720]
+              ).srcSet
+            }
             sizes="(min-width: 768px) 576px, 320px"
             alt="Sanital - Logo"
             width="360"
             height="144"
-            className="h-[2rem] w-auto md:h-[4.5rem] drop-shadow-sm"
+            className="h-[2.5rem] w-auto md:h-[5rem] drop-shadow-sm"
             loading="lazy"
             decoding="async"
           />
@@ -63,17 +65,6 @@ export default function Footer() {
 
         <div className="text-sm text-white/85">&copy; {year} Sanital</div>
       </div>
-
-      <div className="border-t border-white/15">
-        <div className="container mx-auto px-4 py-4 text-white/90 text-sm flex flex-wrap items-center gap-4">
-          <a href="tel:+34926923838" className="font-semibold hover:underline">926 923 838</a>
-          <span className="text-white/70">Atención primaria</span>
-          <a href="tel:+34621126286" className="font-semibold hover:underline">621 126 286</a>
-          <span className="text-white/70">Servicios y profesionales</span>
-          <address className="not-italic ml-auto">C/ del Río, 8, Ciudad Real</address>
-        </div>
-      </div>
-
       <div className="border-t border-white/15">
         <div className="container mx-auto px-4 py-3 text-center text-sm md:text-[15px]">
           <a
