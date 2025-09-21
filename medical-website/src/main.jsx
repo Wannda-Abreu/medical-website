@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import './index.css'
+// CSS moved to index.html with preload to avoid render-blocking
 import './vitals.ts'
 import App from './App'
 

@@ -18,17 +18,11 @@ const Navbar = () => {
   ];
 
   useEffect(() => {
-    const ids = menuItems
-      .filter(m => m.href.startsWith("#"))
-      .map(m => m.href.replace(/^#/, ""));
-    const sections = ids
-      .map(id => document.getElementById(id))
-      .filter(Boolean); // sin TypeScript
+    const ids = menuItems.filter(m => m.href.startsWith("#")).map(m => m.href.replace(/^#/, ""));
+    const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
     if (sections.length === 0) return;
     const io = new IntersectionObserver(entries => {
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
       const top = visible[0];
       if (top?.target?.id) setActive(`#${top.target.id}`);
     }, { threshold: [0.4, 0.6, 0.8] });
@@ -44,12 +38,12 @@ const Navbar = () => {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-50 w-full overflow-visible border-b border-gray-200 bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60"
+      className="sticky top-0 z-50 w-full overflow-visible border-b border-gray-200 bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60 leading-none"
     >
-      <div className="container mx-auto flex items-center justify-between px-0 py-0">
+      <div className="container mx-auto flex items-center justify-between px-0 py-2 md:py-0">
         <a
           href="#inicio"
-          className="group -my-3 ml-3 md:ml-0 flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+          className="group ml-3 -my-8 md:ml-0 flex h-[6rem] md:h-[10rem] items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
           aria-label="Ir al inicio"
         >
           <img
@@ -67,7 +61,7 @@ const Navbar = () => {
             alt="Sanital"
             width="360"
             height="144"
-            className="h-[6rem] w-auto md:h-[10rem] drop-shadow-sm transition-all duration-200 ease-out group-hover:scale-[1.05] group-hover:drop-shadow-md group-active:scale-[1.01]"
+            className="block h-full w-auto drop-shadow-sm transition-all duration-200 ease-out group-hover:scale-[1.05] group-hover:drop-shadow-md group-active:scale-[1.01]"
             decoding="async"
             loading="lazy"
             fetchpriority="low"
@@ -75,9 +69,8 @@ const Navbar = () => {
           />
         </a>
 
-        {/* Navegación escritorio */}
         <nav
-          className="mx-2 hidden md:flex flex-1 items-center justify-center gap-x-4 gap-y-1 px-2 py-2 text-[15px] sm:text-[16px] font-medium text-gray-800 flex-wrap"
+          className="mx-2 hidden md:flex flex-1 items-center justify-center gap-x-4 gap-y-1 px-2 py-0 text-[15px] sm:text-[16px] font-medium text-gray-800 flex-wrap"
           aria-label="Navegación principal"
         >
           {menuItems.map(({ label, href }) => (
@@ -85,16 +78,12 @@ const Navbar = () => {
               key={href}
               href={href}
               onClick={() => handleItemClick(href)}
-              className={`relative px-2 py-1.5 rounded-md transition-all ease-out hover:text-primary hover:shadow-sm hover:shadow-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 group ${
-                active === href ? "text-primary" : ""
-              }`}
+              className={`relative px-2 py-1.5 rounded-md transition-all ease-out hover:text-primary hover:shadow-sm hover:shadow-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 group ${active === href ? "text-primary" : ""}`}
               aria-current={active === href ? "page" : undefined}
             >
               {label}
               <span
-                className={`pointer-events-none absolute inset-x-1 -bottom-0.5 h-0.5 origin-left bg-primary transition-transform duration-200 ease-out ${
-                  active === href ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                }`}
+                className={`pointer-events-none absolute inset-x-1 -bottom-0.5 h-0.5 origin-left bg-primary transition-transform duration-200 ease-out ${active === href ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
               />
             </a>
           ))}
@@ -115,7 +104,6 @@ const Navbar = () => {
             Agendar Cita
           </Button>
 
-          {/* Botón menú móvil */}
           <button
             className="md:hidden inline-flex items-center justify-center rounded-xl p-2.5 mr-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
@@ -127,7 +115,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Menú móvil */}
       <div className={`md:hidden ${open ? "fixed" : "hidden"} inset-0 z-50`} aria-hidden={!open}>
         <div className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
           <div className="container mx-auto flex items-center justify-between px-3 py-3">
@@ -150,9 +137,7 @@ const Navbar = () => {
                   <a
                     href={href}
                     onClick={() => handleItemClick(href)}
-                    className={`flex items-center justify-between px-2 py-3 rounded-lg transition-colors ${
-                      active === href ? "text-primary" : "text-gray-900"
-                    }`}
+                    className={`flex items-center justify-between px-2 py-3 rounded-lg transition-colors ${active === href ? "text-primary" : "text-gray-900"}`}
                     aria-current={active === href ? "page" : undefined}
                   >
                     <span>{label}</span>
@@ -185,4 +170,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
