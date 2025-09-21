@@ -28,8 +28,8 @@ const DOCTORS = [
   {
     slug: "mirko-solano",
     name: "Dr. Mirko Solano",
-    role: "Cirujano",
-    specialty: "Cirugía general",
+    role: "Médico general y cirujano",
+    specialty: "Medicina general y cirugía ambulatoria",
     image:
       "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png",
   },
@@ -128,7 +128,7 @@ const DoctorCard = memo(function DoctorCard({ d, onMore }) {
             <motion.button
               type="button"
               onClick={() => onMore(d)}
-              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 border-2 text-[${BRAND_ACCENT}] border-[${BRAND_ACCENT}] bg-white hover:bg-[${BRAND_ACCENT}] hover:text-white motion-reduce:transform-none`}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-accent/30 bg-white/70 px-4 py-2 text-sm font-semibold text-accent backdrop-blur-[2px] transition-all duration-150 hover:scale-[1.03] hover:bg-accent/10 hover:text-accent hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 motion-reduce:transform-none"
               aria-haspopup="dialog"
               aria-controls="doctor-dialog"
               aria-label={`Saber más sobre ${d.name}`}

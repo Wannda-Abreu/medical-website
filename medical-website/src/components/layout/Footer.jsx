@@ -36,7 +36,7 @@ export default function Footer() {
             alt="Sanital - Logo"
             width="360"
             height="144"
-            className="h-[2.5rem] w-auto md:h-[5rem] drop-shadow-sm"
+            className="h-[3rem] w-auto md:h-[5.5rem] drop-shadow-sm"
             loading="lazy"
             decoding="async"
           />

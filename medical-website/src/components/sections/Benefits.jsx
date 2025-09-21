@@ -4,7 +4,7 @@ const items = [
   { title: "Atención rápida", desc: "Sin largas esperas innecesarias." },
   { title: "Médicos especialistas", desc: "Amplia experiencia profesional." },
   { title: "Instalaciones modernas", desc: "Tecnología y confort." },
-  { title: "Cuidado personalizado", desc: "Trato cercano y humano." },
+  { title: "Trato cercano y profesional", desc: "Trato cercano y humano." },
 ];
 
 export default function Benefits() {

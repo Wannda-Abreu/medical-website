@@ -24,7 +24,7 @@ const services = [
     slug: "endocrinologia",
     icon: TestTubes,
     title: "Endocrinología",
-    desc: "Diagnóstico y control de diabetes, tiroides, sobrepeso/obesidad y metabolismo.",
+    desc: "Tratamiento personalizado en nutrición, obesidad y acompañamiento para deportistas.",
     bullets: [
       "Plan personalizado y control continuo",
       "Analíticas y ajuste de tratamiento",
@@ -37,13 +37,14 @@ const services = [
 services.push({
   slug: "cirugia",
   icon: HeartPulse,
-  title: "Cirugía",
-  desc: "Cirugía menor ambulatoria, evaluación preoperatoria y seguimiento.",
+  title: "Medicina general y cirugía ambulatoria",
+  desc: "Atención domiciliaria a demanda y de urgencia.",
   bullets: [
+    "Atención personalizada a pie de cama",
     "Cirugía menor y curas avanzadas",
     "Valoración preoperatoria y seguimiento postoperatorio",
   ],
-  doctorName: "Dr. Mirko Solano",
+  doctorName: "Dr. Mirko Solano Aldana",
   doctorSlug: "mirko-solano",
 });
 
@@ -90,10 +91,6 @@ export default function Services() {
           >
             Nuestros servicios
           </h2>
-          <p className="mt-3 text-base text-gray-600">
-            Cuidado sanitario cercano y profesional, ofrecido por nuestro equipo
-            médico en Ciudad Real.
-          </p>
         </header>
 
         <ul

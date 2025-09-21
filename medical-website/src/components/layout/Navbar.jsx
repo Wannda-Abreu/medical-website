@@ -67,7 +67,7 @@ const Navbar = () => {
             alt="Sanital"
             width="360"
             height="144"
-            className="h-[5.25rem] w-auto md:h-[9rem] drop-shadow-sm transition-all duration-200 ease-out group-hover:scale-[1.05] group-hover:drop-shadow-md group-active:scale-[1.01]"
+            className="h-[6rem] w-auto md:h-[10rem] drop-shadow-sm transition-all duration-200 ease-out group-hover:scale-[1.05] group-hover:drop-shadow-md group-active:scale-[1.01]"
             decoding="async"
             loading="lazy"
             fetchpriority="low"
@@ -185,5 +185,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
 

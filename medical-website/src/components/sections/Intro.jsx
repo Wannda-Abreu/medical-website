@@ -15,12 +15,12 @@ export default function Intro() {
             para que cada paciente se sienta escuchado y acompañado. Nos
             centramos en la <strong>prevención</strong> y el
             <strong> seguimiento personalizado</strong>. Conoce nuestra forma de
-            trabajar y a nuestro equipo en la&nbsp;
+            trabajar y a nuestro equipo&nbsp;
             <a
               href="/sobre-nosotros"
               className="text-primary font-semibold hover:underline underline-offset-2"
             >
-              página Sobre Nosotros
+              aquí
             </a>
             .
           </p>

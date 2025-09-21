@@ -53,13 +53,13 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           "Trastornos de tiroides (hipo/hiper, nódulos)",
           "Obesidad y nutrición clínica",
           "Dislipemias y síndrome metabólico",
-          "Trastornos hormonales (suprarrenal, hipófisis)",
+          "Trastornos hormonales (suprarrenal, hipófisis)"
         ],
         primera: [
           "Historia clínica endocrina y revisión de hábitos",
           "Revisión de analíticas previas y solicitud de pruebas",
-          "Plan personalizado: tratamiento, nutrición y seguimiento",
-        ],
+          "Plan personalizado: tratamiento, nutrición y seguimiento"
+        ]
       };
     }
     if (category === "ap") {
@@ -67,23 +67,17 @@ export default function DoctorDialog({ open, onClose, doctor }) {
         area: "Atención Primaria",
         nombre: "Dr. Pablo Carmona Díaz-Salazar",
         especialidad: "Medicina Familiar y Comunitaria",
-        companias: ["Adeslas", "Asisa", "Caser", "DKV", "Mapfre", "Aura"],
         intro:
           "Atención primaria centrada en prevención, seguimiento de crónicos y resolución de problemas de salud frecuentes.",
         horario:
           "Consulta lunes y jueves por la tarde; martes y miércoles por la mañana con cita previa.",
-        atiende: [
-          "Chequeos y revisiones de salud",
-          "Hipertensión, control de peso y riesgo cardiovascular",
-          "Infecciones leves y curas",
-          "Salud familiar y educación sanitaria",
-          "Derivación a especialista cuando procede",
-        ],
+        atiende: ["Concertado con las principales compañías"],
+        companias: ["Adeslas", "Asisa", "Caser", "DKV", "Mapfre", "Aura"],
         primera: [
           "Historia clínica completa y exploración básica (TA, IMC)",
           "Revisión de informes y medicación habitual",
-          "Plan de cuidado y próximos pasos claros",
-        ],
+          "Plan de cuidado y próximos pasos claros"
+        ]
       };
     }
     return {
@@ -93,13 +87,13 @@ export default function DoctorDialog({ open, onClose, doctor }) {
         "Control de factores de riesgo",
         "Infecciones frecuentes y curas",
         "Educación sanitaria y hábitos",
-        "Derivación a especialistas",
+        "Derivación a especialistas"
       ],
       primera: [
         "Historia clínica y exploración básica",
         "Revisión de informes previos",
-        "Plan de cuidado personalizado",
-      ],
+        "Plan de cuidado personalizado"
+      ]
     };
   }, [category]);
 
@@ -131,14 +125,14 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           postalCode: "13003",
           addressLocality: "Ciudad Real",
           addressRegion: "Castilla-La Mancha",
-          addressCountry: "ES",
+          addressCountry: "ES"
         },
-        areaServed: "Ciudad Real, Castilla-La Mancha, España",
+        areaServed: "Ciudad Real, Castilla-La Mancha, España"
       },
       potentialAction: {
         "@type": "ReserveAction",
-        target: "https://booking.slotspot.app/sanital",
-      },
+        target: "https://booking.slotspot.app/sanital"
+      }
     };
   }, [doctor, baseUrl, category]);
 
@@ -217,18 +211,6 @@ export default function DoctorDialog({ open, onClose, doctor }) {
                 <span className="text-primary">{copy.especialidad}</span>
               </p>
               <p className="text-gray-800">{copy.horario}</p>
-              {Array.isArray(copy.companias) && copy.companias.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {copy.companias.map((c) => (
-                    <span
-                      key={c}
-                      className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 text-[12px] font-medium text-primary"
-                    >
-                      {c}
-                    </span>
-                  ))}
-                </div>
-              )}
             </div>
           )}
 
@@ -237,8 +219,25 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           <div>
             <h4 className="font-semibold text-primary">Qué atiende</h4>
             <ul className="mt-2 space-y-1">
-              {copy.atiende.map((t) => (
-                <li key={t}>{t}</li>
+              {copy.atiende.map((t, i) => (
+                <li key={`${t}-${i}`}>
+                  <div>{t}</div>
+                  {category === "ap" &&
+                    i === 0 &&
+                    Array.isArray(copy.companias) &&
+                    copy.companias.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {copy.companias.map((c) => (
+                          <span
+                            key={c}
+                            className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 text-[12px] font-medium text-primary"
+                          >
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                </li>
               ))}
             </ul>
           </div>
@@ -246,8 +245,8 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           <div>
             <h4 className="font-semibold text-primary">Primera visita</h4>
             <ul className="mt-2 space-y-1">
-              {copy.primera.map((t) => (
-                <li key={t}>{t}</li>
+              {copy.primera.map((t, i) => (
+                <li key={`${t}-${i}`}>{t}</li>
               ))}
             </ul>
           </div>

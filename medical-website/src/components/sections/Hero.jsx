@@ -126,7 +126,7 @@ export default function Hero() {
         </MotionDiv>
 
         <MotionDiv className="order-2 lg:order-1 lg:col-span-6" initial={reduce || !fm ? undefined : 'hidden'} whileInView={reduce || !fm ? undefined : 'show'} viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
-          <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">Cuidado sanitario de calidad cerca de ti</h1>
+          <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">Cuidamos tu salud estés donde estés</h1>
 
           <h2 className="sr-only">Ventajas de nuestra clínica</h2>
 
@@ -135,7 +135,7 @@ export default function Hero() {
               <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
               <span className="text-sm font-medium text-gray-800">Atención cercana por especialistas colegiados</span>
             </div>
-            <p className="text-gray-600">Ofrecemos una atención médica humana y profesional para ti y tu familia. Reserva online en segundos.</p>
+            <p className="text-gray-600">Ofrecemos una atención cercana y profesional para ti y tu familia. Reserva online en segundos.</p>
           </div>
 
           <div className="mt-6 hidden flex-wrap items-center gap-4 lg:flex">
