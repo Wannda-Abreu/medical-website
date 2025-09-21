@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import fs from 'fs'
 import path from 'path'
@@ -38,7 +38,7 @@ const sitemapPlugin = () => ({
 })
 
 export default defineConfig({
-  plugins: [react(), sitemapPlugin()],
+  plugins: [react(), splitVendorChunkPlugin(), sitemapPlugin()],
   resolve: {
     alias: {
       '@': path.resolve(process.cwd(), 'src')
@@ -56,7 +56,10 @@ export default defineConfig({
       : undefined,
   },
   build: {
+    minify: 'esbuild',
+    cssMinify: 'esbuild',
     rollupOptions: {
+      treeshake: true,
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],
