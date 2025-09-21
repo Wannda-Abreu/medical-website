@@ -142,10 +142,23 @@ const DoctorCard = memo(function DoctorCard({ d, onMore, fm }) {
 export default function Team() {
   const [active, setActive] = useState(null);
   const [fm, setFm] = useState(null);
+  const sectionRef = React.useRef(null);
 
   useEffect(() => {
-    import("framer-motion").then((m) => setFm(m)).catch(() => {});
-  }, []);
+    const el = sectionRef.current;
+    if (!el || fm) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          import("framer-motion").then((m) => setFm(m)).catch(() => {});
+          io.disconnect();
+        }
+      },
+      { root: null, rootMargin: "0px 0px -20% 0px", threshold: 0.1 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [fm]);
 
   const baseUrl = useMemo(() => {
     if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
@@ -193,7 +206,7 @@ export default function Team() {
   }, [baseUrl, renderDoctors]);
 
   return (
-    <section id="equipo" aria-labelledby="equipo-heading" className="relative py-10 mt-8 bg-gradient-to-b from-white via-[rgba(0,157,152,0.1)] to-white">
+    <section ref={sectionRef} id="equipo" aria-labelledby="equipo-heading" className="relative py-10 mt-8 bg-gradient-to-b from-white via-[rgba(0,157,152,0.1)] to-white">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-6 h-16 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(0,157,152,0.22),rgba(0,157,152,0))]" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
@@ -218,4 +231,3 @@ export default function Team() {
     </section>
   );
 }
-
