@@ -34,12 +34,25 @@ export default function Hero() {
 
   useEffect(() => {
     if (reduce) return;
-    const load = () => import("framer-motion").then((m) => setFm(m));
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(load);
-    } else {
-      setTimeout(load, 0);
-    }
+    let loaded = false;
+    const load = () => {
+      if (loaded) return;
+      loaded = true;
+      import("framer-motion").then((m) => setFm(m)).catch(() => {});
+    };
+    const onInteract = () => {
+      load();
+      cleanup();
+    };
+    const cleanup = () => {
+      window.removeEventListener("pointerdown", onInteract);
+      window.removeEventListener("mousemove", onInteract);
+      window.removeEventListener("touchstart", onInteract);
+    };
+    window.addEventListener("pointerdown", onInteract, { once: true });
+    window.addEventListener("mousemove", onInteract, { once: true });
+    window.addEventListener("touchstart", onInteract, { once: true });
+    return () => cleanup();
   }, [reduce]);
 
   const MotionDiv = fm?.motion ? fm.motion.div : "div";
@@ -47,8 +60,8 @@ export default function Hero() {
 
   return (
     <section id="inicio" ref={heroRef} className="relative bg-[#f3f4f6] overflow-hidden">
-      <div className="lg:hidden container px-0 mt-[var(--header-h)]">
-        <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl bg-[#e9eef2]">
+      <div className="lg:hidden w-screen max-w-none px-0 mt-0">
+        <div className="relative w-full aspect-[16/9] overflow-hidden rounded-none bg-[#e9eef2]">
           <picture>
             <source
               type="image/avif"
