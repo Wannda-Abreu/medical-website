@@ -1,132 +1,178 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CalendarCheck, ShieldCheck, Users2, CalendarClock, CheckCircle2 } from "lucide-react";
-import { useRef } from "react";
-import { cld, srcset, sizesFor } from "@/lib/cld";
-import SmartImage from "@/components/SmartImage";
+// cld/SmartImage not needed for LCP image, using plain <img>
 import ShareButtons from "../common/ShareButtons";
 
 export default function Hero() {
-  const ref = useRef(null);
+  const heroRef = useRef(null);
   const [fm, setFm] = useState(null);
-  const reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  useEffect(() => {
+    const setVars = () => {
+      const h = window.innerHeight;
+      const header = document.querySelector("header");
+      const headerH = header ? header.getBoundingClientRect().height : 0;
+      document.documentElement.style.setProperty("--header-h", `${headerH}px`);
+      document.documentElement.style.setProperty("--vh", `${h * 0.01}px`);
+    };
+    setVars();
+    window.addEventListener("resize", setVars);
+    window.addEventListener("orientationchange", setVars);
+    return () => {
+      window.removeEventListener("resize", setVars);
+      window.removeEventListener("orientationchange", setVars);
+    };
+  }, []);
 
   useEffect(() => {
     if (reduce) return;
-    const load = () => import('framer-motion').then((m) => setFm(m));
-    if ('requestIdleCallback' in window) {
-      // @ts-ignore
+    const load = () => import("framer-motion").then((m) => setFm(m));
+    if ("requestIdleCallback" in window) {
       window.requestIdleCallback(load);
     } else {
       setTimeout(load, 0);
     }
   }, [reduce]);
 
-  const MotionDiv = (fm && fm.motion) ? fm.motion.div : 'div';
-  const MotionImg = (fm && fm.motion) ? fm.motion.img : 'img';
-  const glowY = 0;
-  const glowX = 0;
+  const MotionDiv = fm?.motion ? fm.motion.div : "div";
   const fadeUp = { hidden: {}, show: {} };
 
   return (
-    <section id="inicio" className="relative h-screen bg-[#f3f4f6]" style={{ ["--hero-bg"]: "#f3f4f6" }}>
-      <div ref={ref} className="relative container grid h-full items-center gap-10 lg:grid-cols-12">
-        {/* ===== IMAGEN ===== */}
-        <MotionDiv
-          className="relative order-1 flex h-full justify-center lg:order-2 lg:col-span-6 lg:justify-end"
-          initial={reduce || !fm ? undefined : { opacity: 0 }}
-          whileInView={reduce || !fm ? undefined : { opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <div className="relative h-full w-full max-w-[1150px]">
-            <div className="relative h-full w-full overflow-hidden">
-              {/* Imagen con degradado fuerte en bordes */}
-              <SmartImage
-                src={cld(
-                  "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1758053297/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_1_qhxfqn.png",
-                  1200,
-                  true
-                )}
-                srcSet={srcset(
-                  "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1758053297/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_1_qhxfqn.png",
-                  [640, 960, 1200, 1600],
-                  true
-                )}
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                alt="Profesional sanitaria sonriendo con paciente en consulta"
-                className="h-full w-full object-cover"
-                width={1200}
-                height={800}
-                eager
-                style={{
-                  WebkitMaskImage:
-                    "radial-gradient(130% 130% at 50% 50%, black 60%, rgba(0,0,0,0.85) 75%, transparent 92%)",
-                  maskImage:
-                    "radial-gradient(130% 130% at 50% 50%, black 60%, rgba(0,0,0,0.85) 75%, transparent 92%)",
-                }}
-              />
-
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background: `
-                    radial-gradient(140% 160% at 55% 50%, rgba(243,244,246,0) 60%, var(--hero-bg) 86%),
-                    linear-gradient(to right, var(--hero-bg) 0%, rgba(243,244,246,0) 12%, rgba(243,244,246,0) 88%, var(--hero-bg) 100%),
-                    linear-gradient(to bottom, rgba(243,244,246,0) 78%, var(--hero-bg) 100%),
-                    linear-gradient(to top, rgba(243,244,246,0) 88%, var(--hero-bg) 100%)
-                  `,
-                }}
-              />
-              <MotionDiv
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-28 top-1/2 h-[620px] w-[620px] -translate-y-1/2 rounded-full bg-primary/25 blur-3xl"
-                style={{ y: glowY, x: glowX }}
-              />
-
-              <div className="absolute bottom-4 right-4 z-10 flex items-center gap-2 lg:hidden">
-                <a
-                  href="https://booking.slotspot.app/sanital"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Agendar cita en Sanital Tomelloso"
-                  className="inline-flex items-center gap-1.5 rounded-full text-[13px] font-semibold text-white transition-all duration-200 hover:scale-110 hover:shadow-2xl active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-                  style={{
-                    padding: "10px 14px",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    background:
-                      "linear-gradient(180deg, rgba(0,157,152,0.94) 0%, rgba(0,126,122,0.92) 100%)",
-                    boxShadow: "0 12px 26px rgba(0,157,152,0.32)",
-                    border: "1px solid rgba(255,255,255,0.28)",
-                  }}
-                >
-                  <CalendarCheck className="h-4 w-4" />
-                  Agendar cita
-                </a>
-
-                <a
-                  href="#servicios"
-                  aria-label="Ver todos los servicios médicos de Sanital"
-                  className="inline-flex items-center rounded-full text-[12px] font-semibold text-primary transition-all duration-200 hover:scale-105 hover:shadow-xl hover:opacity-95 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
-                  style={{
-                    padding: "9px 12px",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    background:
-                      "linear-gradient(180deg, rgba(255,255,255,0.44) 0%, rgba(255,255,255,0.26) 100%)",
-                    border: "1px solid rgba(255,255,255,0.38)",
-                  }}
-                >
-                  Ver servicios
-                </a>
-              </div>
-            </div>
+    <section id="inicio" ref={heroRef} className="relative bg-[#f3f4f6] overflow-hidden">
+      {/* MOBILE: imagen tipo banner arriba, sin tapar por el navbar */}
+      <div className="lg:hidden container mt-[var(--header-h)]">
+        <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl bg-[#e9eef2]">
+          <SmartImage
+            src={cld(
+              "https://res.cloudinary.com/dfq9eaz2e/image/upload/f_auto,q_auto,dpr_auto,c_limit,w_1200/v1758053297/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_1_qhxfqn.png",
+              1200,
+              true
+            )}
+            srcSet={srcset(
+              "https://res.cloudinary.com/dfq9eaz2e/image/upload/f_auto,q_auto,dpr_auto,c_limit,w_1200/v1758053297/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_1_qhxfqn.png",
+              [480, 640, 960, 1200],
+              true
+            )}
+            sizes="100vw"
+            alt="Profesional sanitaria sonriendo con paciente en consulta"
+            className="absolute inset-0 block h-full w-full object-cover"
+            width={1200}
+            height={800}
+            decoding="async"
+            fetchpriority="high"
+            eager
+            style={{
+              WebkitMaskImage:
+                "radial-gradient(160% 160% at 60% 55%, rgba(0,0,0,1) 92%, rgba(0,0,0,0.6) 97%, transparent 100%)",
+              maskImage:
+                "radial-gradient(160% 160% at 60% 55%, rgba(0,0,0,1) 92%, rgba(0,0,0,0.6) 97%, transparent 100%)",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat"
+            }}
+          />
+          <div className="pointer-events-none absolute inset-0" style={{
+            background: `
+              radial-gradient(170% 170% at 70% 60%, rgba(243,244,246,0) 80%, #f3f4f6 100%),
+              linear-gradient(to bottom, rgba(243,244,246,0) 85%, #f3f4f6 100%)
+            `
+          }} />
+          <div className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-3 px-3">
+            <a
+              href="https://booking.slotspot.app/sanital"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-semibold text-white shadow-md"
+              style={{
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                background: "linear-gradient(180deg, rgba(0,157,152,0.94) 0%, rgba(0,126,122,0.92) 100%)",
+                border: "1px solid rgba(255,255,255,0.28)"
+              }}
+            >
+              <CalendarCheck className="h-4 w-4" />
+              Agendar cita
+            </a>
+            <a
+              href="#servicios"
+              className="inline-flex items-center rounded-full px-4 py-2 text-[12px] font-semibold text-primary"
+              style={{
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                background: "linear-gradient(180deg, rgba(255,255,255,0.44) 0%, rgba(255,255,255,0.26) 100%)",
+                border: "1px solid rgba(255,255,255,0.38)"
+              }}
+            >
+              Ver servicios
+            </a>
           </div>
-        </MotionDiv>
+        </div>
+      </div>
 
-        <MotionDiv className="order-2 lg:order-1 lg:col-span-6" initial={reduce || !fm ? undefined : 'hidden'} whileInView={reduce || !fm ? undefined : 'show'} viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
-          <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">Cuidamos tu salud estés donde estés</h1>
+      {/* DESKTOP: imagen a la derecha ocupando toda la altura del hero */}
+      <div
+        className="hidden lg:block absolute inset-y-0 right-0 w-1/2"
+        style={{ height: "calc(100dvh - var(--header-h, 0px))" }}
+      >
+        <div className="relative h-full w-full">
+          <SmartImage
+            src={cld(
+              "https://res.cloudinary.com/dfq9eaz2e/image/upload/f_auto,q_auto,dpr_auto,c_limit,w_1600/v1758053297/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_1_qhxfqn.png",
+              1600,
+              true
+            )}
+            srcSet={srcset(
+              "https://res.cloudinary.com/dfq9eaz2e/image/upload/f_auto,q_auto,dpr_auto,c_limit,w_1600/v1758053297/ChatGPT_Image_18_ago_2025_21_24_24_l4pkpb_e_background_removal_f_png_1_qhxfqn.png",
+              [960, 1200, 1400, 1600],
+              true
+            )}
+            sizes="50vw"
+            alt="Profesional sanitaria sonriendo con paciente en consulta"
+            className="absolute inset-0 block h-full w-full object-cover object-right"
+            width={1600}
+            height={1067}
+            decoding="async"
+            eager
+            style={{
+              WebkitMaskImage:
+                "radial-gradient(220% 200% at 85% 60%, rgba(0,0,0,1) 96%, rgba(0,0,0,0.55) 98%, transparent 100%)",
+              maskImage:
+                "radial-gradient(220% 200% at 85% 60%, rgba(0,0,0,1) 96%, rgba(0,0,0,0.55) 98%, transparent 100%)",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat"
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background: `
+                radial-gradient(220% 200% at 90% 60%, rgba(243,244,246,0) 82%, #f3f4f6 100%),
+                linear-gradient(to right, #f3f4f6 0%, rgba(243,244,246,0) 10%, rgba(243,244,246,0) 90%, #f3f4f6 100%),
+                linear-gradient(to bottom, rgba(243,244,246,0) 90%, #f3f4f6 100%)
+              `
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Contenido */}
+      <div
+        className="relative container grid items-center gap-10 lg:grid-cols-12"
+        style={{ minHeight: "calc(100dvh - var(--header-h, 0px))" }}
+      >
+        <MotionDiv
+          className="lg:col-span-6 flex flex-col justify-center"
+          initial={reduce || !fm ? undefined : "hidden"}
+          whileInView={reduce || !fm ? undefined : "show"}
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeUp}
+        >
+          <h1 className="mt-6 lg:mt-0 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
+            Cuidamos tu salud estés donde estés
+          </h1>
 
           <h2 className="sr-only">Ventajas de nuestra clínica</h2>
 
@@ -135,7 +181,9 @@ export default function Hero() {
               <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
               <span className="text-sm font-medium text-gray-800">Atención cercana por especialistas colegiados</span>
             </div>
-            <p className="text-gray-600">Ofrecemos una atención cercana y profesional para ti y tu familia. Reserva online en segundos.</p>
+            <p className="text-gray-600">
+              Ofrecemos una atención cercana y profesional para ti y tu familia. Reserva tu cita online o llámanos.
+            </p>
           </div>
 
           <div className="mt-6 hidden flex-wrap items-center gap-4 lg:flex">
@@ -143,8 +191,7 @@ export default function Hero() {
               href="https://booking.slotspot.app/sanital"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Agendar cita en Sanital Tomelloso"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-6 py-3 text-white font-semibold shadow-sm transition-transform duration-200 hover:scale-[1.08] hover:shadow-xl hover:from-primary-700 hover:to-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 active:scale-100 hover:text-white"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-6 py-3 text-white font-semibold shadow-sm transition-transform duration-200 hover:scale-[1.08] hover:shadow-xl hover:from-primary-700 hover:to-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 active:scale-100"
             >
               <CalendarCheck className="h-5 w-5" />
               Agendar cita
@@ -152,7 +199,6 @@ export default function Hero() {
 
             <a
               href="#servicios"
-              aria-label="Ver todos los servicios médicos de Sanital"
               className="inline-flex items-center justify-center rounded-xl border-2 border-accent px-8 py-3.5 text-base font-semibold text-primary bg-white transition-all duration-200 hover:bg-primary/10 hover:scale-[1.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 active:bg-primary/15"
             >
               Ver servicios
@@ -167,7 +213,7 @@ export default function Hero() {
             {[
               { icon: Users2, label: "Equipo multidisciplinar" },
               { icon: CalendarClock, label: "Citas el mismo día" },
-              { icon: CheckCircle2, label: "Seguimiento continuo" },
+              { icon: CheckCircle2, label: "Seguimiento continuo" }
             ].map(({ icon: Icon, label }) => (
               <li key={label} className="flex items-center gap-2 rounded-md bg-primary/5 px-3 py-2 text-gray-800 transition-colors hover:bg-primary/10">
                 <Icon className="h-4 w-4 text-primary" aria-hidden="true" />
@@ -176,6 +222,8 @@ export default function Hero() {
             ))}
           </ul>
         </MotionDiv>
+
+        <div className="hidden lg:block lg:col-span-6" />
       </div>
     </section>
   );

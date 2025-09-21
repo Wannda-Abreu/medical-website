@@ -4,8 +4,7 @@ import Hero from "../components/sections/Hero";
 import React from "react";
 import LazySection from "../components/common/LazySection";
 import Footer from "../components/layout/Footer";
-import Benefits from "../components/sections/Benefits";
-import Intro from "../components/sections/Intro";
+// Defer non-critical sections above the fold to reduce main bundle
 import StickyCTA from "../components/layout/StickyCTA";
 import SplashScreen from "../components/layout/SplashScreen";
 import SkipLink from "../components/layout/SkipLink";
@@ -22,8 +21,16 @@ export default function Home() {
       <Navbar />
       <main id="main" className="relative pb-8 sm:pb-10">
         <Hero />
-        <Intro />
-        <Benefits />
+        <LazySection
+          loader={() => import("../components/sections/Intro")}
+          rootMargin="800px"
+          fallback={<div className="min-h-[320px]" />}
+        />
+        <LazySection
+          loader={() => import("../components/sections/Benefits")}
+          rootMargin="800px"
+          fallback={<div className="min-h-[320px]" />}
+        />
         <div id="servicios">
           <LazySection
             loader={() => import("../components/sections/Services")}
