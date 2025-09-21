@@ -9,16 +9,16 @@ const Navbar = () => {
   const headerRef = useRef(null);
 
   const menuItems = [
-    { label: "Inicio", href: "#inicio" },
-    { label: "Servicios", href: "#servicios" },
-    { label: "Equipo", href: "#equipo" },
+    { label: "Inicio", href: "/#inicio" },
+    { label: "Servicios", href: "/#servicios" },
+    { label: "Equipo", href: "/#equipo" },
     { label: "Sobre nosotros", href: "/sobre-nosotros" },
-    { label: "Pacientes", href: "#testimonios" },
-    { label: "Contacto", href: "#contacto" },
+    { label: "Pacientes", href: "/#testimonios" },
+    { label: "Contacto", href: "/#contacto" },
   ];
 
   useEffect(() => {
-    const ids = menuItems.filter(m => m.href.startsWith("#")).map(m => m.href.replace(/^#/, ""));
+    const ids = ["inicio", "servicios", "equipo", "testimonios", "contacto"];
     const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
     if (sections.length === 0) return;
     const io = new IntersectionObserver(entries => {
@@ -31,8 +31,9 @@ const Navbar = () => {
   }, []);
 
   const handleItemClick = href => {
-    setActive(href);
-    if (href.startsWith("#")) setOpen(false);
+    const hash = href.includes("#") ? `#${href.split("#")[1]}` : href;
+    setActive(hash);
+    setOpen(false);
   };
 
   return (
@@ -42,8 +43,8 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between px-0 py-2 md:py-0">
         <a
-          href="#inicio"
-          className="group ml-3 -my-8 md:ml-0 flex h-[6rem] md:h-[10rem] items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+          href="/#inicio"
+          className="group ml-3 -my-7 md:ml-0 flex h-[6rem] md:h-[10rem] items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
           aria-label="Ir al inicio"
         >
           <img
@@ -73,20 +74,24 @@ const Navbar = () => {
           className="mx-2 hidden md:flex flex-1 items-center justify-center gap-x-4 gap-y-1 px-2 py-0 text-[15px] sm:text-[16px] font-medium text-gray-800 flex-wrap"
           aria-label="Navegación principal"
         >
-          {menuItems.map(({ label, href }) => (
-            <a
-              key={href}
-              href={href}
-              onClick={() => handleItemClick(href)}
-              className={`relative px-2 py-1.5 rounded-md transition-all ease-out hover:text-primary hover:shadow-sm hover:shadow-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 group ${active === href ? "text-primary" : ""}`}
-              aria-current={active === href ? "page" : undefined}
-            >
-              {label}
-              <span
-                className={`pointer-events-none absolute inset-x-1 -bottom-0.5 h-0.5 origin-left bg-primary transition-transform duration-200 ease-out ${active === href ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
-              />
-            </a>
-          ))}
+          {menuItems.map(({ label, href }) => {
+            const isHash = href.includes("#");
+            const current = isHash ? `#${href.split("#")[1]}` : href;
+            return (
+              <a
+                key={href}
+                href={href}
+                onClick={() => handleItemClick(href)}
+                className={`relative px-2 py-1.5 rounded-md transition-all ease-out hover:text-primary hover:shadow-sm hover:shadow-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 group ${active === current ? "text-primary" : ""}`}
+                aria-current={active === current ? "page" : undefined}
+              >
+                {label}
+                <span
+                  className={`pointer-events-none absolute inset-x-1 -bottom-0.5 h-0.5 origin-left bg-primary transition-transform duration-200 ease-out ${active === current ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
+                />
+              </a>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2 pr-3 md:pr-3">
@@ -132,19 +137,23 @@ const Navbar = () => {
           </div>
           <nav className="px-3 pb-4 pt-2 text-[16px] font-medium text-gray-900" aria-label="Navegación móvil">
             <ul className="flex flex-col divide-y divide-gray-200">
-              {menuItems.map(({ label, href }) => (
-                <li key={href}>
-                  <a
-                    href={href}
-                    onClick={() => handleItemClick(href)}
-                    className={`flex items-center justify-between px-2 py-3 rounded-lg transition-colors ${active === href ? "text-primary" : "text-gray-900"}`}
-                    aria-current={active === href ? "page" : undefined}
-                  >
-                    <span>{label}</span>
-                    <span className={`h-1.5 w-1.5 rounded-full ${active === href ? "bg-primary" : "bg-transparent"}`} />
-                  </a>
-                </li>
-              ))}
+              {menuItems.map(({ label, href }) => {
+                const isHash = href.includes("#");
+                const current = isHash ? `#${href.split("#")[1]}` : href;
+                return (
+                  <li key={href}>
+                    <a
+                      href={href}
+                      onClick={() => handleItemClick(href)}
+                      className={`flex items-center justify-between px-2 py-3 rounded-lg transition-colors ${active === current ? "text-primary" : "text-gray-900"}`}
+                      aria-current={active === current ? "page" : undefined}
+                    >
+                      <span>{label}</span>
+                      <span className={`h-1.5 w-1.5 rounded-full ${active === current ? "bg-primary" : "bg-transparent"}`} />
+                    </a>
+                  </li>
+                );
+              })}
               <li className="pt-2">
                 <Button
                   as="a"
@@ -170,3 +179,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+

@@ -153,7 +153,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contacto" className="relative bg-[#f3f7f5] pt-2 md:pt-2 pb-6 md:pb-8">
+    <section
+      id="contacto"
+      className="relative bg-[#f3f7f5] pt-2 md:pt-2 pb-6 md:pb-8"
+    >
       <div className="container mx-auto px-2 md:px-3">
         <SectionTitle
           title="Contáctanos"
@@ -318,8 +321,8 @@ export default function Contact() {
               )}
             </div>
 
-            <footer className="mt-5 rounded-xl bg-white/80 border border-primary/20 p-3">
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-gray-800 text-[13px] leading-tight">
+            <footer className="mt-12 rounded-xl bg-white/80 border border-primary/20 p-5">
+              <div className="flex flex-wrap mt-1 my-1 items-center gap-x-6 gap-y-2 text-gray-800 text-[13px] leading-tight">
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4 text-primary" />
                   <a
@@ -372,12 +375,14 @@ export default function Contact() {
               height={40}
             />
             <p className="max-w-[44ch] text-[14px] text-gray-700 mt-3 py-5">
-              En <strong>Sanital</strong> creemos en un modelo de salud humano,
-              accesible y profesional. Nuestro equipo médico está comprometido a
-              garantizar una atención cercana, segura y de calidad, basada en la
-              prevención y el seguimiento personalizado.
+              En <strong>Sanital</strong> Creemos en un modelo de salud humano,
+              accesible y profesional. Nuestro equipo médico brinda una atención
+              cercana, segura y de calidad, centrada en la prevención y el
+              seguimiento personalizado. Buscamos que cada visita sea una
+              experiencia de confianza y tranquilidad, con el cuidado y la
+              empatía como prioridad.
             </p>
-            <div className="flex items-center mt-2 gap-3 py-5">
+            <div className="flex items-center mt-3 my-5 gap-3 py-5">
               <a
                 href="https://facebook.com/"
                 target="_blank"
@@ -385,7 +390,7 @@ export default function Contact() {
                 aria-label="Facebook de Sanital"
                 className="grid h-9 w-9 place-items-center rounded-full border border-primary/30 bg-white text-primary shadow-sm transition hover:scale-[1.02]"
               >
-                <Facebook className="h-5 w-5" />
+                <Facebook className="h-5 w-5 " />
               </a>
               <a
                 href="https://instagram.com/"

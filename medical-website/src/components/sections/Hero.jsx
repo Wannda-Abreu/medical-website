@@ -169,7 +169,7 @@ export default function Hero() {
 
       <div className="relative container grid items-center gap-10 lg:grid-cols-12" style={{ minHeight: "calc(100dvh - var(--header-h, 0px))" }}>
         <MotionDiv className="lg:col-span-6 flex flex-col justify-center" initial={reduce || !fm ? undefined : "hidden"} whileInView={reduce || !fm ? undefined : "show"} viewport={{ once: true, amount: 0.3 }} variants={fadeUp}>
-          <h1 className="mt-6 lg:mt-0 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">Cuidamos tu salud estés donde estés</h1>
+          <h1 className="mt-6 lg:mt-0 text-3xl font-bold leading-tight text-gray-700 md:text-4xl">Cuidamos tu salud estés donde estés</h1>
           <h2 className="sr-only">Ventajas de nuestra clínica</h2>
           <div className="mt-4 flex flex-col gap-3">
             <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm">
