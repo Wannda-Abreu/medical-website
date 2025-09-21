@@ -47,7 +47,7 @@ export default function Hero() {
 
   return (
     <section id="inicio" ref={heroRef} className="relative bg-[#f3f4f6] overflow-hidden">
-      <div className="lg:hidden container mt-[var(--header-h)]">
+      <div className="lg:hidden container px-0 mt-[var(--header-h)]">
         <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl bg-[#e9eef2]">
           <picture>
             <source
@@ -204,4 +204,3 @@ export default function Hero() {
     </section>
   );
 }
-
