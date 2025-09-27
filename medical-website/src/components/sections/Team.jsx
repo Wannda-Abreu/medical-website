@@ -12,12 +12,12 @@ const DOCTORS = [
     slug: "diana-storinoz",
     name: "Dra. Diana Storino",
     role: "Endocrino",
-    specialty: "Consulta de endocrinología y obesidad",
+    specialty: "Consulta de endocrinologia y obesidad",
     image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253397/2_swjp7l.png",
   },
   {
     slug: "pablo-carmona",
-    name: "Dr. Pablo Carmona Díaz Salazar",
+    name: "Dr. Pablo Carmona Diaz Salazar",
     role: "Medicina Familiar y Comunitaria",
     specialty: "Especialista en Medicina Familiar y Comunitaria",
     image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
@@ -25,8 +25,8 @@ const DOCTORS = [
   {
     slug: "mirko-solano",
     name: "Dr. Mirko Solano",
-    role: "Médico general y cirujano",
-    specialty: "Medicina general y cirugía ambulatoria",
+    role: "Medico general y cirujano",
+    specialty: "Medicina general y cirugia ambulatoria",
     image: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png",
   },
 ];
@@ -43,12 +43,12 @@ const clinic = {
   name: "Sanital",
   url: "https://www.sanital.example",
   address: {
-    streetAddress: "Calle del Río 8",
+    streetAddress: "Calle del Rio 8",
     addressLocality: "Ciudad Real",
     addressRegion: "Castilla-La Mancha",
     addressCountry: "ES",
   },
-  areaServed: "Ciudad Real, Castilla-La Mancha, España",
+  areaServed: "Ciudad Real, Castilla-La Mancha, Espana",
 };
 
 const roleTone = {
@@ -109,7 +109,7 @@ const DoctorCard = memo(function DoctorCard({ d, onMore, fm }) {
               href="https://booking.slotspot.app/sanital"
               target="_blank"
               rel="noopener noreferrer"
-              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 bg-[${BRAND_PRIMARY}] text-white border-2 border-transparent hover:bg-white hover:text-[${BRAND_PRIMARY}] hover:border-[${BRAND_PRIMARY}] motion-reduce:transform-none`}
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:scale-[1.04] hover:shadow-md hover:from-primary-700 hover:to-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-100 hover:text-white`}
               aria-label={`Agendar cita con ${d.name}`}
             >
               <CalendarCheck className="h-4 w-4" aria-hidden="true" />
@@ -119,14 +119,14 @@ const DoctorCard = memo(function DoctorCard({ d, onMore, fm }) {
             <MotionButton
               type="button"
               onClick={() => onMore(d)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-accent/30 bg-white/70 px-4 py-2 text-sm font-semibold text-accent backdrop-blur-[2px] transition-all duration-150 hover:scale-[1.03] hover:bg-accent/10 hover:text-accent hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 motion-reduce:transform-none"
+              className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-white/70 px-4 py-2 text-sm font-semibold text-accent backdrop-blur-[2px] transition-all duration-150 hover:scale-[1.03] hover:bg-accent/10 hover:text-accent hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
               aria-haspopup="dialog"
               aria-controls="doctor-dialog"
-              aria-label={`Saber más sobre ${d.name}`}
+              aria-label={`Saber mas sobre ${d.name}`}
               {...(Motion ? { whileTap: { scale: 0.97 } } : {})}
             >
               <Info className="h-4 w-4" aria-hidden="true" />
-              Saber más
+              Saber mas
             </MotionButton>
           </div>
 
@@ -175,7 +175,7 @@ export default function Team() {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "@id": `${baseUrl}/equipo#lista`,
-      name: "Equipo médico",
+      name: "Equipo medico",
       itemListElement: renderDoctors.map((d, i) => ({
         "@type": "ListItem",
         position: i + 1,
@@ -212,13 +212,13 @@ export default function Team() {
 
       <div className="container px-4 sm:px-6 lg:px-8">
         <h2 id="equipo-heading" className="mb-8 text-center text-2xl font-bold sm:mb-10 sm:text-3xl" style={{ color: BRAND_PRIMARY }}>
-          Nuestro equipo médico
+          Nuestro equipo medico
         </h2>
         <p className="sr-only">
-          Conoce a nuestro equipo médico de Sanital en Ciudad Real, Castilla-La Mancha: especialistas colegiados con atención cercana.
+          Conoce a nuestro equipo medico de Sanital en Ciudad Real, Castilla-La Mancha: especialistas colegiados con atencion cercana.
         </p>
 
-        <ul aria-label="Tarjetas del equipo médico" className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul aria-label="Tarjetas del equipo medico" className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {renderDoctors.map((d) => (
             <DoctorCard key={d.slug} d={d} onMore={setActive} fm={fm} />
           ))}
@@ -231,3 +231,4 @@ export default function Team() {
     </section>
   );
 }
+
