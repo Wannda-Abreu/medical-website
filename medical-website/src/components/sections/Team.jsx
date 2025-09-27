@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo, useState, memo, useEffect } from "react";
+import React, { Suspense, useMemo, useState, memo } from "react";
 import { CalendarCheck, Info, Stethoscope } from "lucide-react";
 const DoctorDialog = React.lazy(() => import("../common/DoctorDialog"));
 import { cldEco as cld, srcsetEco as srcset } from "@/lib/cld";
@@ -57,26 +57,18 @@ const roleTone = {
   Cirujano: `bg-white/80 text-zinc-800 ring-black/5`,
 };
 
-const DoctorCard = memo(function DoctorCard({ d, onMore, fm }) {
-  const Motion = fm?.motion;
-  const MotionArticle = Motion ? Motion.article : "article";
-  const MotionButton = Motion ? Motion.button : "button";
-  const motionArticleProps = Motion
-    ? { initial: { opacity: 0, y: 12 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.2 } }
-    : {};
-
+const DoctorCard = memo(function DoctorCard({ d, onMore }) {
   const { src, srcSet } = buildSrcSets(d.image);
   const tone = roleTone[d.role] || `bg-white/80 text-zinc-800 ring-black/5`;
 
   return (
     <li className="flex justify-center" key={d.slug}>
-      <MotionArticle
+      <article
         id={d.slug}
         itemScope
         itemType="https://schema.org/Physician"
-        className="group relative w-full max-w-[26rem] rounded-2xl border border-zinc-200 bg-white shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg/30 motion-reduce:transform-none"
+        className="group relative w-full max-w-[26rem] rounded-2xl border border-zinc-200 bg-white shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg/30 motion-reduce:transform-none animate-slideDownFade"
         aria-label={`${d.name}, ${d.role}`}
-        {...motionArticleProps}
       >
         <div className="rounded-2xl border border-zinc-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85 p-6">
           <figure className="relative z-10 mx-auto h-[300px] w-full rounded-xl ring-1 ring-[rgba(0,157,152,0.15)] shadow-sm overflow-hidden bg-gradient-to-b from-white via-[rgba(0,157,152,0.08)] to-white">
@@ -116,49 +108,30 @@ const DoctorCard = memo(function DoctorCard({ d, onMore, fm }) {
               Agendar cita
             </a>
 
-            <MotionButton
+            <button
               type="button"
               onClick={() => onMore(d)}
               className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-white/70 px-4 py-2 text-sm font-semibold text-accent backdrop-blur-[2px] transition-all duration-150 hover:scale-[1.03] hover:bg-accent/10 hover:text-accent hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
               aria-haspopup="dialog"
               aria-controls="doctor-dialog"
               aria-label={`Saber mas sobre ${d.name}`}
-              {...(Motion ? { whileTap: { scale: 0.97 } } : {})}
             >
               <Info className="h-4 w-4" aria-hidden="true" />
               Saber mas
-            </MotionButton>
+            </button>
           </div>
 
           <meta itemProp="jobTitle" content={d.role} />
           <meta itemProp="url" content={`/equipo#${d.slug}`} />
           <span className="pointer-events-none absolute inset-x-6 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100" style={{ backgroundColor: BRAND_PRIMARY }} />
         </div>
-      </MotionArticle>
+      </article>
     </li>
   );
 });
 
 export default function Team() {
   const [active, setActive] = useState(null);
-  const [fm, setFm] = useState(null);
-  const sectionRef = React.useRef(null);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el || fm) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          import("framer-motion").then((m) => setFm(m)).catch(() => {});
-          io.disconnect();
-        }
-      },
-      { root: null, rootMargin: "0px 0px -20% 0px", threshold: 0.1 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [fm]);
 
   const baseUrl = useMemo(() => {
     if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
@@ -206,7 +179,7 @@ export default function Team() {
   }, [baseUrl, renderDoctors]);
 
   return (
-    <section ref={sectionRef} id="equipo" aria-labelledby="equipo-heading" className="relative py-10 mt-8 bg-gradient-to-b from-white via-[rgba(0,157,152,0.1)] to-white">
+    <section id="equipo" aria-labelledby="equipo-heading" className="relative py-10 mt-8 bg-gradient-to-b from-white via-[rgba(0,157,152,0.1)] to-white">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-6 h-16 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(0,157,152,0.22),rgba(0,157,152,0))]" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
@@ -220,7 +193,7 @@ export default function Team() {
 
         <ul aria-label="Tarjetas del equipo medico" className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {renderDoctors.map((d) => (
-            <DoctorCard key={d.slug} d={d} onMore={setActive} fm={fm} />
+            <DoctorCard key={d.slug} d={d} onMore={setActive} />
           ))}
         </ul>
       </div>
@@ -231,4 +204,3 @@ export default function Team() {
     </section>
   );
 }
-

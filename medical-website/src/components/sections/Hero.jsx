@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { CalendarCheck, ShieldCheck, Users2, CalendarClock, CheckCircle2 } from "lucide-react";
 import ShareButtons from "../common/ShareButtons";
 
@@ -12,12 +12,6 @@ function url(w) {
 
 export default function Hero() {
   const heroRef = useRef(null);
-  const [fm, setFm] = useState(null);
-  const reduce =
-    typeof window !== "undefined" &&
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   useEffect(() => {
     const setVars = () => {
       const h = window.innerHeight;
@@ -35,35 +29,10 @@ export default function Hero() {
     };
   }, []);
 
-  useEffect(() => {
-    if (reduce) return;
-    let loaded = false;
-    const load = () => {
-      if (loaded) return;
-      loaded = true;
-      import("framer-motion").then((m) => setFm(m)).catch(() => {});
-    };
-    const onInteract = () => {
-      load();
-      cleanup();
-    };
-    const cleanup = () => {
-      window.removeEventListener("pointerdown", onInteract);
-      window.removeEventListener("mousemove", onInteract);
-      window.removeEventListener("touchstart", onInteract);
-    };
-    window.addEventListener("pointerdown", onInteract, { once: true });
-    window.addEventListener("mousemove", onInteract, { once: true });
-    window.addEventListener("touchstart", onInteract, { once: true });
-    return () => cleanup();
-  }, [reduce]);
 
-  const MotionDiv = fm?.motion ? fm.motion.div : "div";
-  const fadeUp = { hidden: {}, show: {} };
 
   return (
     <section id="inicio" ref={heroRef} className="relative bg-[#f3f4f6] overflow-hidden">
-      {/* Imagen móvil con encuadre ajustado */}
       <div className="lg:hidden w-screen max-w-none px-0 mt-0">
         <div className="relative w-full aspect-[16/9] overflow-hidden rounded-none bg-[#e9eef2]">
           <picture>
@@ -81,15 +50,15 @@ export default function Hero() {
               src={url(1200)}
               srcSet={`${url(480)} 480w, ${url(640)} 640w, ${url(960)} 960w, ${url(1200)} 1200w`}
               sizes="100vw"
-              alt="Profesional sanitaria sonriendo con paciente en consulta"
+              alt="Profesional sanitaria sonriendo junto a una paciente en consulta"
               className="absolute inset-0 block h-full w-full object-cover"
               width={1200}
               height={800}
               loading="eager"
               decoding="async"
-              fetchpriority="high"
+              fetchPriority="high"
               style={{
-                objectPosition: "center 30%", // mueve el foco hacia abajo
+                objectPosition: "center 30%",
                 WebkitMaskImage:
                   "radial-gradient(160% 160% at 60% 55%, rgba(0,0,0,1) 92%, rgba(0,0,0,0.6) 97%, transparent 100%)",
                 maskImage:
@@ -143,7 +112,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Desktop sin cambios */}
       <div
         className="hidden lg:block absolute inset-y-0 right-0 w-1/2"
         style={{ height: "calc(100dvh - var(--header-h, 0px))" }}
@@ -164,13 +132,13 @@ export default function Hero() {
               src={url(1600)}
               srcSet={`${url(960)} 960w, ${url(1200)} 1200w, ${url(1400)} 1400w, ${url(1600)} 1600w`}
               sizes="50vw"
-              alt="Profesional sanitaria sonriendo con paciente en consulta"
+              alt="Profesional sanitaria sonriendo junto a una paciente en consulta"
               className="absolute inset-0 block h-full w-full object-cover object-right"
               width={1600}
               height={1067}
               loading="eager"
               decoding="async"
-              fetchpriority="high"
+              fetchPriority="high"
               style={{
                 WebkitMaskImage:
                   "radial-gradient(220% 200% at 85% 60%, rgba(0,0,0,1) 96%, rgba(0,0,0,0.55) 98%, transparent 100%)",
@@ -201,27 +169,24 @@ export default function Hero() {
         className="relative container grid items-center gap-10 lg:grid-cols-12"
         style={{ minHeight: "calc(100dvh - var(--header-h, 0px))" }}
       >
-        <MotionDiv
-          className="lg:col-span-6 flex flex-col justify-center"
-          initial={reduce || !fm ? undefined : "hidden"}
-          whileInView={reduce || !fm ? undefined : "show"}
-          viewport={{ once: true, amount: 0.3 }}
-          variants={fadeUp}
+        <div
+          className="lg:col-span-6 flex flex-col justify-center animate-fadeIn"
+          
         >
           <h1 className="mt-6 lg:mt-0 text-3xl font-bold leading-tight text-gray-700 md:text-4xl">
-            Cuidamos tu salud estés donde estés
+            Cuidamos tu salud estes donde estes
           </h1>
-          <h2 className="sr-only">Ventajas de nuestra clínica</h2>
+          <h2 className="sr-only">Ventajas de nuestra clinica</h2>
           <div className="mt-4 flex flex-col gap-3">
             <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm">
               <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
               <span className="text-sm font-medium text-gray-800">
-                Atención cercana por especialistas colegiados
+                Atencion cercana por especialistas colegiados
               </span>
             </div>
             <p className="text-gray-600">
-              Ofrecemos una atención cercana y profesional para ti y tu familia. Reserva tu cita
-              online o llámanos.
+              Ofrecemos una atencion cercana y profesional para ti y tu familia. Reserva tu cita
+              en linea o llamanos.
             </p>
           </div>
           <div className="mt-6 hidden flex-wrap items-center gap-4 lg:flex">
@@ -242,12 +207,12 @@ export default function Hero() {
             </a>
           </div>
           <div className="mt-4 hidden lg:block">
-            <ShareButtons text="Clínica Sanital · Especialistas en Ciudad Real" />
+            <ShareButtons text="Clinica Sanital - Especialistas en Ciudad Real" />
           </div>
           <ul className="mt-8 grid grid-cols-1 gap-3 text-sm sm:grid-cols-3">
             {[
               { icon: Users2, label: "Equipo multidisciplinar" },
-              { icon: CalendarClock, label: "Citas el mismo día" },
+              { icon: CalendarClock, label: "Citas el mismo dia" },
               { icon: CheckCircle2, label: "Seguimiento continuo" }
             ].map(({ icon: Icon, label }) => (
               <li
@@ -259,7 +224,7 @@ export default function Hero() {
               </li>
             ))}
           </ul>
-        </MotionDiv>
+        </div>
         <div className="hidden lg:block lg:col-span-6" />
       </div>
     </section>
