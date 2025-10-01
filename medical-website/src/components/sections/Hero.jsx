@@ -170,10 +170,10 @@ export default function Hero() {
         style={{ minHeight: "calc(100dvh - var(--header-h, 0px))" }}
       >
         <div
-          className="lg:col-span-6 flex flex-col justify-center animate-fadeIn"
+          className="lg:col-span-6 flex flex-col animate-fadeIn lg:justify-center"
           
         >
-          <h1 className="mt-6 lg:mt-0 text-3xl font-bold leading-tight text-gray-700 md:text-4xl">
+          <h1 className="mt-0 md:mt-6 lg:mt-0 text-3xl font-bold leading-tight text-gray-700 md:text-4xl">
             Cuidamos tu salud estes donde estes
           </h1>
           <h2 className="sr-only">Ventajas de nuestra clinica</h2>

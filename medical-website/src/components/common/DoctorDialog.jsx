@@ -34,52 +34,30 @@ export default function DoctorDialog({ open, onClose, doctor }) {
       ? window.location.origin
       : "https://www.sanital.es";
 
-  const category = useMemo(() => {
-    if (!doctor) return "general";
-    const txt = `${doctor.role || ""} ${doctor.specialty || ""}`.toLowerCase();
-    if (txt.includes("endocr")) return "endocrino";
-    if (txt.includes("cirug")) return "cirugia";
-    if (txt.includes("primaria") || txt.includes("familia")) return "ap";
-    return "general";
-  }, [doctor]);
+  const isPsychologist = doctor?.slug === "gema-paz" || doctor?.slug === "juan-carlos-fernandez";
 
   const copy = useMemo(() => {
-    if (category === "endocrino") {
+    if (!doctor) return null;
+
+    if (isPsychologist) {
       return {
         intro:
-          "Atención especializada en endocrinología, obesidad y metabolismo con enfoque integral y seguimiento cercano.",
+          "Atención psicológica centrada en el bienestar emocional, la salud mental y el crecimiento personal.",
         atiende: [
-          "Diabetes tipo 1 y 2, prediabetes y resistencia a la insulina",
-          "Trastornos de tiroides (hipo/hiper, nódulos)",
-          "Obesidad y nutrición clínica",
-          "Dislipemias y síndrome metabólico",
-          "Trastornos hormonales (suprarrenal, hipófisis)"
+          "Ansiedad, estrés y depresión",
+          "Terapia individual y de pareja",
+          "Problemas de autoestima y desarrollo personal",
+          "Acompañamiento en procesos vitales y duelos",
+          "Evaluación psicológica y orientación"
         ],
         primera: [
-          "Historia clínica endocrina y revisión de hábitos",
-          "Revisión de analíticas previas y solicitud de pruebas",
-          "Plan personalizado: tratamiento, nutrición y seguimiento"
+          "Entrevista clínica para conocer tu situación",
+          "Identificación de objetivos terapéuticos",
+          "Diseño de un plan de intervención personalizado"
         ]
       };
     }
-    if (category === "ap") {
-      return {
-        area: "Atención Primaria",
-        nombre: "Dr. Pablo Carmona Díaz-Salazar",
-        especialidad: "Medicina Familiar y Comunitaria",
-        intro:
-          "Atención primaria centrada en prevención, seguimiento de crónicos y resolución de problemas de salud frecuentes.",
-        horario:
-          "Consulta lunes y jueves por la tarde; martes y miércoles por la mañana con cita previa.",
-        atiende: ["Concertado con las principales compañías"],
-        companias: ["Adeslas", "Asisa", "Caser", "DKV", "Mapfre", "Aura"],
-        primera: [
-          "Historia clínica completa y exploración básica (TA, IMC)",
-          "Revisión de informes y medicación habitual",
-          "Plan de cuidado y próximos pasos claros"
-        ]
-      };
-    }
+
     return {
       intro: "Atención médica con enfoque preventivo y seguimiento cercano.",
       atiende: [
@@ -95,56 +73,12 @@ export default function DoctorDialog({ open, onClose, doctor }) {
         "Plan de cuidado personalizado"
       ]
     };
-  }, [category]);
+  }, [doctor, isPsychologist]);
 
-  const jsonLd = useMemo(() => {
-    if (!doctor) return null;
-    const schemaSpecialty =
-      category === "endocrino"
-        ? "Endocrinology"
-        : category === "ap"
-        ? "PrimaryCare"
-        : "MedicalSpecialty";
-    return {
-      "@context": "https://schema.org",
-      "@type": "Physician",
-      "@id": `${baseUrl}/equipo#${doctor.slug}`,
-      url: `${baseUrl}/equipo#${doctor.slug}`,
-      name: doctor.name,
-      image: doctor.image,
-      medicalSpecialty: schemaSpecialty,
-      description: doctor.specialty || doctor.role,
-      areaServed: "Ciudad Real, Castilla-La Mancha, España",
-      worksFor: {
-        "@type": "MedicalClinic",
-        name: "Sanital",
-        url: baseUrl,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Calle del Río 8",
-          postalCode: "13003",
-          addressLocality: "Ciudad Real",
-          addressRegion: "Castilla-La Mancha",
-          addressCountry: "ES"
-        },
-        areaServed: "Ciudad Real, Castilla-La Mancha, España"
-      },
-      potentialAction: {
-        "@type": "ReserveAction",
-        target: "https://booking.slotspot.app/sanital"
-      }
-    };
-  }, [doctor, baseUrl, category]);
-
-  if (!open || !doctor) return null;
+  if (!open || !doctor || !copy) return null;
 
   return (
     <div className="fixed inset-0 z-[90]">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
       <button
         aria-label="Cerrar"
         onClick={onClose}
@@ -153,25 +87,13 @@ export default function DoctorDialog({ open, onClose, doctor }) {
       <div
         role="dialog"
         aria-modal="true"
-        aria-labelledby="doctor-title"
-        aria-describedby="doctor-desc"
         ref={panelRef}
         tabIndex={-1}
         className="fixed inset-x-0 bottom-0 z-[95] max-h-[90vh] overflow-y-auto rounded-t-2xl bg-white p-6 shadow-2xl sm:inset-0 sm:m-auto sm:h-auto sm:max-w-lg sm:rounded-2xl"
-        itemScope
-        itemType="https://schema.org/Physician"
       >
-        <meta itemProp="url" content={`${baseUrl}/equipo#${doctor.slug}`} />
         <div className="flex items-start justify-between gap-4">
-          <h3
-            id="doctor-title"
-            className="text-xl font-semibold text-gray-900"
-            itemProp="name"
-          >
-            {doctor.name} —{" "}
-            <span className="text-primary" itemProp="medicalSpecialty">
-              {doctor.role}
-            </span>
+          <h3 className="text-xl font-semibold text-gray-900">
+            {doctor.name} — <span className="text-primary">{doctor.role}</span>
           </h3>
           <button
             onClick={onClose}
@@ -196,48 +118,17 @@ export default function DoctorDialog({ open, onClose, doctor }) {
                 className="block w-full h-full object-cover rounded-full"
               />
             </div>
-            <figcaption className="sr-only">
-              {doctor.name}, {doctor.role}
-            </figcaption>
           </figure>
         </div>
 
-        <div id="doctor-desc" className="mt-5 space-y-4 text-sm text-gray-700">
-          {category === "ap" && (
-            <div className="space-y-2">
-              <p className="font-semibold text-gray-900">{copy.area}</p>
-              <p>
-                {copy.nombre} —{" "}
-                <span className="text-primary">{copy.especialidad}</span>
-              </p>
-              <p className="text-gray-800">{copy.horario}</p>
-            </div>
-          )}
-
+        <div className="mt-5 space-y-4 text-sm text-gray-700">
           <p className="leading-relaxed">{copy.intro}</p>
 
           <div>
             <h4 className="font-semibold text-primary">Qué atiende</h4>
             <ul className="mt-2 space-y-1">
-              {copy.atiende.map((t, i) => (
-                <li key={`${t}-${i}`}>
-                  <div>{t}</div>
-                  {category === "ap" &&
-                    i === 0 &&
-                    Array.isArray(copy.companias) &&
-                    copy.companias.length > 0 && (
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {copy.companias.map((c) => (
-                          <span
-                            key={c}
-                            className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 text-[12px] font-medium text-primary"
-                          >
-                            {c}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                </li>
+              {copy.atiende.map((item, i) => (
+                <li key={i}>{item}</li>
               ))}
             </ul>
           </div>
@@ -245,35 +136,11 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           <div>
             <h4 className="font-semibold text-primary">Primera visita</h4>
             <ul className="mt-2 space-y-1">
-              {copy.primera.map((t, i) => (
-                <li key={`${t}-${i}`}>{t}</li>
+              {copy.primera.map((item, i) => (
+                <li key={i}>{item}</li>
               ))}
             </ul>
           </div>
-
-          <span
-            itemProp="worksFor"
-            itemScope
-            itemType="https://schema.org/MedicalClinic"
-            className="sr-only"
-          >
-            <meta itemProp="name" content="Sanital" />
-            <span
-              itemProp="address"
-              itemScope
-              itemType="https://schema.org/PostalAddress"
-            >
-              <meta itemProp="streetAddress" content="Calle del Río 8" />
-              <meta itemProp="postalCode" content="13003" />
-              <meta itemProp="addressLocality" content="Ciudad Real" />
-              <meta itemProp="addressRegion" content="Castilla-La Mancha" />
-              <meta itemProp="addressCountry" content="ES" />
-            </span>
-            <meta
-              itemProp="areaServed"
-              content="Ciudad Real, Castilla-La Mancha, España"
-            />
-          </span>
         </div>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -289,7 +156,7 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-5 py-2.5 text-sm font-semibold text-primary shadow-sm transition hover:bg-primary/10 hover:ring-2 hover:ring-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-5 py-2.5 text-sm font-semibold text-primary shadow-sm transition hover:bg-primary/10 hover:ring-2 hover:ring-primary/20"
           >
             <X className="h-4 w-4" />
             Cerrar
@@ -299,3 +166,5 @@ export default function DoctorDialog({ open, onClose, doctor }) {
     </div>
   );
 }
+
+
