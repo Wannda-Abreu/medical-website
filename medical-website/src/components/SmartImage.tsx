@@ -14,7 +14,7 @@ type Props = {
 
 export default function SmartImage({ src, alt, width, height, eager, className, sizes = "100vw", srcSet, style }: Props) {
   const loading = eager ? "eager" : "lazy";
-  const fetchpriority = eager ? "high" : "auto";
+  const fetchPriority = eager ? "high" : "auto";
   return (
     <img
       src={src}
@@ -23,7 +23,7 @@ export default function SmartImage({ src, alt, width, height, eager, className, 
       height={height}
       loading={loading}
       decoding="async"
-      fetchpriority={fetchpriority as any}
+      fetchPriority={fetchPriority as any}
       sizes={sizes}
       srcSet={srcSet}
       className={className}

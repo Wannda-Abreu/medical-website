@@ -1,8 +1,7 @@
-import React, { Suspense, useMemo, useState, memo } from "react";
-import { CalendarCheck, Info, Stethoscope } from "lucide-react";
+import React, { Suspense, useMemo, useState } from "react";
+import DoctorCard from "./DoctorCard";
+import SuggestServiceDialog from "./SuggestServiceDialog";
 const DoctorDialog = React.lazy(() => import("../common/DoctorDialog"));
-import { cldEco as cld, srcsetEco as srcset } from "@/lib/cld";
-import SmartImage from "@/components/SmartImage";
 
 const BRAND_PRIMARY = "#009D98";
 const BRAND_ACCENT = "#AFCA0B";
@@ -38,7 +37,7 @@ const DOCTORS = [
     role: "Psicólogo",
     specialty: "Psicología general sanitaria",
     image:
-      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1759274702/Untitled_design_32_rr0ywz.png",
+      "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1759436256/Untitled_design_33_bo3vt6.png",
   },
   {
     slug: "juan-carlos-fernandez",
@@ -50,7 +49,7 @@ const DOCTORS = [
   {
     slug: "proximamente",
     name: "",
-    role: "proximamente",
+    role: "Nuevo especialista",
     specialty: "Próximamente se unirán nuevos especialistas",
     image: "",
     comingSoon: true,
@@ -66,12 +65,6 @@ const ORDER = [
   "proximamente",
 ];
 
-function buildSrcSets(imageUrl) {
-  const src = cld(imageUrl, 640, true);
-  const srcSet = srcset(imageUrl, [360, 480, 640], true);
-  return { src, srcSet };
-}
-
 const clinic = {
   name: "Sanital",
   url: "https://www.sanital.example",
@@ -84,121 +77,9 @@ const clinic = {
   areaServed: "Ciudad Real, Castilla-La Mancha, España",
 };
 
-const roleTone = {
-  "Medicina Familiar y Comunitaria": `bg-[${BRAND_ACCENT}]/10 text-[${BRAND_ACCENT}] ring-[${BRAND_ACCENT}]/30`,
-  Endocrino: `bg-[${BRAND_PRIMARY}]/10 text-[${BRAND_PRIMARY}] ring-[${BRAND_PRIMARY}]/30`,
-  Cirujano: `bg-white/80 text-zinc-800 ring-black/5`,
-  Psicólogo: `bg-purple-100 text-purple-700 ring-purple-300`,
-  "Nuevo especialista": `bg-zinc-100 text-zinc-600 ring-zinc-300`,
-};
-
-const DoctorCard = memo(function DoctorCard({ d, onMore }) {
-  const { src, srcSet } = d.image
-    ? buildSrcSets(d.image)
-    : { src: "", srcSet: "" };
-  const tone = roleTone[d.role] || `bg-white/80 text-zinc -800 ring-black/5`;
-
-  return (
-    <li className="flex justify-center" key={d.slug}>
-      <article
-        id={d.slug}
-        itemScope
-        itemType="https://schema.org/Physician"
-        className="group relative w-full max-w-[26rem] rounded-2xl border border-zinc-200 shadow-[0_1px_0_rgba(0,0,0,0.03)] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg/30 motion-reduce:transform-none animate-slideDownFade"
-        aria-label={`${d.name}, ${d.role}`}
-      >
-        <div className="rounded-2xl border border-zinc-100 bg-transparent p-6">
-          <figure className="relative z-10 mx-auto h-[300px] w-full rounded-xl ring-1 ring-[rgba(0,157,152,0.15)] shadow-sm overflow-hidden bg-gradient-to-b from-white via-[rgba(0,157,152,0.08)] to-white">
-            {d.image ? (
-              <SmartImage
-                src={src}
-                srcSet={srcSet}
-                sizes="(min-width: 640px) 416px, 90vw"
-                alt={`${d.name}, ${d.role}`}
-                width={416}
-                height={300}
-                className="block h-full w-full object-cover transition-transform duration-300 will-change-transform group-hover:scale-[1.01] motion-reduce:transform-none"
-              />
-            ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 text-zinc-700">
-                {d.name && (
-                  <p className="text-base font-semibold text-zinc-800">
-                    {d.name}
-                  </p>
-                )}
-                <p className="text-sm">{d.specialty}</p>
-              </div>
-            )}
-            {d.role && (
-              <div
-                className={`absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium shadow-sm ring-1 backdrop-blur ${tone}`}
-              >
-                <Stethoscope className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>{d.role}</span>
-              </div>
-            )}
-            <figcaption className="sr-only">
-              {d.name}, {d.role} - {d.specialty}
-            </figcaption>
-          </figure>
-
-          <div className="mt-5 text-center">
-            {d.name && (
-              <h3
-                itemProp="name"
-                className="text-xl font-semibold tracking-tight"
-                style={{ color: BRAND_PRIMARY }}
-              >
-                {d.name}
-              </h3>
-            )}
-            <p className="mt-1 text-[0.95rem] font-medium text-foreground/80">
-              {d.specialty}
-            </p>
-            <meta itemProp="medicalSpecialty" content={d.specialty} />
-          </div>
-
-          {!d.comingSoon && (
-            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
-              <a
-                href="https://booking.slotspot.app/sanital"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:scale-[1.04] hover:shadow-md hover:from-primary-700 hover:to-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-100 hover:text-white"
-                aria-label={`Agendar cita con ${d.name}`}
-              >
-                <CalendarCheck className="h-4 w-4" aria-hidden="true" />
-                Agendar cita
-              </a>
-
-              <button
-                type="button"
-                onClick={() => onMore(d)}
-                className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-white/70 px-4 py-2 text-sm font-semibold text-accent backdrop-blur-[2px] transition-all duration-150 hover:scale-[1.03] hover:bg-accent/10 hover:text-accent hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30"
-                aria-haspopup="dialog"
-                aria-controls="doctor-dialog"
-                aria-label={`Saber más sobre ${d.name}`}
-              >
-                <Info className="h-4 w-4" aria-hidden="true" />
-                Saber más
-              </button>
-            </div>
-          )}
-
-          <meta itemProp="jobTitle" content={d.role} />
-          <meta itemProp="url" content={`/equipo#${d.slug}`} />
-          <span
-            className="pointer-events-none absolute inset-x-6 bottom-0 h-0.5 origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100"
-            style={{ backgroundColor: BRAND_PRIMARY }}
-          />
-        </div>
-      </article>
-    </li>
-  );
-});
-
 export default function Team() {
   const [active, setActive] = useState(null);
+  const [openSuggest, setOpenSuggest] = useState(false);
 
   const baseUrl = useMemo(() => {
     if (typeof window !== "undefined" && window.location?.origin)
@@ -274,7 +155,7 @@ export default function Team() {
           className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {renderDoctors.map((d) => (
-            <DoctorCard key={d.slug} d={d} onMore={setActive} />
+            <DoctorCard key={d.slug} d={d} onMore={setActive} onSuggest={setOpenSuggest} />
           ))}
         </ul>
       </div>
@@ -287,6 +168,9 @@ export default function Team() {
           doctor={active}
         />
       </Suspense>
+
+      <SuggestServiceDialog open={openSuggest} onClose={() => setOpenSuggest(false)} />
     </section>
   );
 }
+

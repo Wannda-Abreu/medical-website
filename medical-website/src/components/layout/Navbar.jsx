@@ -65,7 +65,7 @@ const Navbar = () => {
             className="block h-full w-auto drop-shadow-sm transition-all duration-200 ease-out group-hover:scale-[1.05] group-hover:drop-shadow-md group-active:scale-[1.01]"
             decoding="async"
             loading="lazy"
-            fetchpriority="low"
+            fetchPriority="low"
             draggable="false"
           />
         </a>

@@ -29,12 +29,11 @@ export default function Hero() {
     };
   }, []);
 
-
-
   return (
     <section id="inicio" ref={heroRef} className="relative bg-[#f3f4f6] overflow-hidden">
+      {/* Versión móvil */}
       <div className="lg:hidden w-screen max-w-none px-0 mt-0">
-        <div className="relative w-full aspect-[16/9] overflow-hidden rounded-none bg-[#e9eef2]">
+        <div className="relative w-full overflow-hidden rounded-none bg-[#e9eef2]">
           <picture>
             <source
               type="image/avif"
@@ -51,14 +50,14 @@ export default function Hero() {
               srcSet={`${url(480)} 480w, ${url(640)} 640w, ${url(960)} 960w, ${url(1200)} 1200w`}
               sizes="100vw"
               alt="Profesional sanitaria sonriendo junto a una paciente en consulta"
-              className="absolute inset-0 block h-full w-full object-cover"
+              className="block w-full h-auto object-cover"
               width={1200}
               height={800}
               loading="eager"
               decoding="async"
               fetchPriority="high"
               style={{
-                objectPosition: "center 30%",
+                objectPosition: "top center",
                 WebkitMaskImage:
                   "radial-gradient(160% 160% at 60% 55%, rgba(0,0,0,1) 92%, rgba(0,0,0,0.6) 97%, transparent 100%)",
                 maskImage:
@@ -67,7 +66,7 @@ export default function Hero() {
                 maskRepeat: "no-repeat"
               }}
               onError={(e) => {
-                e.currentTarget.removeAttribute("fetchpriority");
+                e.currentTarget.removeAttribute("fetchPriority");
               }}
             />
           </picture>
@@ -112,6 +111,7 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Versión escritorio */}
       <div
         className="hidden lg:block absolute inset-y-0 right-0 w-1/2"
         style={{ height: "calc(100dvh - var(--header-h, 0px))" }}
@@ -148,7 +148,7 @@ export default function Hero() {
                 maskRepeat: "no-repeat"
               }}
               onError={(e) => {
-                e.currentTarget.removeAttribute("fetchpriority");
+                e.currentTarget.removeAttribute("fetchPriority");
               }}
             />
           </picture>
@@ -165,15 +165,12 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Texto */}
       <div
-        className="relative container grid items-center gap-10 lg:grid-cols-12"
-        style={{ minHeight: "calc(100dvh - var(--header-h, 0px))" }}
+        className="relative container grid items-start gap-10 lg:grid-cols-12 lg:items-center lg:min-h-[calc(100dvh-var(--header-h,0px))]"
       >
-        <div
-          className="lg:col-span-6 flex flex-col animate-fadeIn lg:justify-center"
-          
-        >
-          <h1 className="mt-0 md:mt-6 lg:mt-0 text-3xl font-bold leading-tight text-gray-700 md:text-4xl">
+        <div className="lg:col-span-6 flex flex-col animate-fadeIn lg:justify-center">
+          <h1 className="mt-4 lg:mt-0 text-3xl font-bold leading-tight text-gray-700 md:text-4xl">
             Cuidamos tu salud estes donde estes
           </h1>
           <h2 className="sr-only">Ventajas de nuestra clinica</h2>
@@ -230,6 +227,7 @@ export default function Hero() {
     </section>
   );
 }
+
 
 
 

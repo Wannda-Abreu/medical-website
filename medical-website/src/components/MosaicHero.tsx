@@ -7,7 +7,6 @@ export default function HorizontalMosaicFullWidth({
   images = [],
   heightClasses = "h-40 md:h-48 lg:h-56",
   rounded = "rounded-xl",
-  // degradado suave uniforme para todos los mosaicos de color
   colorClass = "bg-[linear-gradient(135deg,#E9F8F7_0%,#F2F9E4_100%)]",
 }: {
   images?: Img[];
@@ -15,7 +14,7 @@ export default function HorizontalMosaicFullWidth({
   rounded?: string;
   colorClass?: string;
 }) {
-  const pattern: ("img" | "color")[] = ["img", "color", "img", "color", "img", "color"];
+  const pattern: ("img" | "color")[] = ["img", "color", "img", "img", "color", "img"];
   let imgIdx = 0;
 
   return (
@@ -69,4 +68,3 @@ export default function HorizontalMosaicFullWidth({
     </section>
   );
 }
-

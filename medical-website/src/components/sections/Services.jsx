@@ -111,7 +111,7 @@ export default function Services() {
                 <article
                   id={slug}
                   aria-labelledby={`${slug}-title`}
-                  className="group relative rounded-2xl border border-primary/20 bg-primary/5 p-6 md:p-8 shadow-[0_1px_0_rgba(0,0,0,0.02)] transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-lg/30"
+                  className="group relative flex flex-col h-full rounded-2xl border border-primary/20 bg-primary/5 p-6 md:p-8 shadow-[0_1px_0_rgba(0,0,0,0.02)] transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-lg/30"
                 >
                   <div className="flex items-center gap-3">
                     <div
@@ -122,22 +122,21 @@ export default function Services() {
                     </div>
                     <h3
                       id={`${slug}-title`}
-                      className="text-lg font-semibold text-primary"
+                      className="text-xl font-bold text-primary"
                     >
                       {title}
                     </h3>
                   </div>
 
-                  <p className="mt-3 text-sm leading-relaxed text-foreground/80">
+                  <p className="mt-3 text-sm leading-relaxed text-gray-700">
                     {desc}
                   </p>
 
-                  <p className="mt-3 text-sm font-medium text-foreground">
-                    Profesional:{" "}
-                    <span className="font-semibold">{doctorName}</span>
+                  <p className="mt-3 text-sm font-medium text-gray-800">
+                    Profesional: <span className="font-semibold">{doctorName}</span>
                   </p>
 
-                  <ul className="mt-4 space-y-2 text-sm text-foreground/80">
+                  <ul className="mt-4 space-y-2 text-sm text-gray-700">
                     {bullets.map((b) => (
                       <li key={b} className="flex items-center gap-2">
                         <CheckCircle2
@@ -149,7 +148,7 @@ export default function Services() {
                     ))}
                   </ul>
 
-                  <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <div className="mt-auto pt-6 flex flex-wrap items-center gap-3">
                     <a
                       href="https://booking.slotspot.app/sanital"
                       target="_blank"

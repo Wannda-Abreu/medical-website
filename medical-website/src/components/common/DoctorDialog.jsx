@@ -1,5 +1,5 @@
 ﻿import { useEffect, useRef, useMemo } from "react";
-import { X, CalendarCheck } from "lucide-react";
+import { X, CalendarCheck, User } from "lucide-react";
 import { useFocusTrap } from "../../utils/focusTrap";
 import { useGlobalInert } from "../../utils/globalInert";
 import { useScrollLock } from "../../utils/scrollLock";
@@ -34,7 +34,8 @@ export default function DoctorDialog({ open, onClose, doctor }) {
       ? window.location.origin
       : "https://www.sanital.es";
 
-  const isPsychologist = doctor?.slug === "gema-paz" || doctor?.slug === "juan-carlos-fernandez";
+  const isPsychologist =
+    doctor?.slug === "gema-paz" || doctor?.slug === "juan-carlos-fernandez";
 
   const copy = useMemo(() => {
     if (!doctor) return null;
@@ -48,13 +49,13 @@ export default function DoctorDialog({ open, onClose, doctor }) {
           "Terapia individual y de pareja",
           "Problemas de autoestima y desarrollo personal",
           "Acompañamiento en procesos vitales y duelos",
-          "Evaluación psicológica y orientación"
+          "Evaluación psicológica y orientación",
         ],
         primera: [
           "Entrevista clínica para conocer tu situación",
           "Identificación de objetivos terapéuticos",
-          "Diseño de un plan de intervención personalizado"
-        ]
+          "Diseño de un plan de intervención personalizado",
+        ],
       };
     }
 
@@ -65,17 +66,19 @@ export default function DoctorDialog({ open, onClose, doctor }) {
         "Control de factores de riesgo",
         "Infecciones frecuentes y curas",
         "Educación sanitaria y hábitos",
-        "Derivación a especialistas"
+        "Derivación a especialistas",
       ],
       primera: [
         "Historia clínica y exploración básica",
         "Revisión de informes previos",
-        "Plan de cuidado personalizado"
-      ]
+        "Plan de cuidado personalizado",
+      ],
     };
   }, [doctor, isPsychologist]);
 
   if (!open || !doctor || !copy) return null;
+
+  const isNoImage = !doctor.image;
 
   return (
     <div className="fixed inset-0 z-[90]">
@@ -109,14 +112,18 @@ export default function DoctorDialog({ open, onClose, doctor }) {
             className="mx-auto relative rounded-2xl p-0 bg-transparent shadow-none"
             aria-label="Foto del profesional"
           >
-            <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] overflow-hidden rounded-full ring-2 ring-primary/25 ring-offset-2 ring-offset-white bg-gradient-to-b from-white to-primary/10">
-              <SmartImage
-                src={doctor.image}
-                alt={`${doctor.name}, ${doctor.role}`}
-                width={220}
-                height={220}
-                className="block w-full h-full object-cover rounded-full"
-              />
+            <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] overflow-hidden rounded-full ring-2 ring-primary/25 ring-offset-2 ring-offset-white bg-gradient-to-b from-white to-primary/10 flex items-center justify-center">
+              {isNoImage ? (
+                <User className="h-20 w-20 text-primary opacity-80" />
+              ) : (
+                <SmartImage
+                  src={doctor.image}
+                  alt={`${doctor.name}, ${doctor.role}`}
+                  width={220}
+                  height={220}
+                  className="block w-full h-full object-cover rounded-full"
+                />
+              )}
             </div>
           </figure>
         </div>
@@ -166,5 +173,3 @@ export default function DoctorDialog({ open, onClose, doctor }) {
     </div>
   );
 }
-
-

@@ -22,14 +22,20 @@ export default function SobreNosotros() {
             src: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253397/2_swjp7l.png",
             alt: "Dra. Diana Storino – Endocrinología",
           },
-          {
-            src: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
-            alt: "Dr. Pablo Carmona – Medicina Familiar",
+              {
+            src: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1759436256/Untitled_design_33_bo3vt6.png",
+            alt: "Dr. Gema de Paz López – psicologa",
           },
-          {
+             {
             src: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1757280531/Untitled_design_30_vwumus.png",
             alt: "Dr. Mirko Solano – Cirugía",
           },
+             {
+            src: "https://res.cloudinary.com/dfq9eaz2e/image/upload/v1756253396/1_ujihn0.png",
+            alt: "Dr. Pablo Carmona – Medicina Familiar",
+          },
+       
+
         ]}
         heading="Sobre Clínica Sanital"
         subheading="Unimos experiencia, tecnología y trato humano para tu cuidado."
