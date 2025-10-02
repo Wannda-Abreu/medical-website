@@ -112,7 +112,7 @@ export default function SuggestServiceDialog({ open, onClose }) {
               onClick={onClose}
               className="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300"
             >
-              Cancelar
+              Cerrar
             </button>
             <button
               type="submit"
